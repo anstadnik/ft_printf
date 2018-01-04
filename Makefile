@@ -29,7 +29,7 @@ deb: $(DNAME)
 
 $(DNAME): main.c $(SDIR)*.c $(LIBDIR)srcs/*.c
 	@echo "\x1b[35mCompiling the $(DNAME)\x1b[0m"
-	@$(CC) $(CFLAGS) -I$(IDIR) -I$(LIBDIR)includes -o $@ $^
+	@$(CC) $(CFLAGS) -g -I$(IDIR) -I$(LIBDIR)includes -o $@ $^
 
 $(addprefix $(ODIR), %.o): $(addprefix $(SDIR), %.c)
 	@echo "\x1b[35mCompiling $@\x1b[0m"
@@ -44,7 +44,8 @@ fclean: clean
 	@$(MAKE) -C $(LIBDIR) fclean
 	@echo "\x1b[31mRemoving the $(NAME)\x1b[0m"
 	@rm -f $(NAME)
-	@echo "\x1b[31mRemoving the $(DNAME)"@rm -f $(DNAME)
+	@echo "\x1b[31mRemoving the $(DNAME)"
+	@rm -f $(DNAME)
 
 red:
 	@$(MAKE) fclean
