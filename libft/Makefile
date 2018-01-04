@@ -10,17 +10,21 @@ OBJS = $(FILES:.c=.o)
 all: $(NAME)
 
 $(NAME): $(addprefix $(ODIR), $(OBJS))
-	ar rc $@ $^
+	@echo "\x1b[33mMaking the libft\x1b[0m"
+	@ar rc $@ $^
 
 $(addprefix $(ODIR), %.o): $(addprefix $(SDIR), %.c)
-	$(CC) $(CFLAGS) -I$(IDIR) -c -o $@ $<
+	@echo "\x1b[35mCompiling the $@\x1b[0m"
+	@$(CC) $(CFLAGS) -I$(IDIR) -c -o $@ $<
 
 clean:
-	rm -f $(addprefix $(ODIR), $(OBJS))
+	@echo "\x1b[31mRemoving the object files\x1b[0m"
+	@rm -f $(addprefix $(ODIR), $(OBJS))
 
 fclean: clean
-	rm -f $(NAME)
+	@echo "\x1b[31mRemoving the $(NAME)\x1b[0m"
+	@rm -f $(NAME)
 
 re: 
-	$(MAKE) fclean
-	$(MAKE) 
+	@$(MAKE) fclean
+	@$(MAKE) 
