@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 14:28:43 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/04 17:24:05 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/04 20:30:32 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*printf_lsttostr(t_list *head)
 	size_t	size;
 	char	*rez;
 
+	if (!head)
+		return (NULL);
 	temp = head;
 	size = 0;
 	while (temp)
