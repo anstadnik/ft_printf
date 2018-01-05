@@ -23,7 +23,7 @@ $(NAME): $(addprefix $(ODIR), $(OBJS))
 
 d: $(DNAME)
 	@echo "\x1b[32mRunning your app\x1b[0m"
-	@./$(DNAME)
+	@./$(DNAME) "{red}R{yellow}A{light yellow}I{green}N{cyan}B{blue}O{magenta}W{eoc}"
 
 deb: $(DNAME)
 
