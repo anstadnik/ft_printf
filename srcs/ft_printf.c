@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:03:44 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/04 18:15:18 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/05 17:02:34 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ int	ft_printf(const char *format, ...)
 	va_copy(arg_beg, arg);
 	ret = NULL;
 	rez = printf_make_str(&ret, format, arg, arg_beg);
-	if (rez != -1)
+	if (~rez)
 		write(1, ret, rez);
+	free(ret);
 	va_end(arg);
 	va_end(arg_beg);
 	return (rez);

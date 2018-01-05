@@ -6,44 +6,48 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:15:41 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/04 20:41:55 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/05 17:02:04 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static const char	g_colors[17][2][15] = {
+	{"{black}", "\x1b[30m"}, {"{red}", "\x1b[31m"},
+	{"{green}", "\x1b[32m"}, {"{yellow}", "\x1b[33m"},
+	{"{blue}", "\x1b[34m"}, {"{magenta}", "\x1b[35m"},
+	{"{cyan}", "\x1b[36m"}, {"{white}", "\x1b[37m"},
+	{"{eoc}", "\x1b[39m"}, {"{light gray}", "\x1b[90m"},
+	{"{light red}", "\x1b[91m"}, {"{light green}", "\x1b[92m"},
+	{"{light yellow}", "\x1b[93m"}, {"{light blue}", "\x1b[94m"},
+	{"{light magenta}", "\x1b[95m"}, {"{light cyan}", "\x1b[96m"},
+	{"{light white}", "\x1b[97m"} };
 
 /*
 ** Handles colors. Adds the content to the list, returns the size of color's
 ** name.
 */
 
-static int	printf_colors(const char *start, t_list **head)
+static int	printf_colors(const char *start, t_list **tail)
 {
-	char	 colors[7][2][9] = {
-				{"{red}", "\x1b[31m"},
-				{"{green}", "\x1b[32m"},
-				{"{yellow}", "\x1b[33m"},
-				{"{blue}", "\x1b[34m"},
-				{"{magenta}", "\x1b[35m"},
-				{"{cyan}", "\x1b[36m"},
-				{"{reset}", "\x1b[0m"} };
 	int		i;
 	char	*str;
 	t_list	*list;
 
 	i = 0;
-	while (i < 7)
-		if (!ft_strncmp(start, colors[i][0], ft_strlen(colors[i][0])))
+	while (i < 17)
+		if (!ft_strncmp(start, g_colors[i][0], ft_strlen(g_colors[i][0])))
 		{
-			if (!(str = ft_strdup(colors[i][1])))
+			if (!(str = ft_strdup(g_colors[i][1])))
 				return (-1);
 			if (!(list = printf_lstnew(str, 0)))
 			{
 				free(str);
 				return (-1);
 			}
-			ft_lstaddb(head, list);
-			return (ft_strlen(colors[i][0]));
+			ft_lstaddb(tail, list);
+			*tail = list;
+			return (ft_strlen(g_colors[i][0]));
 		}
 		else
 			i++;
@@ -54,12 +58,16 @@ static int	printf_colors(const char *start, t_list **head)
 ** Handles the conversions
 */
 
-static int	printf_handler(const char *start, va_list arg, va_list arg_beg,
-		t_list **head)
+static int	printf_handler(const char *start, va_list arg,
+		va_list arg_beg, t_list **tail)
 {
 	va_copy(arg, arg_beg);//gonna change this
 	if (*start == '{')
-		return (printf_colors(start, head));
+		return (printf_colors(start, tail));
+	//get flags
+	//printf_parse_flags(start, arg, tail);
+	//call appropriate function from the function list
+	//return
 	return (0);
 }
 
@@ -68,7 +76,7 @@ static int	printf_handler(const char *start, va_list arg, va_list arg_beg,
 ** if an error occurs.
 */
 
-static int	printf_add_str(const char *start, int length, t_list **head)
+static int	printf_add_str(const char *start, int length, t_list **tail)
 {
 	char	*str;
 	t_list	*list;
@@ -82,8 +90,8 @@ static int	printf_add_str(const char *start, int length, t_list **head)
 		free(str);
 		return (-1);
 	}
-	ft_lstaddb(head, list);
-	return (length);
+	ft_lstaddb(tail, list);
+	return (0);
 }
 
 /*
@@ -95,29 +103,27 @@ int			printf_make_str(char **ret, const char *format, va_list arg,
 		va_list arg_beg)
 {
 	t_list	*head;
-	int		rez;
-	int		beg;
-	int		end;
+	t_list	*tail;
+	ssize_t	beg;
+	ssize_t	end;
 
 	beg = 0;
-	end = 0;
+	end = -1;
 	head = NULL;
-	while (beg >= 0 && (!end || format[end - 1]))
-	{
+	tail = NULL;
+	while (beg >= 0 && (!++end || format[end - 1]))
 		if ((format[end] == '%') || (format[end] == '{') || !format[end])
 		{
-			rez = 0;
-			if (printf_add_str(format + beg, end - beg, &head) == -1)
-				break ;
-			if (format[end])
-				rez = printf_handler(format + end, arg, arg_beg, &head);
-			beg = rez == -1 ? -1 : end + rez;
+			beg = printf_add_str(format + beg, end - beg, &tail);
+			if (!head && tail)
+				head = tail;
+			if (~beg && format[end])
+				beg = printf_handler(format + end, arg, arg_beg, &tail);
+			beg = !~beg ? beg : beg + end;
 			end = beg;
 		}
-		end++;
-	}
 	if (beg >= 0)
-		*ret = printf_lsttostr(head);
+		*ret = printf_lsttostr(head, (size_t)end);
 	ft_lstdel(&head, &free);
-	return (beg >= 0 && *ret ? (int)ft_strlen(*ret): -1);
+	return (end);
 }
