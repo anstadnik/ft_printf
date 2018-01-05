@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:15:41 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/05 17:02:04 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/05 17:17:31 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,10 @@ int			printf_make_str(char **ret, const char *format, va_list arg,
 				head = tail;
 			if (~beg && format[end])
 				beg = printf_handler(format + end, arg, arg_beg, &tail);
-			beg = !~beg ? beg : beg + end;
+			beg = !~beg ? -1 : beg + end;
 			end = beg;
 		}
-	if (beg >= 0)
+	if (beg > 0)
 		*ret = printf_lsttostr(head, (size_t)end);
 	ft_lstdel(&head, &free);
 	return (end);
