@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:05:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/05 17:02:15 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/05 19:01:22 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,23 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include "libft.h"
+
+typedef struct s_flag	t_flag;
+
+struct s_flag
+{
+	unsigned char	hash : 1;
+	unsigned char	zero : 1;
+	unsigned char	minus : 1;
+	unsigned char	plus : 1;
+	unsigned char	space : 1;
+	unsigned char	apostrophe : 1;
+	int				dollar;
+	char[2]			modif;
+	int				width;
+	int				prec;
+	char			conv;
+}
 
 int		ft_printf(const char *format, ...);
 int		ft_dprintf(int fd, const char *format, ...);
