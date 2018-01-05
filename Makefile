@@ -3,6 +3,7 @@
 CC=gcc
 CFLAGS= -Wall -Wextra -Werror
 LIBDIR=libft/
+LIB=$(LIBDIR)libft.a
 ODIR=objs/
 SDIR=srcs/
 IDIR=includes/
@@ -13,12 +14,14 @@ OBJS=$(FILES:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(addprefix $(ODIR), $(OBJS))
-	@$(MAKE) -C $(LIBDIR)
+$(NAME): $(LIB) $(addprefix $(ODIR), $(OBJS))
 	@echo "\x1b[33mCopying the libft\x1b[0m"
 	@cp libft/libft.a $@
 	@echo "\x1b[33mAppending to the $(NAME)\x1b[0m"
 	@ar -q $@ $(addprefix $(ODIR), $(OBJS))
+
+$(LIB):
+	@$(MAKE) -C $(LIBDIR)
 
 d: $(DNAME)
 	@echo "\x1b[32mRunning your app\x1b[0m"
