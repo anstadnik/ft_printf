@@ -1,7 +1,7 @@
 .PHONY: clean, fclean, re, d#, libft
 
 CC=gcc
-CFLAGS= -Wall -Wextra -Werror 
+CFLAGS= -Wall -Wextra -Werror
 LIBDIR=libft/
 ODIR=objs/
 SDIR=srcs/
@@ -11,8 +11,7 @@ DNAME=printf_debug
 FILES=ft_printf.c printf_lst.c printf_make_str.c
 OBJS=$(FILES:.c=.o)
 
-all:
-	@$(MAKE) $(NAME)
+all: $(NAME)
 
 $(NAME): $(addprefix $(ODIR), $(OBJS))
 	@$(MAKE) -C $(LIBDIR)
@@ -55,7 +54,7 @@ redeb:
 	@$(MAKE) fclean
 	@$(MAKE) deb
 
-re: 
+re:
 	@$(MAKE) fclean
 	@$(MAKE) -C $(LIBDIR) re
-	@$(MAKE) 
+	@$(MAKE)
