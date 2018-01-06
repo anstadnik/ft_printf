@@ -6,7 +6,7 @@
 /*   By: astadnik <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/28 14:26:43 by astadnik          #+#    #+#             */
-/*   Updated: 2017/12/30 12:45:46 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/06 11:41:37 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	ft_atoi(const char *s)
 	while (ft_isdigit(*s))
 	{
 		rez = rez * 10 + (unsigned long long)(*s++ - '0');
-		if (rez > 9223372036854775807 || (rez - 1 > 9223372036854775807 && neg))
-			return (neg ? 0 : -1);
+		if (rez > 2147483647 || (rez > 2147483648 && neg))
+			return (neg ? 2147483647 :  -2147483648);
 	}
 	return (neg ? -1 * (int)rez : (int)rez);
 }

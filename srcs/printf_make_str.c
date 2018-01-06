@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:15:41 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/06 11:04:59 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/06 18:57:56 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,15 @@ static int	printf_colors(const char *start, t_list **tail)
 ** Handles the conversions
 */
 
-static int	printf_handler(const char *start, va_list arg,
-		va_list arg_beg, t_list **tail)
+static int	printf_handler(const char *start, va_list arg, t_list **tail)
 {
-	va_copy(arg, arg_beg);//gonna change this
+	//t_flag	flags;
+
+	arg = arg + 1 - 1;
 	if (*start == '{')
 		return (printf_colors(start, tail));
 	//get flags
-	//printf_parse_flags(start, arg, tail);
+	//printf_parse_flags(start, arg, arg_beg, tail);
 	//call appropriate function from the function list
 	//return
 	return (0);
@@ -99,8 +100,7 @@ static int	printf_add_str(const char *start, size_t length, t_list **tail)
 ** Returns the len of the string.
 */
 
-int			printf_make_str(char **ret, const char *format, va_list arg,
-		va_list arg_beg)
+int			printf_make_str(char **ret, const char *format, va_list arg)
 {
 	t_list	*head;
 	t_list	*tail;
@@ -118,7 +118,7 @@ int			printf_make_str(char **ret, const char *format, va_list arg,
 			if (!head && tail)
 				head = tail;
 			if (~beg && format[end])
-				beg = printf_handler(format + end, arg, arg_beg, &tail);
+				beg = printf_handler(format + end, arg, &tail);
 			beg = !~beg ? -1 : beg + end;
 			end = beg;
 		}
