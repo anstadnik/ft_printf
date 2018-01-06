@@ -1,7 +1,7 @@
 .PHONY: clean, fclean, re, d#, libft
 
 CC=gcc
-CFLAGS= -Wall -Wextra -Werror
+CFLAGS= -Wall -Wextra -Werror -Wconversion
 LIBDIR=libft/
 LIB=$(LIBDIR)libft.a
 ODIR=objs/
