@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 14:28:43 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/06 11:00:56 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/06 19:24:31 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*printf_lsttostr(t_list *head, size_t size)
 		return (NULL);
 	if (!(rez = malloc(sizeof(char) * size + 1)))
 		return (0);
-	rez[size] = '\0';
+	rez[0] = '\0';
 	while (head)
 	{
 		ft_strcat(rez, (char *)head->content);

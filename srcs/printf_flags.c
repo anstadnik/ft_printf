@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 19:01:49 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/06 18:23:42 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/06 20:00:31 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,6 @@
 const char	conv[] = "sSpdDioOuUxXcCeEfFgGaAnbrk"
 const char	flag[] = "#0-+ '"
 const char	mod[][] = {"z", "j", "ll", "l", "hh", "h", "L"}
-
-static int	printf_parse_flags(const char *start, int *i, t_flag *flags)
-{
-	if ft_strchr(flag, start[*i])
-	{
-		*((unsigned char *)flags + ft_strchr(flag, start[*(i++)]) - flag) = 1;
-		return (1);
-	}
-	return (0);
-}
 
 static void	printf_parse_num(const char *start, int *i, t_flag *flags)
 {
@@ -35,16 +25,16 @@ static void	printf_parse_num(const char *start, int *i, t_flag *flags)
 		(*i)++;
 	if (start[*i] == '$')
 	{
-		flags.dollar = tmp;
+		flags->dollar = tmp;
 		(*i)++;
 	}
 	else if (start[*i] == '!')
 	{
-		flags.system = tmp > 16 ? 0 : tmp;
+		flags->system = tmp > 16 ? 0 : tmp;
 		(*i)++;
 	}
 	else
-		flags.width = tmp;
+		flags->width = tmp;
 }
 
 static int	printf_parse_mod(const char *start, int *i, t_flag *flags)
@@ -56,7 +46,7 @@ static int	printf_parse_mod(const char *start, int *i, t_flag *flags)
 	{
 		if (!ft_strncmp(mod[i], start[*i], ft_strlen(mod[i])))
 		{
-			flags.modif[i] = 1;
+			flags->modif[i] = 1;
 			return (1);
 		}
 		i++;
@@ -64,12 +54,34 @@ static int	printf_parse_mod(const char *start, int *i, t_flag *flags)
 	return (0);
 }
 
+static int	printf_parse_conv(const char *start, int *i, t_flag *flags)
+{
+	char	*tmp;
+
+	tmp = ft_strchr(conv, *(start + *i));
+	if (!tmp)
+		return (0);
+	flags->conv = *tmp;
+	return (1);
+}
+
+static void	printf_parse_prec(const char *start, int *i, t_flag *flags)
+{
+	if (start[++(*i)] == '*')
+		flags->prec = va_args(*arg, int);
+	else if (ft_isdigit(start[*i]))
+	{
+		flags->prec = ft_atoi(start + *i);
+		while (ft_isdigit(start[*i]))
+			(*i)++;
+	}
+}
+
 /*
 ** Parses flags
 */
 
-t_flag			pritnf_parse_flags(const char *start, va_list *arg,
-		va_list arg_beg, int *i)
+t_flag			pritnf_parse_flags(const char *start, va_list *arg, int *i)
 {
 	int		tmp;
 	t_flag	flags;
@@ -82,21 +94,14 @@ t_flag			pritnf_parse_flags(const char *start, va_list *arg,
 		else if (isdigit(start[*i]))
 			printf_parse_num(start, i, &flags);
 		else if (start[*i] == '*')
-		{
-			if (ft_isdigit(start[(*i)++]))
-			{
-				flags.width = printf_get_arg(ft_atoi(start + *i), arg_beg, );
-				while (ft_isdigit(start[*i]));
-			}
-			else
-				flags.width = va_args(*arg, int);
-		}
+			flags.width = va_args(*arg, int);
+		else if (start[*i] == '.')
+			printf_parse_prec(start, i, &flags);
 		else if (!printf_parse_mod(start, i, &flags))
 		{
 			flags.conv = 'c';
 			break ;
 		}
-
 	}
 	return (flags);
 }
