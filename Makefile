@@ -29,7 +29,7 @@ d: $(DNAME)
 
 deb: $(DNAME)
 
-$(DNAME): main.c $(SDIR)*.c $(LIBDIR)srcs/*.c
+$(DNAME): main.c $(LIBDIR)/srcs/*.c $(addprefix $(SDIR), $(FILES))
 	@echo "\x1b[35mCompiling the $(DNAME)\x1b[0m"
 	@$(CC) $(CFLAGS) -g -I$(IDIR) -I$(LIBDIR)includes -o $@ $^
 
