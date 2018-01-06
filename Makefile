@@ -48,6 +48,7 @@ fclean: clean
 	@rm -f $(NAME)
 	@echo "\x1b[31mRemoving the $(DNAME)"
 	@rm -f $(DNAME)
+	@rm -rf printf_debug.dSYM
 
 red:
 	@$(MAKE) fclean
