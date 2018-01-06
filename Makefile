@@ -1,8 +1,9 @@
 .PHONY: clean, fclean, re, d#, libft
 
 CC=gcc
-CFLAGS= -Wall -Wextra -Werror 
+CFLAGS= -Wall -Wextra -Werror
 LIBDIR=libft/
+LIB=$(LIBDIR)libft.a
 ODIR=objs/
 SDIR=srcs/
 IDIR=includes/
@@ -11,15 +12,16 @@ DNAME=printf_debug
 FILES=ft_printf.c printf_lst.c printf_make_str.c
 OBJS=$(FILES:.c=.o)
 
-all:
-	@$(MAKE) $(NAME)
+all: $(NAME)
 
-$(NAME): $(addprefix $(ODIR), $(OBJS))
-	@$(MAKE) -C $(LIBDIR)
+$(NAME): $(LIB) $(addprefix $(ODIR), $(OBJS))
 	@echo "\x1b[33mCopying the libft\x1b[0m"
 	@cp libft/libft.a $@
 	@echo "\x1b[33mAppending to the $(NAME)\x1b[0m"
 	@ar -q $@ $(addprefix $(ODIR), $(OBJS))
+
+$(LIB):
+	@$(MAKE) -C $(LIBDIR)
 
 d: $(DNAME)
 	@echo "\x1b[32mRunning your app\x1b[0m"
@@ -55,7 +57,7 @@ redeb:
 	@$(MAKE) fclean
 	@$(MAKE) deb
 
-re: 
+re:
 	@$(MAKE) fclean
 	@$(MAKE) -C $(LIBDIR) re
-	@$(MAKE) 
+	@$(MAKE)
