@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:15:41 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/05 17:17:31 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/06 11:04:59 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	printf_colors(const char *start, t_list **tail)
 			}
 			ft_lstaddb(tail, list);
 			*tail = list;
-			return (ft_strlen(g_colors[i][0]));
+			return ((int)ft_strlen(g_colors[i][0]));
 		}
 		else
 			i++;
@@ -76,7 +76,7 @@ static int	printf_handler(const char *start, va_list arg,
 ** if an error occurs.
 */
 
-static int	printf_add_str(const char *start, int length, t_list **tail)
+static int	printf_add_str(const char *start, size_t length, t_list **tail)
 {
 	char	*str;
 	t_list	*list;
@@ -114,7 +114,7 @@ int			printf_make_str(char **ret, const char *format, va_list arg,
 	while (beg >= 0 && (!++end || format[end - 1]))
 		if ((format[end] == '%') || (format[end] == '{') || !format[end])
 		{
-			beg = printf_add_str(format + beg, end - beg, &tail);
+			beg = printf_add_str(format + beg, (size_t)(end - beg), &tail);
 			if (!head && tail)
 				head = tail;
 			if (~beg && format[end])
@@ -125,5 +125,5 @@ int			printf_make_str(char **ret, const char *format, va_list arg,
 	if (beg > 0)
 		*ret = printf_lsttostr(head, (size_t)end);
 	ft_lstdel(&head, &free);
-	return (end);
+	return ((int)end);
 }
