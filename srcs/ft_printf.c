@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:03:44 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/06 11:03:40 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/06 18:49:48 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,18 @@
 int	ft_printf(const char *format, ...)
 {
 	va_list	arg;
-	va_list	arg_beg;
 	char	*ret;
 	int		rez;
 
 	if (!format)
 		return (0);//change to null
 	va_start(arg, format);
-	va_copy(arg_beg, arg);
 	ret = NULL;
-	rez = printf_make_str(&ret, format, arg, arg_beg);
+	rez = printf_make_str(&ret, format, arg);
 	if (~rez)
 		write(1, ret, (size_t)rez);
 	free(ret);
 	va_end(arg);
-	va_end(arg_beg);
 	return (rez);
 }
 
