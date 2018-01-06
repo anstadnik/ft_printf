@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:05:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/05 19:01:22 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/06 11:00:57 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ int		ft_asprintf(char **ret, const char *format, ...);
 
 int		printf_make_str(char **ret, const char *format, va_list arg,
 		va_list arg_beg);
-t_list	*printf_lstnew(char const *content, size_t content_size);
+t_list	*printf_lstnew(void *content, size_t content_size);
 char	*printf_lsttostr(t_list	*head, size_t size);
 #endif
