@@ -6,70 +6,53 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 19:01:49 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/06 20:00:31 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/08 13:29:38 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-const char	conv[] = "sSpdDioOuUxXcCeEfFgGaAnbrk"
-const char	flag[] = "#0-+ '"
-const char	mod[][] = {"z", "j", "ll", "l", "hh", "h", "L"}
+const char	g_conv[] = "sSpdDioOuUxXcCeEfFgGaAnbrk";
+const char	g_flag[] = "#0-+ '";
+const char	g_mod[7][3] = {"z", "j", "ll", "l", "hh", "h", "L"};
 
-static void	printf_parse_num(const char *start, int *i, t_flag *flags)
+static int		printf_parse_conv(const char *start, int *i, t_flag *flags)
+{
+	char	*tmp;
+
+	tmp = ft_strchr(g_conv, *(start + *i));
+	if (!tmp)
+		return (0);
+	flags->conv = *tmp;
+	(*i)++;
+	return (1);
+}
+
+static void		printf_parse_num(const char *start, int *i, t_flag *flags)
 {
 	int	tmp;
 
 	tmp = ft_atoi(start + *i);
-	while (isdigit(start[*i]))
+	while (ft_isdigit(start[*i]))
 		(*i)++;
-	if (start[*i] == '$')
+	if (start[*i] == '!')
 	{
-		flags->dollar = tmp;
-		(*i)++;
-	}
-	else if (start[*i] == '!')
-	{
-		flags->system = tmp > 16 ? 0 : tmp;
+		flags->system = tmp > 16 ? 0 : (char)tmp;
 		(*i)++;
 	}
 	else
 		flags->width = tmp;
 }
 
-static int	printf_parse_mod(const char *start, int *i, t_flag *flags)
-{
-	int	i;
-
-	i = 0;
-	while (i < 7)
-	{
-		if (!ft_strncmp(mod[i], start[*i], ft_strlen(mod[i])))
-		{
-			flags->modif[i] = 1;
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-static int	printf_parse_conv(const char *start, int *i, t_flag *flags)
-{
-	char	*tmp;
-
-	tmp = ft_strchr(conv, *(start + *i));
-	if (!tmp)
-		return (0);
-	flags->conv = *tmp;
-	return (1);
-}
-
-static void	printf_parse_prec(const char *start, int *i, t_flag *flags)
+static void		printf_parse_prec(const char *start, int *i, t_flag *flags,
+		va_list arg)
 {
 	if (start[++(*i)] == '*')
-		flags->prec = va_args(*arg, int);
-	else if (ft_isdigit(start[*i]))
+	{
+		flags->prec = va_arg(arg, int);
+		return ;
+	}
+	if (ft_isdigit(start[*i]))
 	{
 		flags->prec = ft_atoi(start + *i);
 		while (ft_isdigit(start[*i]))
@@ -77,29 +60,48 @@ static void	printf_parse_prec(const char *start, int *i, t_flag *flags)
 	}
 }
 
+static int		printf_parse_mod(const char *start, int *i, t_flag *flags)
+{
+	int	j;
+
+	j = 0;
+	while (j < 7)
+	{
+		if (!ft_strncmp(g_mod[j], start + *i, ft_strlen(g_mod[j])))
+		{
+			flags->modif[j] = 1;
+			*i += ft_strlen(g_mod[j]);
+			return (1);
+		}
+		j++;
+	}
+	return (0);
+}
+
 /*
 ** Parses flags
 */
 
-t_flag			pritnf_parse_flags(const char *start, va_list *arg, int *i)
+t_flag			printf_parse_flags(const char *start, va_list arg, int *i)
 {
-	int		tmp;
 	t_flag	flags;
 
 	ft_bzero(&flags, sizeof(t_flag));
-	while (!printf_parse_conv(start, i))
+	while (!printf_parse_conv(start, i, &flags))
 	{
-		if (ft_strchr(flag, start[*i]))
-			*((char *)flags + ft_strchr(flag, start[*(i++)]) - flag) = 1;
-		else if (isdigit(start[*i]))
+		if (ft_strchr(g_flag, start[*i]))
+			*(char *)((char *)&flags + (size_t)ft_strchr(g_flag, start[(*i)++])
+					- (size_t)g_flag) = 1;
+		else if (ft_isdigit(start[*i]))
 			printf_parse_num(start, i, &flags);
 		else if (start[*i] == '*')
-			flags.width = va_args(*arg, int);
+			flags.width = va_arg(arg, int);
 		else if (start[*i] == '.')
-			printf_parse_prec(start, i, &flags);
+			printf_parse_prec(start, i, &flags, arg);
 		else if (!printf_parse_mod(start, i, &flags))
 		{
 			flags.conv = 'c';
+			flags.err = start[(*i)++];
 			break ;
 		}
 	}

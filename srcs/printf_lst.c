@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 14:28:43 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/06 19:24:31 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/08 12:16:20 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,27 @@
 
 #include "ft_printf.h"
 
-char	*printf_lsttostr(t_list *head, size_t size)
+ssize_t	printf_lsttostr(t_list *head, char **ret)
 {
-	char	*rez;
+	t_list	*temp;
+	size_t	size;
 
-	if (!head)
-		return (NULL);
-	if (!(rez = malloc(sizeof(char) * size + 1)))
+	temp = head;
+	size = 0;
+	while (temp)
+	{
+		size += ft_strlen((char *)temp->content);
+		temp = temp->next;
+	}
+	if (!(*ret = malloc(sizeof(char) * size + 1)))
 		return (0);
-	rez[0] = '\0';
+	**ret = '\0';
 	while (head)
 	{
-		ft_strcat(rez, (char *)head->content);
+		ft_strcat(*ret, (char *)head->content);
 		head = head->next;
 	}
-	return (rez);
+	return ((ssize_t)size);
 }
 
 /*
