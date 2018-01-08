@@ -9,7 +9,7 @@ SDIR=srcs/
 IDIR=includes/
 NAME=libftprintf.a
 DNAME=printf_debug
-FILES=ft_printf.c printf_lst.c printf_make_str.c
+FILES=ft_printf.c printf_lst.c printf_make_str.c printf_flags.c printf_flags_show.c
 OBJS=$(FILES:.c=.o)
 
 all: $(NAME)
