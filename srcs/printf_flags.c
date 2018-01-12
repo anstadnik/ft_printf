@@ -6,17 +6,17 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 19:01:49 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/08 13:29:38 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/12 11:12:20 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-const char	g_conv[] = "sSpdDioOuUxXcCeEfFgGaAnbrk";
-const char	g_flag[] = "#0-+ '";
-const char	g_mod[7][3] = {"z", "j", "ll", "l", "hh", "h", "L"};
+static const char	g_conv[] = "sSpdDioOuUxXcCeEfFgGaAnbrk";
+static const char	g_flag[] = "#0-+ '";
+static const char	g_mod[7][3] = {"z", "j", "ll", "l", "hh", "h", "L"};
 
-static int		printf_parse_conv(const char *start, int *i, t_flag *flags)
+static int			printf_parse_conv(const char *start, int *i, t_flag *flags)
 {
 	char	*tmp;
 
@@ -24,11 +24,15 @@ static int		printf_parse_conv(const char *start, int *i, t_flag *flags)
 	if (!tmp)
 		return (0);
 	flags->conv = *tmp;
+	if (flags->conv == 'o' || flags->conv = 'O')
+		flags->system = 8;
+	if (flags->conv == 'x' || flags->conv = 'X')
+		flags->system = 16;
 	(*i)++;
 	return (1);
 }
 
-static void		printf_parse_num(const char *start, int *i, t_flag *flags)
+static void			printf_parse_num(const char *start, int *i, t_flag *flags)
 {
 	int	tmp;
 
@@ -44,7 +48,7 @@ static void		printf_parse_num(const char *start, int *i, t_flag *flags)
 		flags->width = tmp;
 }
 
-static void		printf_parse_prec(const char *start, int *i, t_flag *flags,
+static void			printf_parse_prec(const char *start, int *i, t_flag *flags,
 		va_list arg)
 {
 	if (start[++(*i)] == '*')
@@ -60,7 +64,7 @@ static void		printf_parse_prec(const char *start, int *i, t_flag *flags,
 	}
 }
 
-static int		printf_parse_mod(const char *start, int *i, t_flag *flags)
+static int			printf_parse_mod(const char *start, int *i, t_flag *flags)
 {
 	int	j;
 
@@ -82,11 +86,12 @@ static int		printf_parse_mod(const char *start, int *i, t_flag *flags)
 ** Parses flags
 */
 
-t_flag			printf_parse_flags(const char *start, va_list arg, int *i)
+t_flag				printf_parse_flags(const char *start, va_list arg, int *i)
 {
 	t_flag	flags;
 
 	ft_bzero(&flags, sizeof(t_flag));
+	flags.conv = 'c';
 	while (!printf_parse_conv(start, i, &flags))
 	{
 		if (ft_strchr(g_flag, start[*i]))
@@ -95,12 +100,14 @@ t_flag			printf_parse_flags(const char *start, va_list arg, int *i)
 		else if (ft_isdigit(start[*i]))
 			printf_parse_num(start, i, &flags);
 		else if (start[*i] == '*')
+		{
 			flags.width = va_arg(arg, int);
+			(*i)++;
+		}
 		else if (start[*i] == '.')
 			printf_parse_prec(start, i, &flags, arg);
 		else if (!printf_parse_mod(start, i, &flags))
 		{
-			flags.conv = 'c';
 			flags.err = start[(*i)++];
 			break ;
 		}

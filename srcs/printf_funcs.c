@@ -1,14 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_lst.c                                       :+:      :+:    :+:   */
+/*   printf_funcs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 14:28:43 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/08 12:16:20 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/12 10:47:51 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+** Returns the necessary value in the long.
+*/
+
+
 
 /*
 ** Combines all the content from the list to one string and returns it.
