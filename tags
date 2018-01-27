@@ -1,0 +1,91 @@
+count	libft/srcs/ft_itoa.c	/^static unsigned long	count(int n)$/
+f	libft/srcs/ft_strsplit.c	/^static void	f(char ***arr, size_t i)$/
+fill	libft/srcs/ft_strsplit.c	/^static char	**fill(char const *s, char c, size_t a/
+ft_atoi	libft/srcs/ft_atoi.c	/^int	ft_atoi(const char *s)$/
+ft_bzero	libft/srcs/ft_bzero.c	/^void	ft_bzero(void *s, size_t n)$/
+ft_isalnum	libft/srcs/ft_isalnum.c	/^int	ft_isalnum(int c)$/
+ft_isalpha	libft/srcs/ft_isalpha.c	/^int	ft_isalpha(int c)$/
+ft_isascii	libft/srcs/ft_isascii.c	/^int	ft_isascii(int c)$/
+ft_isdigit	libft/srcs/ft_isdigit.c	/^int	ft_isdigit(int c)$/
+ft_isprint	libft/srcs/ft_isprint.c	/^int	ft_isprint(int c)$/
+ft_isspace	libft/srcs/ft_isspace.c	/^int	ft_isspace(int c)$/
+ft_iswhitespace	libft/srcs/ft_iswhitespace.c	/^int	ft_iswhitespace(int c)$/
+ft_itoa	libft/srcs/ft_itoa.c	/^char					*ft_itoa(int n)$/
+ft_lstadd	libft/srcs/ft_lstadd.c	/^void	ft_lstadd(t_list **alst, t_list *elem)$/
+ft_lstaddb	libft/srcs/ft_lstaddb.c	/^void	ft_lstaddb(t_list **head, t_list *list)$/
+ft_lstdel	libft/srcs/ft_lstdel.c	/^void	ft_lstdel(t_list **alst, void (*del)(void *))/
+ft_lstdelnode	libft/srcs/ft_lstdelnode.c	/^void		ft_lstdelnode(t_list **head, t_list *targ)$/
+ft_lstdelone	libft/srcs/ft_lstdelone.c	/^void	ft_lstdelone(t_list **aslt, void (*del)(void /
+ft_lstiter	libft/srcs/ft_lstiter.c	/^void	ft_lstiter(t_list *lst, void (*f)(t_list *ele/
+ft_lstmap	libft/srcs/ft_lstmap.c	/^t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_lis/
+ft_lstnew	libft/srcs/ft_lstnew.c	/^t_list	*ft_lstnew(void const *content, size_t cont/
+ft_lstpushb	libft/srcs/ft_lstpushb.c	/^void	ft_lstpushb(t_list **list, void *content, siz/
+ft_lstpushf	libft/srcs/ft_lstpushf.c	/^void	ft_lstpushf(t_list **alst, void *content, siz/
+ft_lsttostr	libft/srcs/ft_lsttostr.c	/^char	*ft_lsttostr(t_list *head)$/
+ft_memalloc	libft/srcs/ft_memalloc.c	/^void	*ft_memalloc(size_t size)$/
+ft_memccpy	libft/srcs/ft_memccpy.c	/^void	*ft_memccpy(void *s1, void const *s2, int c, /
+ft_memchr	libft/srcs/ft_memchr.c	/^void	*ft_memchr(const void *str, int c, size_t n)$/
+ft_memcmp	libft/srcs/ft_memcmp.c	/^int	ft_memcmp(const void *s1, const void *s2, size/
+ft_memcpy	libft/srcs/ft_memcpy.c	/^void	*ft_memcpy(void *str1, const void *str2, size/
+ft_memdel	libft/srcs/ft_memdel.c	/^void	ft_memdel(void **ap)$/
+ft_memdup	libft/srcs/ft_memdup.c	/^void	*ft_memdup(void *src, size_t size)$/
+ft_memmove	libft/srcs/ft_memmove.c	/^void	*ft_memmove(void *s1, const void *s2, size_t /
+ft_memset	libft/srcs/ft_memset.c	/^void	*ft_memset(void *str, int c, size_t n)$/
+ft_printf	srcs/ft_printf.c	/^int	ft_printf(const char *format, ...)$/
+ft_putchar	libft/srcs/ft_putchar.c	/^void	ft_putchar(char c)$/
+ft_putchar_fd	libft/srcs/ft_putchar_fd.c	/^void	ft_putchar_fd(char c, int fd)$/
+ft_putendl	libft/srcs/ft_putendl.c	/^void	ft_putendl(char const *s)$/
+ft_putendl_fd	libft/srcs/ft_putendl_fd.c	/^void	ft_putendl_fd(char const *s, int fd)$/
+ft_putnbr	libft/srcs/ft_putnbr.c	/^void	ft_putnbr(int n)$/
+ft_putnbr_fd	libft/srcs/ft_putnbr_fd.c	/^void	ft_putnbr_fd(int n, int fd)$/
+ft_putstr	libft/srcs/ft_putstr.c	/^void	ft_putstr(char const *str)$/
+ft_putstr_fd	libft/srcs/ft_putstr_fd.c	/^void	ft_putstr_fd(char const *s, int fd)$/
+ft_realloc	libft/srcs/ft_realloc.c	/^void	*ft_realloc(void *ptr, size_t size_src, size_/
+ft_strcat	libft/srcs/ft_strcat.c	/^char	*ft_strcat(char *s1, char *s2)$/
+ft_strchr	libft/srcs/ft_strchr.c	/^char	*ft_strchr(const char *s, int c)$/
+ft_strclr	libft/srcs/ft_strclr.c	/^void	ft_strclr(char *s)$/
+ft_strcmp	libft/srcs/ft_strcmp.c	/^int	ft_strcmp(char const *s1, char const *s2)$/
+ft_strcpy	libft/srcs/ft_strcpy.c	/^char	*ft_strcpy(char *s1, char const *s2)$/
+ft_strdel	libft/srcs/ft_strdel.c	/^void	ft_strdel(char **as)$/
+ft_strdup	libft/srcs/ft_strdup.c	/^char	*ft_strdup(const char *s)$/
+ft_strequ	libft/srcs/ft_strequ.c	/^int	ft_strequ(char const *s1, char const *s2)$/
+ft_striter	libft/srcs/ft_striter.c	/^void	ft_striter(char *s, void (*f)(char *))$/
+ft_striteri	libft/srcs/ft_striteri.c	/^void	ft_striteri(char *s, void (*f)(unsigned int, /
+ft_strjoin	libft/srcs/ft_strjoin.c	/^char	*ft_strjoin(char const *s1, char const *s2)$/
+ft_strlcat	libft/srcs/ft_strlcat.c	/^size_t	ft_strlcat(char *s1, char *s2, size_t size)/
+ft_strlen	libft/srcs/ft_strlen.c	/^size_t	ft_strlen(const char *str)$/
+ft_strmap	libft/srcs/ft_strmap.c	/^char	*ft_strmap(char const *s, char (*f)(char))$/
+ft_strmapi	libft/srcs/ft_strmapi.c	/^char	*ft_strmapi(char const *s, char (*f)(unsigned/
+ft_strncat	libft/srcs/ft_strncat.c	/^char	*ft_strncat(char *s1, char *s2, size_t n)$/
+ft_strncmp	libft/srcs/ft_strncmp.c	/^int	ft_strncmp(const char *s1, const char *s2, siz/
+ft_strncpy	libft/srcs/ft_strncpy.c	/^char	*ft_strncpy(char *s1, char *s2, size_t len)$/
+ft_strnequ	libft/srcs/ft_strnequ.c	/^int	ft_strnequ(char const *s1, char const *s2, siz/
+ft_strnew	libft/srcs/ft_strnew.c	/^char	*ft_strnew(size_t size)$/
+ft_strnstr	libft/srcs/ft_strnstr.c	/^char	*ft_strnstr(const char *s1, const char *s2, s/
+ft_strrchr	libft/srcs/ft_strrchr.c	/^char	*ft_strrchr(const char *s, int c)$/
+ft_strsplit	libft/srcs/ft_strsplit.c	/^char		**ft_strsplit(char const *s, char c)$/
+ft_strstr	libft/srcs/ft_strstr.c	/^char	*ft_strstr(const char *s1, const char *s2)$/
+ft_strsub	libft/srcs/ft_strsub.c	/^char	*ft_strsub(char const *s, unsigned int start,/
+ft_strtrim	libft/srcs/ft_strtrim.c	/^char	*ft_strtrim(char const *s)$/
+ft_tolower	libft/srcs/ft_tolower.c	/^int	ft_tolower(int c)$/
+ft_toupper	libft/srcs/ft_toupper.c	/^int	ft_toupper(int c)$/
+get_size	srcs/printf_conv_int.c	/^static void		get_size(uintmax_t n, t_flag flags)$/
+printf_add_str	srcs/printf_make_str.c	/^static int	printf_add_str(const char *start, size_/
+printf_atoi_base	srcs/printf_conv_int.c	/^static void		printf_atoi_base(char *str, t_flag fl/
+printf_colors	srcs/printf_make_str.c	/^static int	printf_colors(const char *start, t_list/
+printf_conv_int	srcs/printf_conv_int.c	/^int 			printf_conv_int(t_flag flags, va_list arg, /
+printf_flags_show	srcs/printf_flags_show.c	/^int	printf_flags_show(t_flag flags, t_list **tail)/
+printf_get_uint	srcs/printf_conv_int.c	/^static uintmax_t	printf_get_uint(t_flag flags, va_/
+printf_handler	srcs/printf_make_str.c	/^static int	printf_handler(const char *start, va_li/
+printf_lstnew	srcs/printf_funcs.c	/^t_list	*printf_lstnew(void *content, size_t conten/
+printf_lsttostr	srcs/printf_funcs.c	/^ssize_t	printf_lsttostr(t_list *head, char **ret)$/
+printf_make_str	srcs/printf_make_str.c	/^int			printf_make_str(char **ret, const char *form/
+printf_parse_conv	srcs/printf_flags.c	/^static int			printf_parse_conv(const char *start, /
+printf_parse_flags	srcs/printf_flags.c	/^t_flag				printf_parse_flags(const char *start, va/
+printf_parse_mod	srcs/printf_flags.c	/^static int			printf_parse_mod(const char *start, i/
+printf_parse_num	srcs/printf_flags.c	/^static void			printf_parse_num(const char *start, /
+printf_parse_prec	srcs/printf_flags.c	/^static void			printf_parse_prec(const char *start,/
+s_func	includes/ft_printf.h	/^struct					s_funcs{$/
+t_flag	includes/ft_printf.h	/^typedef struct s_flag	t_flag;$/
+t_funcs	includes/ft_printf.h	/^typedef struct s_funcs	t_funcs;$/
+t_list	libft/includes/libft.h	/^}					t_list;$/
