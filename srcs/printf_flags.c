@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 19:01:49 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/12 11:12:20 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/12 15:54:36 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static int			printf_parse_conv(const char *start, int *i, t_flag *flags)
 	if (!tmp)
 		return (0);
 	flags->conv = *tmp;
-	if (flags->conv == 'o' || flags->conv = 'O')
+	if (flags->conv == 'o' || flags->conv == 'O')
 		flags->system = 8;
-	if (flags->conv == 'x' || flags->conv = 'X')
+	if (flags->conv == 'x' || flags->conv == 'X')
 		flags->system = 16;
 	(*i)++;
 	return (1);
@@ -41,7 +41,7 @@ static void			printf_parse_num(const char *start, int *i, t_flag *flags)
 		(*i)++;
 	if (start[*i] == '!')
 	{
-		flags->system = tmp > 16 ? 0 : (char)tmp;
+		flags->system = tmp > 16 ? 10 : (char)tmp;
 		(*i)++;
 	}
 	else
@@ -92,6 +92,7 @@ t_flag				printf_parse_flags(const char *start, va_list arg, int *i)
 
 	ft_bzero(&flags, sizeof(t_flag));
 	flags.conv = 'c';
+	flags.system = 10;
 	while (!printf_parse_conv(start, i, &flags))
 	{
 		if (ft_strchr(g_flag, start[*i]))

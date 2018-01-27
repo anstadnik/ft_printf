@@ -21,7 +21,7 @@ Precision
          e, E, f, and F conversions, the maximum number of significant digits for g and G conversions, or the maximum number of characters to be printed from a
          string for s conversions.
 Modifiers: hh h l ll j z
-	         Modifier          d, i           o, u, x, X            n
+         Modifier          d, i           o, u, x, X            n
          hh                signed char    unsigned char         signed char *
          h                 short          unsigned short        short *
          l (ell)           long           unsigned long         long *
@@ -37,7 +37,7 @@ Format: sSpdDioOuUxXcC bonuses: eE fF gG aA n b r k
             (but not including) a terminating NUL character; if a precision is specified, no more than the number specified are written.  If a precision is
             given, no null character need be present; if the precision is not specified, or is greater than the size of the array, the array must contain a ter-
             minating NUL character.
-			
+
             If the l (ell) modifier is used, the wchar_t * argument is expected to be a pointer to an array of wide characters (pointer to a wide string).  For
             each wide character in the string, the (potentially multi-byte) sequence representing the wide character is written, including any shift sequences.
             If any shift sequence is used, the shift state is also restored to the original state after the string.  Wide characters from the array are written

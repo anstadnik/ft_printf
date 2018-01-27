@@ -6,21 +6,15 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 14:28:43 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/12 10:47:51 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/12 17:38:19 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** Returns the necessary value in the long.
-*/
-
-
+#include "ft_printf.h"
 
 /*
 ** Combines all the content from the list to one string and returns it.
 */
-
-#include "ft_printf.h"
 
 ssize_t	printf_lsttostr(t_list *head, char **ret)
 {
@@ -31,7 +25,7 @@ ssize_t	printf_lsttostr(t_list *head, char **ret)
 	size = 0;
 	while (temp)
 	{
-		size += ft_strlen((char *)temp->content);
+		size += temp->content_size;
 		temp = temp->next;
 	}
 	if (!(*ret = malloc(sizeof(char) * size + 1)))

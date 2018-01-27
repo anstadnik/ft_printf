@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:15:41 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/12 10:47:55 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/12 16:39:08 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static const char	g_colors[17][2][15] = {
 	{"{light magenta}", "\x1b[95m"}, {"{light cyan}", "\x1b[96m"},
 	{"{light white}", "\x1b[97m"} };
 
-static const char	g_conv[] = "sSpdDioOuUxXcCeEfFgGaAnbrk";
+//static const char	g_conv[] = "sSpdDioOuUxXcCeEfFgGaAnbrk";
 
-//const 			int(*f[26])(t_flag flags, va_list arg, t_list **tail) = {};
+static t_funcs		g_funcs[1] = { {.str = "dDioOuUxXp", .f = &printf_conv_int} };
 
 /*
 ** Puts the usual string from the format string to the list. Returns -1
@@ -41,7 +41,7 @@ static int	printf_add_str(const char *start, size_t length, t_list **tail)
 		return (0);
 	if (!(str = ft_strsub(start, 0, length)))
 		return (-1);
-	if (!(list = printf_lstnew(str, 0)))
+	if (!(list = printf_lstnew(str, length)))
 	{
 		free(str);
 		return (-1);
@@ -81,7 +81,7 @@ static int	printf_handler(const char *start, va_list arg, t_list **tail)
 {
 	t_flag	flags;
 	int		i;
-//	size_t	*conv;
+	int		j;
 
 	if (*start == '{')
 		return (printf_colors(start, tail));
@@ -93,12 +93,20 @@ static int	printf_handler(const char *start, va_list arg, t_list **tail)
 	}
 	i = 1;
 	flags = printf_parse_flags(start, arg, &i);
-	printf_flags_show(flags, tail);
-//	if (i = (size_t)ft_strchr(g_conv, flags.conv))   and check for ! flag
-//		g_arr[i - (size_t)g_conv].f(flags, arg, tail);
+	//printf_flags_show(flags, tail);
+	j = 0;
+	while (j < 1 && j >= 0)
+	{
+		if (ft_strchr(g_funcs[j].str, flags.conv))//   and check for ! flag
+		{
+			g_funcs[j].f(flags, arg, tail);
+			break ;
+		}
 //		change g_arr to struct with a string and function pointer, which
 //		corresponds to each other. I will search through all strings, and
 //		then call the appropriate function.
+		j++;
+	}
 	return (i);
 }
 
