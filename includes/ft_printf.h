@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:05:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/27 18:00:11 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/28 19:35:55 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ union					u_par
 	ssize_t				sst;
 	ssize_t				*pst;
 	long double			ld;
-}
+};
 
 struct					s_funcs
 {
@@ -70,6 +70,9 @@ int			ft_dprintf(int fd, const char *format, ...);
 int			ft_asprintf(char **ret, const char *format, ...);
 
 int			printf_make_str(char **ret, const char *format, va_list arg);
-int			printf_fill_list(t_list **head, char *format);
+int			printf_fill_list(t_list **head, const char *format);
 
+
+ssize_t		printf_lsttostr(t_list *head, char **ret);
+t_list		*printf_lstnew(void *content, size_t content_size);
 #endif

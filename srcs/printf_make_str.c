@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:15:41 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/27 17:56:23 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/28 20:08:57 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,16 @@ int			printf_make_str(char **ret, const char *format, va_list arg)
 	t_par	*params;
 
 	head = NULL;
-	if (!~(params_amount = printf_fill_list(&head, format)))
+	if ((params_amount = printf_fill_list(&head, format)) == -1)
 		return (err(&head, &params));
-	if (!(params = malloc(sizeof(t_par) * params_amount)))
+	if ((params = malloc(sizeof(t_par) * params_amount)) == NULL)
 		return (err(&head, &params));
 	printf_get_params(params, head, arg);
-	if (!~printf_process_conv(head, params))
+	if (printf_process_conv(head, params) == -1)
 		return (err(&head, &params));
-	*ret = ft_lsttostr(head);
+	if ((*ret = ft_lsttostr(head)) == NULL)
+		return (err(&head, &params));
 	ft_lstdel(&head, &free);
 	free(params);
-	if (*ret)
-		return (ft_strlen(*ret));
-	return (-1);
+	return (ft_strlen(*ret));
 }

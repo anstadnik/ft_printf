@@ -6,7 +6,7 @@
 /*   By: astadnik <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 18:35:10 by astadnik          #+#    #+#             */
-/*   Updated: 2017/12/30 13:02:35 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/28 18:31:50 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_list				*ft_lstgetlast(t_list *head);
 void				ft_lstpushf(t_list **alst, void *content,
 		size_t content_size);
 void				ft_lstdelnode(t_list **head, t_list *targ);
+char				*ft_lsttostr(t_list *head);
 void				ft_putchar(char c);
 void				ft_putstr(char const *str);
 void				ft_putendl(char const *str);
