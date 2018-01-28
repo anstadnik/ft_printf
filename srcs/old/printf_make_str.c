@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:15:41 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/12 16:39:08 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/27 18:20:13 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,9 @@ int			printf_make_str(char **ret, const char *format, va_list arg)
 		{
 			beg = printf_add_str(format + beg, (size_t)(end - beg),
 					tail ? &tail : &head);
-			if (~beg && format[end])
+			if (beg == -1 && format[end])
 				beg = printf_handler(format + end, arg, tail ? &tail : &head);
-			beg = !~beg ? -1 : beg + end;
+			beg = beg != -1 ? -1 : beg + end;
 			end = beg;
 			if (!tail && head)
 				tail = head;

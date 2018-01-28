@@ -1,4 +1,5 @@
 count	libft/srcs/ft_itoa.c	/^static unsigned long	count(int n)$/
+err	srcs/printf_make_str.c	/^static int	err(t_list **head, t_par **params)$/
 f	libft/srcs/ft_strsplit.c	/^static void	f(char ***arr, size_t i)$/
 fill	libft/srcs/ft_strsplit.c	/^static char	**fill(char const *s, char c, size_t a/
 ft_atoi	libft/srcs/ft_atoi.c	/^int	ft_atoi(const char *s)$/
@@ -69,23 +70,9 @@ ft_strsub	libft/srcs/ft_strsub.c	/^char	*ft_strsub(char const *s, unsigned int s
 ft_strtrim	libft/srcs/ft_strtrim.c	/^char	*ft_strtrim(char const *s)$/
 ft_tolower	libft/srcs/ft_tolower.c	/^int	ft_tolower(int c)$/
 ft_toupper	libft/srcs/ft_toupper.c	/^int	ft_toupper(int c)$/
-get_size	srcs/printf_conv_int.c	/^static void		get_size(uintmax_t n, t_flag flags)$/
-printf_add_str	srcs/printf_make_str.c	/^static int	printf_add_str(const char *start, size_/
-printf_atoi_base	srcs/printf_conv_int.c	/^static void		printf_atoi_base(char *str, t_flag fl/
-printf_colors	srcs/printf_make_str.c	/^static int	printf_colors(const char *start, t_list/
-printf_conv_int	srcs/printf_conv_int.c	/^int 			printf_conv_int(t_flag flags, va_list arg, /
-printf_flags_show	srcs/printf_flags_show.c	/^int	printf_flags_show(t_flag flags, t_list **tail)/
-printf_get_uint	srcs/printf_conv_int.c	/^static uintmax_t	printf_get_uint(t_flag flags, va_/
-printf_handler	srcs/printf_make_str.c	/^static int	printf_handler(const char *start, va_li/
-printf_lstnew	srcs/printf_funcs.c	/^t_list	*printf_lstnew(void *content, size_t conten/
-printf_lsttostr	srcs/printf_funcs.c	/^ssize_t	printf_lsttostr(t_list *head, char **ret)$/
+printf_fill_list	srcs/printf_fill_list.c	/^int	printf_fill_list(t_list **head, char *format)$/
 printf_make_str	srcs/printf_make_str.c	/^int			printf_make_str(char **ret, const char *form/
-printf_parse_conv	srcs/printf_flags.c	/^static int			printf_parse_conv(const char *start, /
-printf_parse_flags	srcs/printf_flags.c	/^t_flag				printf_parse_flags(const char *start, va/
-printf_parse_mod	srcs/printf_flags.c	/^static int			printf_parse_mod(const char *start, i/
-printf_parse_num	srcs/printf_flags.c	/^static void			printf_parse_num(const char *start, /
-printf_parse_prec	srcs/printf_flags.c	/^static void			printf_parse_prec(const char *start,/
-s_func	includes/ft_printf.h	/^struct					s_funcs{$/
 t_flag	includes/ft_printf.h	/^typedef struct s_flag	t_flag;$/
 t_funcs	includes/ft_printf.h	/^typedef struct s_funcs	t_funcs;$/
 t_list	libft/includes/libft.h	/^}					t_list;$/
+t_par	includes/ft_printf.h	/^typedef union u_par		t_par;$/
