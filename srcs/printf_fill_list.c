@@ -6,13 +6,14 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 17:57:07 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/28 20:39:35 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/30 18:39:02 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	g_counter;
+static int		g_counter;
+static t_list	*g_tail;
 
 static const char	g_colors[17][2][15] = {
 	{"{black}", "\x1b[30m"}, {"{red}", "\x1b[31m"},
@@ -31,7 +32,7 @@ static const char	g_colors[17][2][15] = {
 ** it's last elem
 */
 
-static void	printf_add_str(const char *start, size_t length, t_list **list)
+static void	printf_add_str(const char *start, size_t length, t_list **head)
 {
 	char	*str;
 	t_list	*node;
@@ -45,7 +46,8 @@ static void	printf_add_str(const char *start, size_t length, t_list **list)
 		g_counter = -1;
 		return ;
 	}
-	ft_lstaddb(list, node);
+	ft_lstaddb(*head ? &g_tail : head, node);
+	g_tail = node;
 }
 
 /*
@@ -53,15 +55,15 @@ static void	printf_add_str(const char *start, size_t length, t_list **list)
 ** name.
 */
 
-static void	printf_colors(const char *start, t_list **list, size_t *end)
+static void	printf_colors(const char *start, t_list **head, size_t *end)
 {
 	int		i;
 
 	i = 0;
 	while (i < 17)
-		if (!ft_strncmp(start, g_colors[i][0], ft_strlen(g_colors[i][0])))
+		if (!ft_strncmp(start + *end, g_colors[i][0], ft_strlen(g_colors[i][0])))
 		{
-			printf_add_str(g_colors[i][1], ft_strlen(g_colors[i][1]), list);
+			printf_add_str(g_colors[i][1], ft_strlen(g_colors[i][1]), head);
 			*end += ft_strlen(g_colors[i][0]);
 			return ;
 		}
@@ -73,32 +75,32 @@ static void	printf_colors(const char *start, t_list **list, size_t *end)
 ** Handles the conversions
 */
 
-static void	printf_handler(const char *str, size_t *end, t_list **list)
+static void	printf_handler(const char *str, size_t *end, t_list **head)
 {
 	t_flag	*flags;
 	t_list	*node;
 	char	f;
 
-	if (str[*end] == '{')
-		printf_colors(str, list, end);
+	if (str[*end] == '{')//add "{" string's support
+		printf_colors(str, head, end);
 	else if (str[*end + 1] == '%')
 	{
-		printf_add_str("%", 1, list);
+		printf_add_str("%", 1, head);
 		*end += 2;
 	}
 	else
 	{
-		if (!(flags = printf_parse_flags(str, end)) ||
+		(*end)++;
+		if (!(flags = printf_parse(str, end)) ||
 				!(node = printf_lstnew(flags, 0)))
 		{
 			free(flags);
 			g_counter = -1;
 			return ;
 		}
-		f = *list ? 1 : 0;
-		ft_lstaddb(list, node);
-		if (f)
-			*list = node;
+		f = *head ? 1 : 0;
+		ft_lstaddb(*head ? &g_tail : head, node);
+		g_tail = node;
 		g_counter++;
 	}
 }
@@ -110,25 +112,22 @@ static void	printf_handler(const char *str, size_t *end, t_list **list)
 
 int	printf_fill_list(t_list **head, const char *format)
 {
-	t_list	*tail;
 	size_t	beg;
 	size_t	end;
 
 	beg = 0;
 	end = 0;
 	g_counter = 0;
-	tail = NULL;
+	g_tail = NULL;
 	while (g_counter != -1 && format[end])
 	{
 		while ((format[end] != '%') && (format[end] != '{') && format[end])
 			end++;
-		printf_add_str(format + beg, end - beg, tail ? &tail : head);
+		printf_add_str(format + beg, end - beg, head);
 		if (format[end] && g_counter != -1)
-			printf_handler(format, &end, tail ? &tail : head);
+			printf_handler(format, &end, head);
 		beg = end;
-		if (!tail && *head)
-			tail = *head;
 	}
-	ft_lstdel(head, &free);
+	/* ft_lstdel(head, &free); */
 	return (g_counter);
 }
