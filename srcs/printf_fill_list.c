@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 17:57:07 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/30 18:39:02 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/02 18:30:12 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	printf_add_str(const char *start, size_t length, t_list **head)
 
 	if (!length)
 		return ;
+	str = NULL;
 	if (!(str = ft_strsub(start, 0, length)) ||
 			!(node = printf_lstnew(str, length)))
 	{
@@ -69,6 +70,8 @@ static void	printf_colors(const char *start, t_list **head, size_t *end)
 		}
 		else
 			i++;
+	printf_add_str("{", 1, head);
+	(*end)++;
 }
 
 /*
@@ -79,26 +82,22 @@ static void	printf_handler(const char *str, size_t *end, t_list **head)
 {
 	t_flag	*flags;
 	t_list	*node;
-	char	f;
 
-	if (str[*end] == '{')//add "{" string's support
+	if (str[*end] == '{')
 		printf_colors(str, head, end);
-	else if (str[*end + 1] == '%')
-	{
+	else if (str[*end + 1] == '%' && (*end += 2))
 		printf_add_str("%", 1, head);
-		*end += 2;
-	}
 	else
 	{
 		(*end)++;
-		if (!(flags = printf_parse(str, end)) ||
-				!(node = printf_lstnew(flags, 0)))
+		if (!(flags = printf_parse(str, end)))
+			return ;
+		if (!(node = printf_lstnew(flags, 0)))
 		{
 			free(flags);
 			g_counter = -1;
 			return ;
 		}
-		f = *head ? 1 : 0;
 		ft_lstaddb(*head ? &g_tail : head, node);
 		g_tail = node;
 		g_counter++;
@@ -110,7 +109,7 @@ static void	printf_handler(const char *str, size_t *end, t_list **head)
 ** if an error has occured.
 */
 
-int	printf_fill_list(t_list **head, const char *format)
+int		printf_fill_list(t_list **head, const char *format)
 {
 	size_t	beg;
 	size_t	end;
@@ -121,7 +120,7 @@ int	printf_fill_list(t_list **head, const char *format)
 	g_tail = NULL;
 	while (g_counter != -1 && format[end])
 	{
-		while ((format[end] != '%') && (format[end] != '{') && format[end])
+		while (format[end] != '%' && format[end] != '{' && format[end])
 			end++;
 		printf_add_str(format + beg, end - beg, head);
 		if (format[end] && g_counter != -1)

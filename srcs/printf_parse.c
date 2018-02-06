@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 14:32:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/30 17:40:53 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/02 18:30:56 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ static int		parse_conv(const char *str, size_t *i, t_flag *flags)
 static int		parse_mod_and_fl(const char *str, size_t *i, t_flag *flags)
 {
 	int		j;
-	char	*fl;
+	size_t	fl;
 
 	j = 0;
-	if ((fl = ft_strchr(g_flag, str[*i])))
+	if ((fl = ft_strsrch(g_flag, str[*i])))
 	{
-		((char *)flags)[fl - g_flag] = 1;
+		((char *)flags)[fl] = 1;
 		(*i)++;
 		return (1);
 	}
@@ -57,6 +57,13 @@ static int		parse_mod_and_fl(const char *str, size_t *i, t_flag *flags)
 		}
 	return (0);
 }
+
+/*
+** I gotta change this. I should try to make it smaller and also try to
+** do the same but in the stupider way. It means that I shouldn't cycle
+** through the flags but just go one by one, and if there is a mistake in the
+** positioning, I should count it as an error.
+*/
 
 static void		parse_num(const char *str, size_t *i, t_flag *flags)
 {

@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lsttostr.c                                      :+:      :+:    :+:   */
+/*   printf_process_conv.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/03 17:42:25 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/03 18:04:20 by astadnik         ###   ########.fr       */
+/*   Created: 2018/02/02 18:48:58 by astadnik          #+#    #+#             */
+/*   Updated: 2018/02/02 19:26:04 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-/*
-** Combines all the content from the list to one string and returns it.
-*/
-
-char	*ft_lsttostr(t_list *head)
+char	printf_process_conv(t_list *head, t_par *params)
 {
-	t_list	*temp;
-	size_t	size;
-	char	*rez;
+	t_flag	flag;
+	size_t	c;
 
-	temp = head;
-	size = 0;
-	while (temp)
-	{
-		size += temp->content_size;
-		temp = temp->next;
-	}
-	if (!(rez = malloc(sizeof(char) * size + 1)))
-		return (0);
-	rez[size] = '\0';
+	c = 0;
+
 	while (head)
 	{
-		ft_strcat(rez, (char *)head->content);
+		if (!head->content_size)
+		{
+			flag = *(t_flag *)head->content;
+			if (ft_strsrch("idDuUxXp", flag.conv))
+
+
+		}
 		head = head->next;
 	}
-	return (rez);
 }
