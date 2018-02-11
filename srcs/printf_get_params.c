@@ -17,8 +17,8 @@
 /* 3  = int */
 /* 4  = long */
 /* 5  = long long */
-/* 6  = ssize_t */
-/* 7  = intmax_t */
+/* 6  = intmax_t */
+/* 7  = ssize_t */
 /* 8  = wint_t */
 
 /* 9  = unsigned char */
@@ -26,8 +26,8 @@
 /* 11 = unsigned int */
 /* 12 = unsigned long */
 /* 13 = unsigned long long */
-/* 14 = size_t */
-/* 15 = uintmax_t */
+/* 14 = uintmax_t */
+/* 15 = size_t */
 
 /* 16 = float */
 /* 17 = double */
@@ -109,9 +109,9 @@ static void	printf_pull_param_2(t_par *param, va_list arg)
 	else if (param->i == 13)
 		param->i = va_arg(arg, unsigned long long);
 	else if (param->i == 14)
-		param->i = va_arg(arg, size_t);
-	else if (param->i == 15)
 		param->i = va_arg(arg, uintmax_t);
+	else if (param->i == 15)
+		param->i = va_arg(arg, size_t);
 	else if (param->i == 16)
 		param->f = (float)va_arg(arg, double);
 	else if (param->i == 17)
@@ -121,7 +121,6 @@ static void	printf_pull_param_2(t_par *param, va_list arg)
 	else
 		param->p = va_arg(arg, void *);
 }
-
 
 static void	printf_pull_param(t_par *param, va_list arg)
 {
@@ -136,9 +135,9 @@ static void	printf_pull_param(t_par *param, va_list arg)
 	else if (param->i == 5)
 		param->i = (uintmax_t)va_arg(arg, long long);
 	else if (param->i == 6)
-		param->i = (uintmax_t)va_arg(arg, ssize_t);
-	else if (param->i == 7)
 		param->i = (uintmax_t)va_arg(arg, intmax_t);
+	else if (param->i == 7)
+		param->i = (uintmax_t)va_arg(arg, ssize_t);
 	else if (param->i == 8)
 		param->i = (uintmax_t)va_arg(arg, wint_t);
 	else if (param->i == 9)
@@ -149,13 +148,20 @@ static void	printf_pull_param(t_par *param, va_list arg)
 		printf_pull_param_2(param, arg);
 }
 
+/*
+** Pulls params from va_list, and puts them into array.
+*/
+
 void		printf_get_params(t_par *params, t_list *head, va_list arg,
 		int params_amount)
 {
 	int i;
 
 	i = 0;
+	/* Fills array items with 'code' which will later tell the type of the
+	variable */
 	printf_get_size(params, head);
+	/* Actually pulls params */
 	while (i < params_amount)
 		printf_pull_param(params + i++, arg);
 }

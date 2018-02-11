@@ -25,9 +25,21 @@ char	printf_process_conv(t_list *head, t_par *params)
 		{
 			flag = *(t_flag *)head->content;
 			if (ft_strsrch("idDuUxXp", flag.conv))
+				printf_int(head, params, &c); //For p, d, D, i, o, O, u, U, x, X, b
+			/* else if (ft_strsrch("eEfFgGaA", flag.conv)) */
+			/* 	printf_float(head, params->f); //For e, E, f, F, g, G, a, A */
+			/* else if (ft_strsrch("sSr", flag.conv)) */
+			/* 	printf_string(head, params->p); //For s, S, maybe r */
+			/* else if (ft_strsrch("cC", flag.conv)) */
+			/* 	printf_char(head, params->i); //For c, C */
+			/* else if (ft_strsrch("n", flag.conv)) */
+			/* 	pritnf_pointer(head, params->p); //For n */
+//				printf_time(head, params->); //For time maybe
+//		int	printf_flags_show(t_flag flags);
 
 
 		}
 		head = head->next;
 	}
+	return (1);
 }

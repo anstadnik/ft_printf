@@ -7,18 +7,21 @@
 CC	Makefile	/^CC=gcc$/;"	m	language:Make
 CC	libft/Makefile	/^CC=gcc$/;"	m	language:Make
 CFLAGS	Makefile	/^CFLAGS= -Wall -Wextra -Werror -Wconversion$/;"	m	language:Make
-CFLAGS	libft/Makefile	/^CFLAGS= -Wall -Wextra -Werror $/;"	m	language:Make
+CFLAGS	libft/Makefile	/^CFLAGS= -Wall -Wextra -Werror$/;"	m	language:Make
 DNAME	Makefile	/^DNAME=printf_debug$/;"	m	language:Make
 DirectoryOfThisScript	.ycm_extra_conf.py	/^def DirectoryOfThisScript():$/;"	f	language:Python
-FILES	Makefile	/^FILES=ft_printf.c printf_flags.c printf_flags_show.c printf_funcs.c printf_make_str.c printf_conv_int.c$/;"	m	language:Make
-FILES	libft/Makefile	/^FILES=ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_isspace.c ft_iswhitespace.c ft_itoa.c ft_lstadd.c ft_lstaddb.c ft_lstdel.c ft_lstdelnode.c ft_lstdelone.c ft_lstiter.c ft_lstmap.c ft_lstnew.c ft_lstpushb.c ft_lstpushf.c ft_memalloc.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memdel.c ft_memdup.c ft_memmove.c ft_memset.c ft_putchar.c ft_putchar_fd.c ft_putendl.c ft_putendl_fd.c ft_putnbr.c ft_putnbr_fd.c ft_putstr.c ft_putstr_fd.c ft_realloc.c ft_strcat.c ft_strchr.c ft_strclr.c ft_strcmp.c ft_strcpy.c ft_strdel.c ft_strdup.c ft_strequ.c ft_striter.c ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c ft_toupper.c $/;"	m	language:Make
-FT_PRINTF_H	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^# define FT_PRINTF_H$/;"	d
-FT_PRINTF_H	includes/ft_printf.h	/^# define FT_PRINTF_H$/;"	d	language:C++
+DirectoryOfThisScript	libft/.ycm_extra_conf.py	/^def DirectoryOfThisScript():$/;"	f	language:Python
+FILES	Makefile	/^FILES=ft_printf.c printf_conv_int.c printf_fill_list.c printf_flags_show.c printf_funcs.c printf_get_params.c printf_make_str.c printf_parse.c printf_process_conv.c$/;"	m	language:Make
+FILES	libft/Makefile	/^FILES=ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_isspace.c ft_iswhitespace.c ft_itoa.c ft_lstadd.c ft_lstaddb.c ft_lstdel.c ft_lstdelnode.c ft_lstdelone.c ft_lstiter.c ft_lstmap.c ft_lstnew.c ft_lstpushb.c ft_lstpushf.c ft_lsttostr.c ft_memalloc.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memdel.c ft_memdup.c ft_memmove.c ft_memset.c ft_putchar.c ft_putchar_fd.c ft_putendl.c ft_putendl_fd.c ft_putnbr.c ft_putnbr_fd.c ft_putstr.c ft_putstr_fd.c ft_realloc.c ft_strcat.c ft_strchr.c ft_strclr.c ft_strcmp.c ft_strcpy.c ft_strdel.c ft_strdup.c ft_strequ.c ft_striter.c ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c ft_strrchr.c ft_strsplit.c ft_strsrch.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c ft_toupper.c$/;"	m	language:Make
+FT_PRINTF_H	includes/ft_printf.h	/^# define FT_PRINTF_H$/;"	d
 FlagsForFile	.ycm_extra_conf.py	/^def FlagsForFile( filename, **kwargs ):$/;"	f	language:Python
+FlagsForFile	libft/.ycm_extra_conf.py	/^def FlagsForFile( filename, **kwargs ):$/;"	f	language:Python
 GetCompilationInfoForFile	.ycm_extra_conf.py	/^def GetCompilationInfoForFile( filename ):$/;"	f	language:Python
+GetCompilationInfoForFile	libft/.ycm_extra_conf.py	/^def GetCompilationInfoForFile( filename ):$/;"	f	language:Python
 IDIR	Makefile	/^IDIR=includes\/$/;"	m	language:Make
 IDIR	libft/Makefile	/^IDIR=includes\/$/;"	m	language:Make
 IsHeaderFile	.ycm_extra_conf.py	/^def IsHeaderFile( filename ):$/;"	f	language:Python
+IsHeaderFile	libft/.ycm_extra_conf.py	/^def IsHeaderFile( filename ):$/;"	f	language:Python
 LIB	Makefile	/^LIB=$(LIBDIR)libft.a$/;"	m	language:Make
 LIBDIR	Makefile	/^LIBDIR=libft\/$/;"	m	language:Make
 LIBFT_H	libft/includes/libft.h	/^# define LIBFT_H$/;"	d	language:C++
@@ -31,35 +34,30 @@ ODIR	libft/Makefile	/^ODIR=objs\/$/;"	m	language:Make
 SDIR	Makefile	/^SDIR=srcs\/$/;"	m	language:Make
 SDIR	libft/Makefile	/^SDIR=srcs\/$/;"	m	language:Make
 SOURCE_EXTENSIONS	.ycm_extra_conf.py	/^SOURCE_EXTENSIONS = [ '.cpp', '.cxx', '.cc', '.c', '.m', '.mm' ]$/;"	v	language:Python
-apostrophe	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	apostrophe;\/* ' *\/$/;"	m	struct:s_flag	access:public
-apostrophe	includes/ft_printf.h	/^	char	apostrophe;$/;"	m	language:C++	struct:s_flag
-c	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char				c;$/;"	m	union:u_par	access:public
-c	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char				c;\/*	1 *\/$/;"	m	union:u_par	access:public
-c	includes/ft_printf.h	/^	char				c;$/;"	m	language:C++	union:u_par
+SOURCE_EXTENSIONS	libft/.ycm_extra_conf.py	/^SOURCE_EXTENSIONS = [ '.cpp', '.cxx', '.cc', '.c', '.m', '.mm' ]$/;"	v	language:Python
+apostrophe	includes/ft_printf.h	/^	char		apostrophe;\/* ' *\/$/;"	m	struct:s_flag
+char_conv	srcs/printf_conv_char.c	/^static void	char_conv(char *str, wchar_t c, t_flag flag, intmax_t *sizes)$/;"	f	file:
 compilation_database_folder	.ycm_extra_conf.py	/^compilation_database_folder = ''$/;"	v	language:Python
+compilation_database_folder	libft/.ycm_extra_conf.py	/^compilation_database_folder = ''$/;"	v	language:Python
 content	libft/includes/libft.h	/^	void			*content;$/;"	m	language:C++	struct:s_list
 content_size	libft/includes/libft.h	/^	size_t			content_size;$/;"	m	language:C++	struct:s_list
-conv	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	conv;\/* conversion (sSpdDioOuUxXcCeEfFgGaAnbrk) *\/$/;"	m	struct:s_flag	access:public
-conv	includes/ft_printf.h	/^	char	conv;$/;"	m	language:C++	struct:s_flag
+conv	includes/ft_printf.h	/^	char		conv;\/* conversion (sSpdDioOuUxXcCeEfFgGaAnbrk) *\/$/;"	m	struct:s_flag
 count	libft/srcs/ft_itoa.c	/^static unsigned long	count(int n)$/;"	f	language:C	file:
 database	.ycm_extra_conf.py	/^  database = None$/;"	v	language:Python
 database	.ycm_extra_conf.py	/^  database = ycm_core.CompilationDatabase( compilation_database_folder )$/;"	v	language:Python
-doll	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	int		doll;\/* $ *\/$/;"	m	struct:s_flag	access:public
-err	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	err;\/* error (next char) *\/$/;"	m	struct:s_flag	access:public
-err	/Users/astadnik/projects/ft_printf/srcs/printf_make_str.c	/^static int	err(t_list **head, t_flag **params)$/;"	f	file:	signature:(t_list **head, t_flag **params)
-err	/Users/astadnik/projects/ft_printf/srcs/printf_make_str.c	/^static int	err(t_list **head, t_par **params)$/;"	f	file:	signature:(t_list **head, t_par **params)
-err	includes/ft_printf.h	/^	char	err;$/;"	m	language:C++	struct:s_flag
+database	libft/.ycm_extra_conf.py	/^  database = None$/;"	v	language:Python
+database	libft/.ycm_extra_conf.py	/^  database = ycm_core.CompilationDatabase( compilation_database_folder )$/;"	v	language:Python
+doll	includes/ft_printf.h	/^	size_t		doll;\/* $ *\/$/;"	m	struct:s_flag
+err	includes/ft_printf.h	/^	char		err;\/* error (next char) *\/$/;"	m	struct:s_flag
 err	srcs/printf_make_str.c	/^static int	err(t_list **head, t_par **params)$/;"	f	language:C	file:
-f	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	int		(*f)(t_flag flags, va_list arg, t_list **tail);$/;"	m	struct:s_funcs	access:public
-f	/Users/astadnik/projects/ft_printf/srcs/printf_make_str.c	/^static void f(t_list *elem)$/;"	f	file:	signature:(t_list *elem)
-f	includes/ft_printf.h	/^	int		(*f)(t_flag flags, va_list arg, t_list **tail);$/;"	m	language:C++	struct:s_funcs
+f	includes/ft_printf.h	/^	int		(*f)(t_flag flags, va_list arg, t_list **tail);$/;"	m	struct:s_funcs
+f	includes/ft_printf.h	/^	long double		f;$/;"	m	union:u_par
 f	libft/srcs/ft_strsplit.c	/^static void	f(char ***arr, size_t i)$/;"	f	language:C	file:
 fill	libft/srcs/ft_strsplit.c	/^static char	**fill(char const *s, char c, size_t am, char **rez)$/;"	f	language:C	file:
 flags	.ycm_extra_conf.py	/^flags = [$/;"	v	language:Python
-ft_asprintf	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^int			ft_asprintf(char **ret, const char *format, ...);$/;"	p	signature:(char **ret, const char *format, ...)
+flags	libft/.ycm_extra_conf.py	/^flags = [$/;"	v	language:Python
 ft_atoi	libft/srcs/ft_atoi.c	/^int	ft_atoi(const char *s)$/;"	f	language:C
 ft_bzero	libft/srcs/ft_bzero.c	/^void	ft_bzero(void *s, size_t n)$/;"	f	language:C
-ft_dprintf	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^int			ft_dprintf(int fd, const char *format, ...);$/;"	p	signature:(int fd, const char *format, ...)
 ft_isalnum	libft/srcs/ft_isalnum.c	/^int	ft_isalnum(int c)$/;"	f	language:C
 ft_isalpha	libft/srcs/ft_isalpha.c	/^int	ft_isalpha(int c)$/;"	f	language:C
 ft_isascii	libft/srcs/ft_isascii.c	/^int	ft_isascii(int c)$/;"	f	language:C
@@ -88,7 +86,7 @@ ft_memdel	libft/srcs/ft_memdel.c	/^void	ft_memdel(void **ap)$/;"	f	language:C
 ft_memdup	libft/srcs/ft_memdup.c	/^void	*ft_memdup(void *src, size_t size)$/;"	f	language:C
 ft_memmove	libft/srcs/ft_memmove.c	/^void	*ft_memmove(void *s1, const void *s2, size_t n)$/;"	f	language:C
 ft_memset	libft/srcs/ft_memset.c	/^void	*ft_memset(void *str, int c, size_t n)$/;"	f	language:C
-ft_printf	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^int			ft_printf(const char *format, ...);$/;"	p	signature:(const char *format, ...)
+ft_printf	srcs/.old/ft_printf.c	/^int	ft_printf(const char *format, ...)$/;"	f	language:C
 ft_printf	srcs/ft_printf.c	/^int	ft_printf(const char *format, ...)$/;"	f	language:C
 ft_printf	srcs/old/ft_printf.c	/^int	ft_printf(const char *format, ...)$/;"	f	language:C
 ft_putchar	libft/srcs/ft_putchar.c	/^void	ft_putchar(char c)$/;"	f	language:C
@@ -123,208 +121,124 @@ ft_strnew	libft/srcs/ft_strnew.c	/^char	*ft_strnew(size_t size)$/;"	f	language:C
 ft_strnstr	libft/srcs/ft_strnstr.c	/^char	*ft_strnstr(const char *s1, const char *s2, size_t len)$/;"	f	language:C
 ft_strrchr	libft/srcs/ft_strrchr.c	/^char	*ft_strrchr(const char *s, int c)$/;"	f	language:C
 ft_strsplit	libft/srcs/ft_strsplit.c	/^char		**ft_strsplit(char const *s, char c)$/;"	f	language:C
+ft_strsrch	libft/srcs/ft_strsrch.c	/^size_t	ft_strsrch(const char *str, char c)$/;"	f	language:C
 ft_strstr	libft/srcs/ft_strstr.c	/^char	*ft_strstr(const char *s1, const char *s2)$/;"	f	language:C
 ft_strsub	libft/srcs/ft_strsub.c	/^char	*ft_strsub(char const *s, unsigned int start, size_t len)$/;"	f	language:C
 ft_strtrim	libft/srcs/ft_strtrim.c	/^char	*ft_strtrim(char const *s)$/;"	f	language:C
 ft_tolower	libft/srcs/ft_tolower.c	/^int	ft_tolower(int c)$/;"	f	language:C
 ft_toupper	libft/srcs/ft_toupper.c	/^int	ft_toupper(int c)$/;"	f	language:C
+g_colors	srcs/.old/printf_make_str.c	/^static const char	g_colors[17][2][15] = {$/;"	v	language:C	file:
 g_colors	srcs/old/printf_make_str.c	/^static const char	g_colors[17][2][15] = {$/;"	v	language:C	file:
 g_colors	srcs/printf_fill_list.c	/^static const char	g_colors[17][2][15] = {$/;"	v	language:C	file:
+g_conv	srcs/.old/printf_flags.c	/^static const char	g_conv[] = "sSpdDioOuUxXcCeEfFgGaAnbrk";$/;"	v	language:C	file:
 g_conv	srcs/old/printf_flags.c	/^static const char	g_conv[] = "sSpdDioOuUxXcCeEfFgGaAnbrk";$/;"	v	language:C	file:
+g_conv	srcs/printf_parse.c	/^static const char	g_conv[] = "sSpdDioOuUxXcCeEfFgGaAnbrk";$/;"	v	language:C	file:
 g_counter	srcs/printf_fill_list.c	/^static int		g_counter;$/;"	v	language:C	file:
+g_flag	srcs/.old/printf_flags.c	/^static const char	g_flag[] = "#0-+ '";$/;"	v	language:C	file:
 g_flag	srcs/old/printf_flags.c	/^static const char	g_flag[] = "#0-+ '";$/;"	v	language:C	file:
+g_flag	srcs/printf_parse.c	/^static const char	g_flag[] = "#0-+ '";$/;"	v	language:C	file:
+g_funcs	srcs/.old/printf_make_str.c	/^static t_funcs		g_funcs[1] = { {.str = "dDioOuUxXp", .f = &printf_conv_int} };$/;"	v	language:C	file:
 g_funcs	srcs/old/printf_make_str.c	/^static t_funcs		g_funcs[1] = { {.str = "dDioOuUxXp", .f = &printf_conv_int} };$/;"	v	language:C	file:
+g_mod	srcs/.old/printf_flags.c	/^static const char	g_mod[7][3] = {"z", "j", "ll", "l", "hh", "h", "L"};$/;"	v	language:C	file:
+g_mod	srcs/.old/printf_flags_show.c	/^static const char	g_mod[7][3] = {"z", "j", "ll", "l", "hh", "h", "L"};$/;"	v	language:C	file:
 g_mod	srcs/old/printf_flags.c	/^static const char	g_mod[7][3] = {"z", "j", "ll", "l", "hh", "h", "L"};$/;"	v	language:C	file:
 g_mod	srcs/old/printf_flags_show.c	/^static const char	g_mod[7][3] = {"z", "j", "ll", "l", "hh", "h", "L"};$/;"	v	language:C	file:
+g_mod	srcs/printf_flags_show.c	/^static const char	g_mod[7][3] = {"z", "j", "ll", "l", "hh", "h", "L"};$/;"	v	file:
+g_mod	srcs/printf_parse.c	/^static const char	g_mod[7][3] = {"z", "j", "ll", "l", "hh", "h", "L"};$/;"	v	language:C	file:
 g_tail	srcs/printf_fill_list.c	/^static t_list	*g_tail;$/;"	v	language:C	file:
+get_size	srcs/.old/printf_conv_int.c	/^static void		get_size(uintmax_t n, t_flag flags)$/;"	f	file:
 get_size	srcs/old/printf_conv_int.c	/^static void		get_size(uintmax_t n, t_flag flags)$/;"	f	language:C	file:
-hash	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	hash;\/* # *\/$/;"	m	struct:s_flag	access:public
-hash	includes/ft_printf.h	/^	char	hash;$/;"	m	language:C++	struct:s_flag
+get_size	srcs/printf_conv_char.c	/^static void		get_size(intmax_t *sizes, wchar_t c, t_flag flag)$/;"	f	file:
+get_size	srcs/printf_conv_int.c	/^static void		get_size(intmax_t *sizes, uintmax_t n, t_flag flag, char neg)$/;"	f	file:
+hash	includes/ft_printf.h	/^	char		hash;\/* # *\/$/;"	m	struct:s_flag
+i	includes/ft_printf.h	/^	uintmax_t	i;$/;"	m	union:u_par
+i	srcs/.old/printf_conv_int.c	/^static size_t		i;$/;"	v	file:
 i	srcs/old/printf_conv_int.c	/^static size_t		i;$/;"	v	language:C	file:
-imt	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	intmax_t			imt;$/;"	m	union:u_par	access:public
-imt	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	intmax_t			imt;\/*	13 *\/$/;"	m	union:u_par	access:public
-imt	includes/ft_printf.h	/^	intmax_t			imt;$/;"	m	language:C++	union:u_par
-l	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long				l;$/;"	m	union:u_par	access:public
-l	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long				l;\/*	7 *\/$/;"	m	union:u_par	access:public
-l	includes/ft_printf.h	/^	long				l;$/;"	m	language:C++	union:u_par
-ld	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long double			ld;$/;"	m	union:u_par	access:public
-ld	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long double			ld;\/*	19 *\/$/;"	m	union:u_par	access:public
-ld	includes/ft_printf.h	/^	long double			ld;$/;"	m	language:C++	union:u_par
+itoa_base	srcs/printf_conv_int.c	/^static void			itoa_base(uintmax_t n, char *str, t_flag flag, intmax_t *sizes)$/;"	f	file:
+len	srcs/.old/printf_conv_int.c	/^static size_t		len;\/\/int of the type of 10^n, which the number can be divided$/;"	v	file:
 len	srcs/old/printf_conv_int.c	/^static size_t		len;\/\/int of the type of 10^n, which the number can be divided$/;"	v	language:C	file:
-ll	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long long			ll;$/;"	m	union:u_par	access:public
-ll	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long long			ll;\/*	10 *\/$/;"	m	union:u_par	access:public
-ll	includes/ft_printf.h	/^	long long			ll;$/;"	m	language:C++	union:u_par
-main	main.c	/^int main(int ac, char **av)$/;"	f	language:C
-main	test/test.c	/^int main()$/;"	f	language:C
-minus	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	minus;\/* - *\/$/;"	m	struct:s_flag	access:public
-minus	includes/ft_printf.h	/^	char	minus;$/;"	m	language:C++	struct:s_flag
-modif	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	modif[7];\/* "z", "j", "ll", "l", "hh", "h", "L" *\/$/;"	m	struct:s_flag	access:public
-modif	includes/ft_printf.h	/^	char	modif[7];$/;"	m	language:C++	struct:s_flag
+main	main.c	/^int main(int ac, char **av)$/;"	f
+main	test/test.c	/^int main()$/;"	f
+minus	includes/ft_printf.h	/^	char		minus;\/* - *\/$/;"	m	struct:s_flag
+modif	includes/ft_printf.h	/^	char		modif[7];\/* "z", "j", "ll", "l", "hh", "h", "L" *\/$/;"	m	struct:s_flag
 next	libft/includes/libft.h	/^	struct s_list	*next;$/;"	m	language:C++	struct:s_list	typeref:struct:s_list::s_list
+num	srcs/.old/printf_conv_int.c	/^static uintmax_t	num;$/;"	v	file:
 num	srcs/old/printf_conv_int.c	/^static uintmax_t	num;$/;"	v	language:C	file:
 os	.ycm_extra_conf.py	/^import os$/;"	i	language:Python
-past	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	past;\/* precision asterisk *\/$/;"	m	struct:s_flag	access:public
-pc	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char				*pc;$/;"	m	union:u_par	access:public
-pc	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char				*pc;\/*	3 *\/$/;"	m	union:u_par	access:public
-pc	includes/ft_printf.h	/^	char				*pc;$/;"	m	language:C++	union:u_par
-pim	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	intmax_t			*pim;$/;"	m	union:u_par	access:public
-pim	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	intmax_t			*pim;\/*	15 *\/$/;"	m	union:u_par	access:public
-pim	includes/ft_printf.h	/^	intmax_t			*pim;$/;"	m	language:C++	union:u_par
-pl	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long				*pl;$/;"	m	union:u_par	access:public
-pl	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long				*pl;\/*	9 *\/$/;"	m	union:u_par	access:public
-pl	includes/ft_printf.h	/^	long				*pl;$/;"	m	language:C++	union:u_par
-pll	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long long			*pll;$/;"	m	union:u_par	access:public
-pll	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long long			*pll;\/*	12 *\/$/;"	m	union:u_par	access:public
-pll	includes/ft_printf.h	/^	long long			*pll;$/;"	m	language:C++	union:u_par
-plus	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	plus;\/* + *\/$/;"	m	struct:s_flag	access:public
-plus	includes/ft_printf.h	/^	char	plus;$/;"	m	language:C++	struct:s_flag
-prec	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	int		prec;\/* precision (higer priority than past), negative if dollar*\/$/;"	m	struct:s_flag	access:public
-prec	includes/ft_printf.h	/^	int		prec;$/;"	m	language:C++	struct:s_flag
+os	libft/.ycm_extra_conf.py	/^import os$/;"	i	language:Python
+p	includes/ft_printf.h	/^	void			*p;$/;"	m	union:u_par
+parse_conv	srcs/printf_parse.c	/^static int		parse_conv(const char *str, size_t *i, t_flag *flags)$/;"	f	language:C	file:
+parse_mod_and_fl	srcs/printf_parse.c	/^static int		parse_mod_and_fl(const char *str, size_t *i, t_flag *flags)$/;"	f	language:C	file:
+parse_num	srcs/printf_parse.c	/^static void		parse_num(const char *str, size_t *i, t_flag *flags)$/;"	f	language:C	file:
+past	includes/ft_printf.h	/^	char		past;\/* precision asterisk *\/$/;"	m	struct:s_flag
+plus	includes/ft_printf.h	/^	char		plus;\/* + *\/$/;"	m	struct:s_flag
+prec	includes/ft_printf.h	/^	intmax_t	prec;\/* precision (higer priority than past), negative if dollar*\/$/;"	m	struct:s_flag
+printf_add_str	srcs/.old/printf_make_str.c	/^static int	printf_add_str(const char *start, size_t length, t_list **tail)$/;"	f	language:C	file:
 printf_add_str	srcs/old/printf_make_str.c	/^static int	printf_add_str(const char *start, size_t length, t_list **tail)$/;"	f	language:C	file:
 printf_add_str	srcs/printf_fill_list.c	/^static void	printf_add_str(const char *start, size_t length, t_list **head)$/;"	f	language:C	file:
+printf_atoi_base	srcs/.old/printf_conv_int.c	/^static void		printf_atoi_base(char *str, t_flag flags)$/;"	f	file:
 printf_atoi_base	srcs/old/printf_conv_int.c	/^static void		printf_atoi_base(char *str, t_flag flags)$/;"	f	language:C	file:
+printf_char	srcs/printf_conv_char.c	/^char		printf_char(t_list *lst, t_par *params, size_t *c) \/\/For c, C$/;"	f
+printf_colors	srcs/.old/printf_make_str.c	/^static int	printf_colors(const char *start, t_list **tail)$/;"	f	language:C	file:
 printf_colors	srcs/old/printf_make_str.c	/^static int	printf_colors(const char *start, t_list **tail)$/;"	f	language:C	file:
 printf_colors	srcs/printf_fill_list.c	/^static void	printf_colors(const char *start, t_list **head, size_t *end)$/;"	f	language:C	file:
+printf_conv_int	srcs/.old/printf_conv_int.c	/^int 			printf_conv_int(t_flag flags, va_list arg, t_list **tail)$/;"	f
 printf_conv_int	srcs/old/printf_conv_int.c	/^int 			printf_conv_int(t_flag flags, va_list arg, t_list **tail)$/;"	f	language:C
-printf_fill_list	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^int			printf_fill_list(t_list **head, const char *format);$/;"	p	signature:(t_list **head, const char *format)
-printf_fill_list	srcs/printf_fill_list.c	/^int	printf_fill_list(t_list **head, const char *format)$/;"	f	language:C
-printf_flags_show	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^int	printf_flags_show(t_flag flags);$/;"	p	signature:(t_flag flags)
+printf_fill_list	srcs/printf_fill_list.c	/^int		printf_fill_list(t_list **head, const char *format)$/;"	f	language:C
+printf_flags_show	srcs/.old/printf_flags_show.c	/^int	printf_flags_show(t_flag flags, t_list **tail)$/;"	f	language:C
 printf_flags_show	srcs/old/printf_flags_show.c	/^int	printf_flags_show(t_flag flags, t_list **tail)$/;"	f	language:C
-printf_get_params	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^void		printf_get_params(t_flag *params, t_list *head, va_list arg);$/;"	p	signature:(t_flag *params, t_list *head, va_list arg)
-printf_get_params	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^void		printf_get_params(t_par *params, t_list *head, va_list arg);$/;"	p	signature:(t_par *params, t_list *head, va_list arg)
-printf_get_params	/Users/astadnik/projects/ft_printf/srcs/printf_get_params.c	/^void		printf_get_params(t_par *params, t_list *head, va_list arg)$/;"	f	signature:(t_par *params, t_list *head, va_list arg)
-printf_get_params	/Users/astadnik/projects/ft_printf/srcs/printf_get_params.c	/^void	printf_get_params(t_par params, t_list *head, va_list arg)$/;"	f	signature:(t_par params, t_list *head, va_list arg)
-printf_get_size	/Users/astadnik/projects/ft_printf/srcs/printf_get_params.c	/^static void	printf_get_size(t_par *params, t_list *head)$/;"	f	file:	signature:(t_par *params, t_list *head)
+printf_flags_show	srcs/printf_flags_show.c	/^int	printf_flags_show(t_flag flags)$/;"	f
+printf_get_params	srcs/printf_get_params.c	/^void		printf_get_params(t_par *params, t_list *head, va_list arg,$/;"	f
+printf_get_size	srcs/printf_get_params.c	/^static void	printf_get_size(t_par *params, t_list *head)$/;"	f	file:
+printf_get_uint	srcs/.old/printf_conv_int.c	/^static uintmax_t	printf_get_uint(t_flag flags, va_list arg)$/;"	f	file:
 printf_get_uint	srcs/old/printf_conv_int.c	/^static uintmax_t	printf_get_uint(t_flag flags, va_list arg)$/;"	f	language:C	file:
+printf_handler	srcs/.old/printf_make_str.c	/^static int	printf_handler(const char *start, va_list arg, t_list **tail)$/;"	f	language:C	file:
 printf_handler	srcs/old/printf_make_str.c	/^static int	printf_handler(const char *start, va_list arg, t_list **tail)$/;"	f	language:C	file:
 printf_handler	srcs/printf_fill_list.c	/^static void	printf_handler(const char *str, size_t *end, t_list **head)$/;"	f	language:C	file:
-printf_lstnew	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^t_list		*printf_lstnew(void *content, size_t content_size);$/;"	p	signature:(void *content, size_t content_size)
+printf_int	srcs/printf_conv_int.c	/^char		printf_int(t_list *lst, t_par *params, size_t *c) \/\/For p, d, D, i, o, O, u, U, x, X, b$/;"	f
+printf_lstnew	srcs/.old/printf_funcs.c	/^t_list	*printf_lstnew(void *content, size_t content_size)$/;"	f	language:C
 printf_lstnew	srcs/old/printf_funcs.c	/^t_list	*printf_lstnew(void *content, size_t content_size)$/;"	f	language:C
 printf_lstnew	srcs/printf_funcs.c	/^t_list	*printf_lstnew(void *content, size_t content_size)$/;"	f	language:C
-printf_lsttostr	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^ssize_t		printf_lsttostr(t_list *head, char **ret);$/;"	p	signature:(t_list *head, char **ret)
+printf_lsttostr	srcs/.old/printf_funcs.c	/^ssize_t	printf_lsttostr(t_list *head, char **ret)$/;"	f	language:C
 printf_lsttostr	srcs/old/printf_funcs.c	/^ssize_t	printf_lsttostr(t_list *head, char **ret)$/;"	f	language:C
 printf_lsttostr	srcs/printf_funcs.c	/^ssize_t	printf_lsttostr(t_list *head, char **ret)$/;"	f	language:C
-printf_make_str	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^int			printf_make_str(char **ret, const char *format, va_list arg);$/;"	p	signature:(char **ret, const char *format, va_list arg)
-printf_make_str	/Users/astadnik/projects/ft_printf/srcs/printf_make_str.c	/^int			printf_make_str(char **ret, const char *format, va_list arg)$/;"	f	signature:(char **ret, const char *format, va_list arg)
+printf_make_str	srcs/.old/printf_make_str.c	/^int			printf_make_str(char **ret, const char *format, va_list arg)$/;"	f	language:C
 printf_make_str	srcs/old/printf_make_str.c	/^int			printf_make_str(char **ret, const char *format, va_list arg)$/;"	f	language:C
-printf_make_str	srcs/printf_make_str.c	/^int			printf_make_str(char **ret, const char *format, va_list arg)$/;"	f	language:C
-printf_parse	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^t_flag		*printf_parse(const char *str, size_t *i);$/;"	p	signature:(const char *str, size_t *i)
+printf_make_str	srcs/printf_make_str.c	/^int	printf_make_str(char **ret, const char *format, va_list arg)$/;"	f	language:C
+printf_parse	srcs/printf_parse.c	/^t_flag	*printf_parse(const char *str, size_t *i)$/;"	f	language:C
+printf_parse_conv	srcs/.old/printf_flags.c	/^static int			printf_parse_conv(const char *start, int *i, t_flag *flags)$/;"	f	language:C	file:
 printf_parse_conv	srcs/old/printf_flags.c	/^static int			printf_parse_conv(const char *start, int *i, t_flag *flags)$/;"	f	language:C	file:
+printf_parse_flags	srcs/.old/printf_flags.c	/^t_flag				printf_parse_flags(const char *start, va_list arg, int *i)$/;"	f	language:C
 printf_parse_flags	srcs/old/printf_flags.c	/^t_flag				printf_parse_flags(const char *start, va_list arg, int *i)$/;"	f	language:C
+printf_parse_mod	srcs/.old/printf_flags.c	/^static int			printf_parse_mod(const char *start, int *i, t_flag *flags)$/;"	f	language:C	file:
 printf_parse_mod	srcs/old/printf_flags.c	/^static int			printf_parse_mod(const char *start, int *i, t_flag *flags)$/;"	f	language:C	file:
+printf_parse_num	srcs/.old/printf_flags.c	/^static void			printf_parse_num(const char *start, int *i, t_flag *flags)$/;"	f	language:C	file:
 printf_parse_num	srcs/old/printf_flags.c	/^static void			printf_parse_num(const char *start, int *i, t_flag *flags)$/;"	f	language:C	file:
+printf_parse_prec	srcs/.old/printf_flags.c	/^static void			printf_parse_prec(const char *start, int *i, t_flag *flags,$/;"	f	language:C	file:
 printf_parse_prec	srcs/old/printf_flags.c	/^static void			printf_parse_prec(const char *start, int *i, t_flag *flags,$/;"	f	language:C	file:
-ps	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	short				*ps;$/;"	m	union:u_par	access:public
-ps	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	short				*ps;\/*	6 *\/$/;"	m	union:u_par	access:public
-ps	includes/ft_printf.h	/^	short				*ps;$/;"	m	language:C++	union:u_par
-pst	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	ssize_t				*pst;$/;"	m	union:u_par	access:public
-pst	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	ssize_t				*pst;\/*	18 *\/$/;"	m	union:u_par	access:public
-pst	includes/ft_printf.h	/^	ssize_t				*pst;$/;"	m	language:C++	union:u_par
-s	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	short				s;$/;"	m	union:u_par	access:public
-s	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	short				s;\/*	4 *\/$/;"	m	union:u_par	access:public
-s	includes/ft_printf.h	/^	short				s;$/;"	m	language:C++	union:u_par
-s_flag	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^struct 					s_flag$/;"	s
-s_flag	includes/ft_printf.h	/^struct 					s_flag$/;"	s	language:C++
-s_flag::apostrophe	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	apostrophe;\/* ' *\/$/;"	m	struct:s_flag	access:public
-s_flag::conv	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	conv;\/* conversion (sSpdDioOuUxXcCeEfFgGaAnbrk) *\/$/;"	m	struct:s_flag	access:public
-s_flag::doll	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	int		doll;\/* $ *\/$/;"	m	struct:s_flag	access:public
-s_flag::err	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	err;\/* error (next char) *\/$/;"	m	struct:s_flag	access:public
-s_flag::hash	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	hash;\/* # *\/$/;"	m	struct:s_flag	access:public
-s_flag::minus	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	minus;\/* - *\/$/;"	m	struct:s_flag	access:public
-s_flag::modif	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	modif[7];\/* "z", "j", "ll", "l", "hh", "h", "L" *\/$/;"	m	struct:s_flag	access:public
-s_flag::past	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	past;\/* precision asterisk *\/$/;"	m	struct:s_flag	access:public
-s_flag::plus	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	plus;\/* + *\/$/;"	m	struct:s_flag	access:public
-s_flag::prec	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	int		prec;\/* precision (higer priority than past), negative if dollar*\/$/;"	m	struct:s_flag	access:public
-s_flag::space	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	space;\/* space *\/$/;"	m	struct:s_flag	access:public
-s_flag::system	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	system;\/* base system *\/$/;"	m	struct:s_flag	access:public
-s_flag::wast	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	wast;\/* width asterisk *\/$/;"	m	struct:s_flag	access:public
-s_flag::width	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	int		width;\/* width (higer priority than wast), negative if dollar*\/$/;"	m	struct:s_flag	access:public
-s_flag::zero	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	zero;\/* 0 *\/$/;"	m	struct:s_flag	access:public
-s_funcs	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^struct					s_funcs$/;"	s
-s_funcs	includes/ft_printf.h	/^struct					s_funcs$/;"	s	language:C++
-s_funcs::f	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	int		(*f)(t_flag flags, va_list arg, t_list **tail);$/;"	m	struct:s_funcs	access:public
-s_funcs::str	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char *	str;$/;"	m	struct:s_funcs	access:public
+printf_process_conv	srcs/printf_process_conv.c	/^char	printf_process_conv(t_list *head, t_par *params)$/;"	f
+printf_pull_param	srcs/printf_get_params.c	/^static void	printf_pull_param(t_par *param, va_list arg)$/;"	f	file:
+printf_pull_param_2	srcs/printf_get_params.c	/^static void	printf_pull_param_2(t_par *param, va_list arg)$/;"	f	file:
+pull_things	srcs/printf_conv_char.c	/^static wchar_t	pull_things(t_flag flag, t_par *params, size_t *c)$/;"	f	file:
+pull_things	srcs/printf_conv_int.c	/^static uintmax_t	pull_things(t_flag flag, t_par *params, size_t *c)$/;"	f	file:
+put_stuff	srcs/printf_conv_int.c	/^static char		*put_stuff(char *str, intmax_t *sizes, t_flag flag, char neg)$/;"	f	file:
+s_flag	includes/ft_printf.h	/^struct 					s_flag$/;"	s
+s_funcs	includes/ft_printf.h	/^struct					s_funcs$/;"	s
 s_list	libft/includes/libft.h	/^typedef	struct		s_list$/;"	s	language:C++
+size	srcs/.old/printf_conv_int.c	/^static size_t		size;\/\/amount of the real characters$/;"	v	file:
 size	srcs/old/printf_conv_int.c	/^static size_t		size;\/\/amount of the real characters$/;"	v	language:C	file:
-space	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	space;\/* space *\/$/;"	m	struct:s_flag	access:public
-space	includes/ft_printf.h	/^	char	space;$/;"	m	language:C++	struct:s_flag
-sst	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	ssize_t				sst;$/;"	m	union:u_par	access:public
-sst	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	ssize_t				sst;\/*	17 *\/$/;"	m	union:u_par	access:public
-sst	includes/ft_printf.h	/^	ssize_t				sst;$/;"	m	language:C++	union:u_par
-st	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	size_t				st;$/;"	m	union:u_par	access:public
-st	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	size_t				st;\/*	16 *\/$/;"	m	union:u_par	access:public
-st	includes/ft_printf.h	/^	size_t				st;$/;"	m	language:C++	union:u_par
-str	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char *	str;$/;"	m	struct:s_funcs	access:public
-str	includes/ft_printf.h	/^	char *	str;$/;"	m	language:C++	struct:s_funcs
-system	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	system;\/* base system *\/$/;"	m	struct:s_flag	access:public
-system	includes/ft_printf.h	/^	char	system;$/;"	m	language:C++	struct:s_flag
-t_flag	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^typedef struct s_flag	t_flag;$/;"	t	typeref:struct:s_flag
-t_flag	includes/ft_printf.h	/^typedef struct s_flag	t_flag;$/;"	t	language:C++	typeref:struct:s_flag
-t_funcs	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^typedef struct s_funcs	t_funcs;$/;"	t	typeref:struct:s_funcs
-t_funcs	includes/ft_printf.h	/^typedef struct s_funcs	t_funcs;$/;"	t	language:C++	typeref:struct:s_funcs
+space	includes/ft_printf.h	/^	char		space;\/* space *\/$/;"	m	struct:s_flag
+str	includes/ft_printf.h	/^	char *	str;$/;"	m	struct:s_funcs
+system	includes/ft_printf.h	/^	char		system;\/* base system *\/$/;"	m	struct:s_flag
+t_flag	includes/ft_printf.h	/^typedef struct s_flag	t_flag;$/;"	t	typeref:struct:s_flag
+t_funcs	includes/ft_printf.h	/^typedef struct s_funcs	t_funcs;$/;"	t	typeref:struct:s_funcs
 t_list	libft/includes/libft.h	/^}					t_list;$/;"	t	language:C++	typeref:struct:s_list
-t_par	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^typedef union u_par		t_par;$/;"	t	typeref:union:u_par
-t_par	includes/ft_printf.h	/^typedef union u_par		t_par;$/;"	t	language:C++	typeref:union:u_par
-test	main.c	/^void	test(const char *str)$/;"	f	language:C
-u_par	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^union					u_par$/;"	u
-u_par	includes/ft_printf.h	/^union					u_par$/;"	u	language:C++
-u_par::c	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char				c;$/;"	m	union:u_par	access:public
-u_par::c	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char				c;\/*	1 *\/$/;"	m	union:u_par	access:public
-u_par::imt	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	intmax_t			imt;$/;"	m	union:u_par	access:public
-u_par::imt	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	intmax_t			imt;\/*	13 *\/$/;"	m	union:u_par	access:public
-u_par::l	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long				l;$/;"	m	union:u_par	access:public
-u_par::l	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long				l;\/*	7 *\/$/;"	m	union:u_par	access:public
-u_par::ld	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long double			ld;$/;"	m	union:u_par	access:public
-u_par::ld	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long double			ld;\/*	19 *\/$/;"	m	union:u_par	access:public
-u_par::ll	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long long			ll;$/;"	m	union:u_par	access:public
-u_par::ll	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long long			ll;\/*	10 *\/$/;"	m	union:u_par	access:public
-u_par::pc	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char				*pc;$/;"	m	union:u_par	access:public
-u_par::pc	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char				*pc;\/*	3 *\/$/;"	m	union:u_par	access:public
-u_par::pim	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	intmax_t			*pim;$/;"	m	union:u_par	access:public
-u_par::pim	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	intmax_t			*pim;\/*	15 *\/$/;"	m	union:u_par	access:public
-u_par::pl	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long				*pl;$/;"	m	union:u_par	access:public
-u_par::pl	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long				*pl;\/*	9 *\/$/;"	m	union:u_par	access:public
-u_par::pll	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long long			*pll;$/;"	m	union:u_par	access:public
-u_par::pll	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	long long			*pll;\/*	12 *\/$/;"	m	union:u_par	access:public
-u_par::ps	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	short				*ps;$/;"	m	union:u_par	access:public
-u_par::ps	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	short				*ps;\/*	6 *\/$/;"	m	union:u_par	access:public
-u_par::pst	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	ssize_t				*pst;$/;"	m	union:u_par	access:public
-u_par::pst	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	ssize_t				*pst;\/*	18 *\/$/;"	m	union:u_par	access:public
-u_par::s	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	short				s;$/;"	m	union:u_par	access:public
-u_par::s	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	short				s;\/*	4 *\/$/;"	m	union:u_par	access:public
-u_par::sst	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	ssize_t				sst;$/;"	m	union:u_par	access:public
-u_par::sst	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	ssize_t				sst;\/*	17 *\/$/;"	m	union:u_par	access:public
-u_par::st	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	size_t				st;$/;"	m	union:u_par	access:public
-u_par::st	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	size_t				st;\/*	16 *\/$/;"	m	union:u_par	access:public
-u_par::uc	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned char		uc;$/;"	m	union:u_par	access:public
-u_par::uc	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned char		uc;\/*	2 *\/$/;"	m	union:u_par	access:public
-u_par::uimt	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	uintmax_t			uimt;$/;"	m	union:u_par	access:public
-u_par::uimt	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	uintmax_t			uimt;\/*	14 *\/$/;"	m	union:u_par	access:public
-u_par::ul	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned long		ul;$/;"	m	union:u_par	access:public
-u_par::ul	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned long		ul;\/*	8 *\/$/;"	m	union:u_par	access:public
-u_par::ull	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned long long	ull;$/;"	m	union:u_par	access:public
-u_par::ull	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned long long	ull;\/*	11 *\/$/;"	m	union:u_par	access:public
-u_par::us	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned short		us;$/;"	m	union:u_par	access:public
-u_par::us	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned short		us;\/*	5 *\/$/;"	m	union:u_par	access:public
-uc	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned char		uc;$/;"	m	union:u_par	access:public
-uc	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned char		uc;\/*	2 *\/$/;"	m	union:u_par	access:public
-uc	includes/ft_printf.h	/^	unsigned char		uc;$/;"	m	language:C++	union:u_par
-uimt	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	uintmax_t			uimt;$/;"	m	union:u_par	access:public
-uimt	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	uintmax_t			uimt;\/*	14 *\/$/;"	m	union:u_par	access:public
-uimt	includes/ft_printf.h	/^	uintmax_t			uimt;$/;"	m	language:C++	union:u_par
-ul	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned long		ul;$/;"	m	union:u_par	access:public
-ul	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned long		ul;\/*	8 *\/$/;"	m	union:u_par	access:public
-ul	includes/ft_printf.h	/^	unsigned long		ul;$/;"	m	language:C++	union:u_par
-ull	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned long long	ull;$/;"	m	union:u_par	access:public
-ull	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned long long	ull;\/*	11 *\/$/;"	m	union:u_par	access:public
-ull	includes/ft_printf.h	/^	unsigned long long	ull;$/;"	m	language:C++	union:u_par
-us	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned short		us;$/;"	m	union:u_par	access:public
-us	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	unsigned short		us;\/*	5 *\/$/;"	m	union:u_par	access:public
-us	includes/ft_printf.h	/^	unsigned short		us;$/;"	m	language:C++	union:u_par
-wast	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	wast;\/* width asterisk *\/$/;"	m	struct:s_flag	access:public
-width	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	int		width;\/* width (higer priority than wast), negative if dollar*\/$/;"	m	struct:s_flag	access:public
-width	includes/ft_printf.h	/^	int		width;$/;"	m	language:C++	struct:s_flag
+t_par	includes/ft_printf.h	/^typedef union u_par		t_par;$/;"	t	typeref:union:u_par
+u_par	includes/ft_printf.h	/^union					u_par$/;"	u
+wast	includes/ft_printf.h	/^	char		wast;\/* width asterisk *\/$/;"	m	struct:s_flag
+width	includes/ft_printf.h	/^	intmax_t	width;\/* width (higer priority than wast), negative if dollar*\/$/;"	m	struct:s_flag
+width	srcs/.old/printf_conv_int.c	/^static size_t		width;\/\/amount of all characters$/;"	v	file:
 width	srcs/old/printf_conv_int.c	/^static size_t		width;\/\/amount of all characters$/;"	v	language:C	file:
 ycm_core	.ycm_extra_conf.py	/^import ycm_core$/;"	i	language:Python
-zero	/Users/astadnik/projects/ft_printf/includes/ft_printf.h	/^	char	zero;\/* 0 *\/$/;"	m	struct:s_flag	access:public
-zero	includes/ft_printf.h	/^	char	zero;$/;"	m	language:C++	struct:s_flag
+ycm_core	libft/.ycm_extra_conf.py	/^import ycm_core$/;"	i	language:Python
+zero	includes/ft_printf.h	/^	char		zero;\/* 0 *\/$/;"	m	struct:s_flag

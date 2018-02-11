@@ -91,6 +91,7 @@ static void	printf_handler(const char *str, size_t *end, t_list **head)
 	{
 		(*end)++;
 		if (!(flags = printf_parse(str, end)))
+			/* Handle error */
 			return ;
 		if (!(node = printf_lstnew(flags, 0)))
 		{

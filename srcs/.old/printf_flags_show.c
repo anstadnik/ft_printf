@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/07 11:32:50 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/30 17:51:17 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/01/12 16:24:19 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 static const char	g_mod[7][3] = {"z", "j", "ll", "l", "hh", "h", "L"};
 
-int	printf_flags_show(t_flag flags)
+int	printf_flags_show(t_flag flags, t_list **tail)
 {
 	char	*str;
 	char	*tmp;
+	t_list	*list;
 
 	str = malloc(120);
 	ft_strcpy(str, "\x1b[31m");
@@ -45,11 +46,11 @@ int	printf_flags_show(t_flag flags)
 			ft_strcat(str, ", ");
 		}
 	ft_strcat(str, ", width: ");
-	tmp = ft_itoa((int)flags.width);
+	tmp = ft_itoa(flags.width);
 	ft_strcat(str, tmp);
 	free(tmp);
 	ft_strcat(str, ", prec: ");
-	tmp = ft_itoa((int)flags.prec);
+	tmp = ft_itoa(flags.prec);
 	ft_strcat(str, tmp);
 	free(tmp);
 	ft_strcat(str, ", err : ");
@@ -62,9 +63,7 @@ int	printf_flags_show(t_flag flags)
 	str[ft_strlen(str) + 1] = '\0';
 	str[ft_strlen(str)] = flags.conv;
 	ft_strcat(str, "}\x1b[39m");
-	ft_putstr(str);
-	free(str);
-	/* list = printf_lstnew(str, 0); */
-	/* ft_lstaddb(tail, list); */
+	list = printf_lstnew(str, 0);
+	ft_lstaddb(tail, list);
 	return ((int)ft_strlen(str));
 }

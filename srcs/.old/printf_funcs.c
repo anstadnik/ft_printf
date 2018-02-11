@@ -20,7 +20,6 @@ ssize_t	printf_lsttostr(t_list *head, char **ret)
 {
 	t_list	*temp;
 	size_t	size;
-	char	*ptr;
 
 	temp = head;
 	size = 0;
@@ -29,14 +28,12 @@ ssize_t	printf_lsttostr(t_list *head, char **ret)
 		size += temp->content_size;
 		temp = temp->next;
 	}
-	if (!(*ret = malloc(sizeof(char) * (size + 1))))
+	if (!(*ret = malloc(sizeof(char) * size + 1)))
 		return (0);
-	(*ret)[size] = '\0';
-	ptr = *ret;
+	**ret = '\0';
 	while (head)
 	{
-		ft_strcpy(ptr, (char *)head->content);
-		ptr += ft_strlen((char *)head->content);
+		ft_strcat(*ret, (char *)head->content);
 		head = head->next;
 	}
 	return ((ssize_t)size);

@@ -9,7 +9,6 @@ Flags: # 0 - + space bonuses: * $ L '
 	* : instead of getting precision and/or with from the input string it gets it from the next
 		int value, negative width means - flag with following widht, negative precision is treated as though it was missing.
 	$ : digit followed by a $ specifies the next arg to access(it's number). Arguments r starting at 1
-	L : ?
 	' : theoretically adds commas every 3 symbols for decimal conversions and for integral portion for floating conversions.
 		like 123,456,789
 Width
@@ -30,6 +29,7 @@ Modifiers: hh h l ll j z
          t                 ptrdiff_t      (see note)            ptrdiff_t *
          z                 (see note)     size_t                (see note)
          q (deprecated)    quad_t         u_quad_t              quad_t *
+		 L : double long long
 Format: sSpdDioOuUxXcC bonuses: eE fF gG aA n b r k
     S       Treated as s with the l (ell) modifier.
 

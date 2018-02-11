@@ -77,7 +77,7 @@ static void		parse_num(const char *str, size_t *i, t_flag *flags)
 		if (str[*i] == '!' && (*i)++)
 			flags->system = tmp > 16 ? 10 : (char)tmp;
 		else if (str[*i] == '$' && (*i)++)
-			flags->doll = tmp;
+			flags->doll = (size_t)tmp;
 		else
 			flags->width = tmp;
 	}
