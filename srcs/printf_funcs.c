@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 14:28:43 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/12 17:38:19 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/16 14:06:02 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ ssize_t	printf_lsttostr(t_list *head, char **ret)
 		temp = temp->next;
 	}
 	if (!(*ret = malloc(sizeof(char) * (size + 1))))
-		return (0);
+		return (-1);
 	(*ret)[size] = '\0';
 	ptr = *ret;
 	while (head)
@@ -57,10 +57,9 @@ t_list	*printf_lstnew(void *content, size_t content_size)
 {
 	t_list	*rez;
 
-	rez = malloc(sizeof(t_list));
-	if (!rez)
+	if (!(rez = malloc(sizeof(t_list))))
 		return (NULL);
-	rez->content = (void *)content;
+	rez->content = content;
 	rez->next = NULL;
 	rez->content_size = content_size;
 	return (rez);

@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 17:57:07 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/02 18:30:12 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/16 14:05:07 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int		g_counter;
 static t_list	*g_tail;
+size_t			g_end;
 
 static const char	g_colors[17][2][15] = {
 	{"{black}", "\x1b[30m"}, {"{red}", "\x1b[31m"},
@@ -43,7 +44,8 @@ static void	printf_add_str(const char *start, size_t length, t_list **head)
 	if (!(str = ft_strsub(start, 0, length)) ||
 			!(node = printf_lstnew(str, length)))
 	{
-		free(str);
+		if (str)
+			free(str);
 		g_counter = -1;
 		return ;
 	}
@@ -56,52 +58,48 @@ static void	printf_add_str(const char *start, size_t length, t_list **head)
 ** name.
 */
 
-static void	printf_colors(const char *start, t_list **head, size_t *end)
+static void	printf_colors(const char *start, t_list **head)
 {
 	int		i;
 
 	i = 0;
 	while (i < 17)
-		if (!ft_strncmp(start + *end, g_colors[i][0], ft_strlen(g_colors[i][0])))
+		if (!ft_strncmp(start + g_end, g_colors[i][0], ft_strlen(g_colors[i][0])))
 		{
 			printf_add_str(g_colors[i][1], ft_strlen(g_colors[i][1]), head);
-			*end += ft_strlen(g_colors[i][0]);
+			g_end += ft_strlen(g_colors[i][0]);
 			return ;
 		}
 		else
 			i++;
 	printf_add_str("{", 1, head);
-	(*end)++;
+	(g_end)++;
 }
 
 /*
 ** Handles the conversions
 */
 
-static void	printf_handler(const char *str, size_t *end, t_list **head)
+static void	printf_handler(const char *str, t_list **head)
 {
 	t_flag	*flags;
 	t_list	*node;
 
-	if (str[*end] == '{')
-		printf_colors(str, head, end);
-	else if (str[*end + 1] == '%' && (*end += 2))
-		printf_add_str("%", 1, head);
+	if (str[g_end] == '{')
+		printf_colors(str, head);
 	else
 	{
-		(*end)++;
-		if (!(flags = printf_parse(str, end)))
-			/* Handle error */
-			return ;
-		if (!(node = printf_lstnew(flags, 0)))
+		(g_end)++;
+		if (!(flags = printf_parse(str, &g_end, &g_counter)) ||
+				!(node = printf_lstnew(flags, 0)))// Try arraylist
 		{
-			free(flags);
+			if (flags)
+				free(flags);
 			g_counter = -1;
 			return ;
 		}
 		ft_lstaddb(*head ? &g_tail : head, node);
 		g_tail = node;
-		g_counter++;
 	}
 }
 
@@ -113,21 +111,19 @@ static void	printf_handler(const char *str, size_t *end, t_list **head)
 int		printf_fill_list(t_list **head, const char *format)
 {
 	size_t	beg;
-	size_t	end;
 
 	beg = 0;
-	end = 0;
+	g_end = 0;
 	g_counter = 0;
 	g_tail = NULL;
-	while (g_counter != -1 && format[end])
+	while (g_counter != -1 && format[g_end])
 	{
-		while (format[end] != '%' && format[end] != '{' && format[end])
-			end++;
-		printf_add_str(format + beg, end - beg, head);
-		if (format[end] && g_counter != -1)
-			printf_handler(format, &end, head);
-		beg = end;
+		while (format[g_end] != '%' && format[g_end] != '{' && format[g_end])
+			g_end++;
+		printf_add_str(format + beg, g_end - beg, head);
+		if (format[g_end] && g_counter != -1)
+			printf_handler(format, head);
+		beg = g_end;
 	}
-	/* ft_lstdel(head, &free); */
 	return (g_counter);
 }
