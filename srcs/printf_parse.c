@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 14:32:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/22 17:06:09 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/22 21:46:38 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static int		parse_mod_and_fl(const char *str, size_t *i, t_flag *flags)
 	{
 		((char *)flags)[fl] = 1;
 		(*i)++;
-		if (fl == 2)
-			((char *)flags)[1] = 0;
 		return (1);
 	}
 	else
@@ -80,7 +78,7 @@ static void		parse_num(const char *str, size_t *i, t_flag *flags, int *counter)
 		while (ft_isdigit(str[*i]))
 			(*i)++;
 		if (str[*i] == '!' && (*i)++)
-			flags->system = tmp > 16 ? 10 : (char)tmp;
+			flags->system = tmp > 16 ? 10 : (unsigned char)tmp;
 		else if (str[*i] == '$' && (*i)++)
 			flags->doll = (size_t)tmp;
 		else

@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:05:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/22 18:13:22 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/22 21:16:08 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ struct					s_funcs
 
 struct 					s_flag
 {
-	char		hash;/* # */
-	char		zero;/* 0 */
-	char		minus;/* - */
-	char		plus;/* + */
-	char		space;/* space */
-	char		apostrophe;/* ' */
-	char		modif[7];/* "z", "j", "ll", "l", "hh", "h", "L" */
-	char		system;/* base system */
+	unsigned char		hash;/* # */
+	unsigned char		zero;/* 0 */
+	unsigned char		minus;/* - */
+	unsigned char		plus;/* + */
+	unsigned char		space;/* space */
+	unsigned char		apostrophe;/* ' */
+	unsigned char		modif[7];/* "z", "j", "ll", "l", "hh", "h", "L" */
+	unsigned char		system;/* base system */
 	intmax_t	width;/* width (if -1 - dollar, see wast, if -2 - not set) */
 	intmax_t	prec;/* precision (if -1 - dollar, see past, if -2 - not set) */
 	size_t		wast;/* width asterisk, not zero if dollar */

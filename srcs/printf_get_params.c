@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 18:51:36 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/22 18:23:13 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/22 22:09:52 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,8 @@ static void	printf_get_size(t_par *params, t_list *head)
 			conv = cur.conv;
 			if (cur.width == -1)
 				params[cur.wast ? (size_t)cur.wast : i++].i = 3;
-			else if (cur.width != -2)
-				params[i++].i = 3;
 			if (cur.prec == -1)
 				params[cur.past ? (size_t)cur.past : i++].i = 3;
-			else if (cur.prec != -2)
-				params[i++].i = 3;
 			if (!cur.err)
 			{
 				if (conv == 'D')
@@ -80,19 +76,19 @@ static void	printf_get_size(t_par *params, t_list *head)
 				else
 				{
 					if (cur.modif[0])
-						params[cur.doll ? (size_t)cur.doll : i++].i = !~ft_strsrch("di", conv) ? 7 : 15;
+						params[cur.doll ? (size_t)cur.doll : i++].i = ~ft_strsrch("di", conv) ? 7 : 15;
 					else if (cur.modif[1])
-						params[cur.doll ? (size_t)cur.doll : i++].i = !~ft_strsrch("di", conv) ? 6 : 14;
+						params[cur.doll ? (size_t)cur.doll : i++].i = ~ft_strsrch("di", conv) ? 6 : 14;
 					else if (cur.modif[2])
-						params[cur.doll ? (size_t)cur.doll : i++].i = !~ft_strsrch("di", conv) ? 5 : 13;
+						params[cur.doll ? (size_t)cur.doll : i++].i = ~ft_strsrch("di", conv) ? 5 : 13;
 					else if (cur.modif[3])
-						params[cur.doll ? (size_t)cur.doll : i++].i = !~ft_strsrch("di", conv) ? 4 : 12;
+						params[cur.doll ? (size_t)cur.doll : i++].i = ~ft_strsrch("di", conv) ? 4 : 12;
 					else if (cur.modif[4])
-						params[cur.doll ? (size_t)cur.doll : i++].i = !~ft_strsrch("di", conv) ? 2 : 10;
+						params[cur.doll ? (size_t)cur.doll : i++].i = ~ft_strsrch("di", conv) ? 2 : 10;
 					else if (cur.modif[5])
-						params[cur.doll ? (size_t)cur.doll : i++].i = !~ft_strsrch("di", conv) ? 1 : 9;
+						params[cur.doll ? (size_t)cur.doll : i++].i = ~ft_strsrch("di", conv) ? 1 : 9;
 					else
-						params[cur.doll ? (size_t)cur.doll : i++].i = !~ft_strsrch("di", conv) ? 3 : 11;
+						params[cur.doll ? (size_t)cur.doll : i++].i = ~ft_strsrch("di", conv) ? 3 : 11;
 				}
 			}
 		}
