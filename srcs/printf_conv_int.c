@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 11:24:46 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/16 18:53:35 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/22 18:05:27 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,10 @@
 
 static uintmax_t	pull_things(t_flag flag, t_par *params, size_t *c)
 {
-	if (flag.width < 0)
-		flag.width = (int)params[-flag.width].i;
-	else if (flag.wast)
-		flag.width = (int)params[(*c)++].i;
-	if (flag.prec < 0)
-		flag.prec = (int)params[-flag.prec].i;
-	else if (flag.past)
-		flag.prec = (int)params[(*c)++].i;
+	if (flag.width == -1)
+		flag.width = (int)params[flag.wast ? (*c)++ : flag.wast].i;
+	if (flag.prec == -1)
+		flag.prec = (int)params[flag.past ? (*c)++ : flag.past].i;
 	if (flag.doll)
 		return (params[flag.doll].i);
 	else
@@ -40,36 +36,44 @@ static void		get_size(intmax_t *sizes, uintmax_t n, t_flag flag, char neg)
 	if (n == 0 && flag.prec == 0)
 		sizes[0] = 0;
 	else
+	{
 		while (n / (uintmax_t)(sizes[1] * flag.system))
 		{
 			sizes[0]++;
 			sizes[1] *= (uintmax_t)flag.system;
 		}
-	if (flag.apostrophe)
-        sizes[0] += (sizes[0] - 1) / 3;
-    if (flag.hash && (flag.system == 16 || (flag.system == 8 && sizes[0] >= flag.prec)))
-        sizes[2] = flag.system == 16 ? 2 : 1;
-	if (~ft_strsrch("dDi", flag.conv) && (neg || flag.plus || flag.space))
-        sizes[2]++;
-	sizes[3] = flag.prec - sizes[0];
-	if (sizes[3] < 0)
-		sizes[3] = 0;
-	sizes[4] = flag.width - (sizes[2] + (sizes[3] ? flag.prec : sizes[0]));
-	if (sizes[4] < 0)
+		if (flag.apostrophe)
+			sizes[0] += (sizes[0] - 1) / 3;
+	}
+    if ((flag.hash && ((flag.system == 16 && n) || (flag.system == 8 && (n || !sizes[0])))) || flag.conv == 'p')
+        sizes[2] = flag.system == 8 ? 1 : 2;
+	if (ft_strsrch("dDi", flag.conv) != -1 && (neg || flag.plus || flag.space))
+        sizes[3]++;
+	if (flag.prec == -2 || flag.prec - sizes[0] <= 0)
 		sizes[4] = 0;
-	sizes[5] = sizes[0] + sizes[2] + sizes[3] + sizes[4];
+	else
+		sizes[4] = flag.prec - sizes[0];
+	sizes[5] = flag.width - (sizes[2] + sizes[3] + sizes[4] + sizes[0]);
+	if (sizes[5] < 0)
+		sizes[5] = 0;
+	if (flag.zero && flag.prec != 0)
+	{
+		sizes[4] += sizes[5];
+		sizes[5] = 0;
+	}
+	sizes[6] = sizes[0] + sizes[2] + sizes[3] + sizes[4] + sizes[5];
 }
 
 static char		*put_stuff(char *str, intmax_t *sizes, t_flag flag, char neg)
 {
-	if (sizes[4])
+	if (sizes[5])
 	{
 		if (!flag.minus)
-			while (sizes[4]--)
+			while (sizes[5]--)
 				*str++ = ' ';
 		else
-			while (sizes[4])
-				*(str + sizes[0] + sizes[2] + sizes[3] + --sizes[4]) = ' ';
+			while (sizes[5])
+				*(str + sizes[0] + sizes[2] + sizes[3] + sizes[4] + --sizes[5]) = ' ';
 	}
 	if (ft_strsrch("dDi", flag.conv) != -1)
 	{
@@ -80,13 +84,13 @@ static char		*put_stuff(char *str, intmax_t *sizes, t_flag flag, char neg)
 		else if (flag.space)
 			*str++ = ' ';
 	}
-    if (flag.hash && (flag.system == 16 || (flag.system == 8 && sizes[0] >= flag.prec)))
+	if (sizes[2])
 	{
 		*str++ = '0';
-		if (flag.system == 16)
-			*str++ = flag.conv == 'x' ? 'x' : 'X';
+		if (flag.system == 16 || flag.conv == 'p')
+			*str++ = flag.conv == 'X' ? 'X' : 'x';
 	}
-	while (sizes[3]--)
+	while (sizes[4]--)
 		*str++ = '0';
 	return (str);
 }
@@ -95,18 +99,18 @@ static void			itoa_base(uintmax_t n, char *str, t_flag flag, intmax_t *sizes)
 {
 	char	*base;
 
+	if (!sizes[0])
+		return ;
 	base = flag.conv == 'X' ?  "0123456789ABCDEF" : "0123456789abcdef";
-	if (sizes[0])
-		while (sizes[1])
-		{
-			*(str++) = base[(n / (size_t)sizes[1])];
-			if (flag.apostrophe && sizes[1] > (3 * flag.system) &&
-					!((size_t)(sizes[1] % (3 * flag.system))) && MB_CUR_MAX > 0)
-				*str++ = ',';//change this
-			n %= (uintmax_t)sizes[1];
-			sizes[1] /= flag.system;
-		}
-
+	while (sizes[1])
+	{
+		*(str++) = base[(n / (size_t)sizes[1])];
+		if (flag.apostrophe && sizes[1] > (3 * flag.system) &&
+				!((size_t)(sizes[1] % (3 * flag.system))) && MB_CUR_MAX > 0)
+			*str++ = ',';//change this
+		n %= (uintmax_t)sizes[1];
+		sizes[1] /= flag.system;
+	}
 }
 
 /*
@@ -114,24 +118,28 @@ static void			itoa_base(uintmax_t n, char *str, t_flag flag, intmax_t *sizes)
 ** Returns 1 at error;
 */
 
-static char		check_neg(uintmax_t n, t_flag flag)
+static char		check_neg(uintmax_t *n, t_flag flag)
 {
+	uintmax_t	tmp;
+
 	if (ft_strsrch("idD", flag.conv) == -1)
-	   return (0);
-	else if (flag.modif[0] && (ssize_t)n < 0)
-		return (1);
-	else if (flag.modif[1] && (intmax_t)n < 0)
-		return (1);
-	else if (flag.modif[2] && (long long)n < 0)
-		return (1);
-	else if (flag.modif[3] && (long)n < 0)
-		return (1);
-	else if (flag.modif[4] && (short)n < 0)
-		return (1);
-	else if (flag.modif[5] && (char)n < 0)
-		return (1);
+		return (0);
+	tmp = *n;
+	if (flag.modif[0])
+		return ((*n &= (uintmax_t)((size_t)-1 >> 1)) != tmp);
+	else if (flag.modif[1])
+		return ((*n &= (uintmax_t)((uintmax_t)-1 >> 1)) != tmp);
+	else if (flag.modif[2])
+		return ((*n &= (uintmax_t)((long long)-1 >> 1)) != tmp);
+	else if (flag.modif[3])
+		return ((*n &= (uintmax_t)((long)-1 >> 1)) != tmp);
+	else if (flag.modif[4])
+		return ((*n &= (uintmax_t)((short)-1 >> 1)) != tmp);
+	else if (flag.modif[5])
+		return ((*n &= (uintmax_t)((char)-1 >> 1)) != tmp);
 	else
-		return ((int)n < 0);
+		return ((*n &= (uintmax_t)((int)-1 >> 1)) != tmp);
+	return (1);
 }
 
 char		printf_conv_int(t_list *lst, t_par *params, size_t *c) //For p, d, D, i, o, O, u, U, x, X, b
@@ -141,33 +149,29 @@ char		printf_conv_int(t_list *lst, t_par *params, size_t *c) //For p, d, D, i, o
 	 ** sizes[1] == biggest num of the form of 10^n, which this num can be
 	 ** divided in.
 	 ** sizes[2] == size of hashes, minuses and stuff
-	 ** sizes[3] == pure precision
-	 ** sizes[4] == pure width
-	 ** sizes[5] == total width
+	 ** sizes[3] == minuses
+	 ** sizes[4] == pure precision
+	 ** sizes[5] == pure width
+	 ** sizes[6] == total width
 	 ** */
-	intmax_t	sizes[6];
+	intmax_t	sizes[7];
 	char		neg;
 	t_flag		flag;
 	uintmax_t	num;// my number
 	char		*str;
 
-	ft_bzero(sizes, sizeof(intmax_t) * 4);
+	ft_bzero(sizes, sizeof(intmax_t) * 6);
 	flag = *(t_flag *)lst->content;
 	num = pull_things(flag, params, c);
-	neg = 0;
-	if (check_neg(num, flag))
-	{
-		neg = 1;
-		num = num << 1 >> 1;
-	}
+	neg = check_neg(&num, flag);
 	get_size(sizes, num, flag, neg);
-	if (!(str = malloc(sizeof(char) * (size_t)(sizes[5]))))
+	if (!(str = malloc(sizeof(char) * (size_t)(sizes[6]))))
 		return (0);
-	str[sizes[5]] = '\0';
+	str[sizes[6]] = '\0';
 //	str = ;
 	itoa_base(num, put_stuff(str, sizes, flag, neg), flag, sizes);
 	free(lst->content);
 	lst->content = str;
-	lst->content_size = (size_t)sizes[5];
+	lst->content_size = (size_t)sizes[6];
 	return (1);
 }

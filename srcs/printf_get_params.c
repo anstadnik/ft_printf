@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 18:51:36 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/16 16:55:23 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/22 18:23:13 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ static void	printf_get_size(t_par *params, t_list *head)
 		{
 			cur = *(t_flag *)(head->content);
 			conv = cur.conv;
-			if (cur.width < 0)
-				params[-cur.width].i = 3;
-			else if (cur.wast)
+			if (cur.width == -1)
+				params[cur.wast ? (size_t)cur.wast : i++].i = 3;
+			else if (cur.width != -2)
 				params[i++].i = 3;
-			if (cur.prec < 0)
-				params[-cur.prec].i = 3;
-			else if (cur.wast)
+			if (cur.prec == -1)
+				params[cur.past ? (size_t)cur.past : i++].i = 3;
+			else if (cur.prec != -2)
 				params[i++].i = 3;
 			if (!cur.err)
 			{

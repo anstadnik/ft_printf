@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 13:47:20 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/14 19:59:52 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/22 17:22:28 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,10 @@
 
 static wchar_t	pull_things(t_flag flag, t_par *params, size_t *c)
 {
-	if (flag.width < 0)
-		flag.width = (wchar_t)params[-flag.width].i;
-	else if (flag.wast)
-		flag.width = (wchar_t)params[(*c)++].i;
-	if (flag.prec < 0)
-		flag.prec = (wchar_t)params[-flag.prec].i;
-	else if (flag.past)
-		flag.prec = (wchar_t)params[(*c)++].i;
+	if (flag.width == -1)
+		flag.width = (int)params[flag.wast ? (*c)++ : flag.wast].i;
+	if (flag.prec == -1)
+		flag.prec = (int)params[flag.past ? (*c)++ : flag.past].i;
 	if (flag.err)
 		return (flag.err);
 	if (flag.modif[3])

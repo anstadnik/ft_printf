@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 17:57:07 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/16 14:05:07 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/22 18:55:08 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int		g_counter;
 static t_list	*g_tail;
-size_t			g_end;
+static size_t	g_end;
 
 static const char	g_colors[17][2][15] = {
 	{"{black}", "\x1b[30m"}, {"{red}", "\x1b[31m"},

@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 14:32:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/16 16:44:32 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/22 17:06:09 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ static void		parse_num(const char *str, size_t *i, t_flag *flags, int *counter)
 	}
 	else if (str[*i] == '.')
 	{
-//		(*i)++;
-		if (ft_isdigit(str[++(*i)]))
+		(*i)++;
+		if (ft_isdigit(str[*i]))
 		{
 			tmp = ft_atoi(str + *i);
 			while (ft_isdigit(str[*i]))
@@ -106,29 +106,23 @@ static void		parse_num(const char *str, size_t *i, t_flag *flags, int *counter)
 					(*i)++;
 				if (str[*i] == '$')
 				{
-					flags->prec = -tmp;
+					flags->prec = -1;
+					flags->past = (size_t)tmp;
 					(*i)++;
 					(*counter)++;
 				}
 				else
-				{
 					flags->width = tmp;
-					flags->prec = 0;
-					flags->past = 0;
-				}
 			}
 			else
 			{
-				flags->prec = 0;
-				flags->past = 1;
+				flags->prec = -1;
+				flags->past = 0;
 				(*counter)++;
 			}
 		}
 		else
-		{
 			flags->prec = 0;
-			flags->past = 0;
-		}
 	}
 	else if (str[*i] == '*')
 	{
@@ -140,7 +134,8 @@ static void		parse_num(const char *str, size_t *i, t_flag *flags, int *counter)
 				(*i)++;
 			if (str[*i] == '$')
 			{
-				flags->width = -tmp;
+				flags->width = -1;
+				flags->wast = (size_t)tmp;
 				(*i)++;
 				(*counter)++;
 			}
@@ -149,8 +144,8 @@ static void		parse_num(const char *str, size_t *i, t_flag *flags, int *counter)
 		}
 		else
 		{
-			flags->width = 0;
-			flags->wast = 1;
+			flags->width = -1;
+			flags->wast = 0;
 			(*counter)++;
 		}
 	}
@@ -168,6 +163,8 @@ t_flag	*printf_parse(const char *str, size_t *i, int *counter)
 	if (!(flags = ft_memalloc(sizeof(t_flag))))
 		return (NULL);
 	flags->system = 10;
+	flags->width = -2;
+	flags->prec = -2;
 	while (!parse_conv(str, i, flags, counter) && !flags->err)
 	{
 		if (!str[*i])
