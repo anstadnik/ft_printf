@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:05:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/22 21:16:08 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/23 22:04:59 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ struct 					s_flag
 	unsigned char		plus;/* + */
 	unsigned char		space;/* space */
 	unsigned char		apostrophe;/* ' */
-	unsigned char		modif[7];/* "z", "j", "ll", "l", "hh", "h", "L" */
+	unsigned char		modif[8];/* "z", "t", "j", "ll", "l", "hh", "h", "L" */
 	unsigned char		system;/* base system */
 	intmax_t	width;/* width (if -1 - dollar, see wast, if -2 - not set) */
 	intmax_t	prec;/* precision (if -1 - dollar, see past, if -2 - not set) */

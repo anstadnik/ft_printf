@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 18:48:58 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/16 16:58:52 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/23 19:35:28 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,14 @@ char	printf_process_conv(t_list *head, t_par *params)
 		{
 			conv = ((t_flag *)head->content)->conv;
 			i = 0;
-			if (((t_flag *)head->content)->err)
-				printf_conv_char(head, NULL, 0);
-			else
-				while (i < 5)
-					if (ft_strsrch(funcs[i].str, conv) != -1)
-					{
-						funcs[i].f(head, params, &c);
-						break;
-					}
-					else
-						i++;
+			while (i < 5)
+				if (ft_strsrch(funcs[i].str, conv) != -1)
+				{
+					funcs[i].f(head, params, &c);
+					break;
+				}
+				else
+					i++;
 		}
 		head = head->next;
 	}

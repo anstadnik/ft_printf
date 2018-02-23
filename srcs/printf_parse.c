@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                     :+:      :+:    :+:   */
+/*   printf_parse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 14:32:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/22 21:46:38 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/23 22:04:36 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static const char	g_conv[] = "sSpdDioOuUxXcCeEfFgGaAnbrk";
 static const char	g_flag[] = "#0-+ '";
-static const char	g_mod[7][3] = {"z", "j", "ll", "l", "hh", "h", "L"};
+static const char	g_mod[8][3] = {"z", "t", "j", "ll", "l", "hh", "h", "L"};
 
 static int		parse_conv(const char *str, size_t *i, t_flag *flags, int *counter)
 {
@@ -27,11 +27,13 @@ static int		parse_conv(const char *str, size_t *i, t_flag *flags, int *counter)
 	flags->conv = g_conv[tmp];
 	if (g_conv[tmp] == 'o' || g_conv[tmp] == 'O')
 		flags->system = 8;
-	if (g_conv[tmp] == 'x' || g_conv[tmp] == 'X')
+	if (g_conv[tmp] == 'x' || g_conv[tmp] == 'X' || g_conv[tmp] == 'p')
 		flags->system = 16;
+	if (g_conv[tmp] == 'p')
+		flags->hash = 1;
 	(*i)++;
 	if (ft_strchr("SDOUXCFGA", g_conv[tmp]))
-		flags->modif[3] = 1;
+		flags->modif[4] = 1;
 	return (1);
 }
 
@@ -138,7 +140,7 @@ static void		parse_num(const char *str, size_t *i, t_flag *flags, int *counter)
 				(*counter)++;
 			}
 			else
-				flags->err = str[(*i)++];
+				flags->width = str[(*i)++];
 		}
 		else
 		{
@@ -150,9 +152,9 @@ static void		parse_num(const char *str, size_t *i, t_flag *flags, int *counter)
 }
 
 /*
- ** Parses flags and returns pointer to flags struct. If an error occured,
- ** returns NULL
- */
+** Parses flags and returns pointer to flags struct. If an error occured,
+** returns NULL
+*/
 
 t_flag	*printf_parse(const char *str, size_t *i, int *counter)
 {
@@ -165,18 +167,16 @@ t_flag	*printf_parse(const char *str, size_t *i, int *counter)
 	flags->prec = -2;
 	while (!parse_conv(str, i, flags, counter) && !flags->err)
 	{
-		if (!str[*i])
-		{
-			free(flags);
-			return (NULL);
-		}
-		else if (parse_mod_and_fl(str, i, flags))
+		if (parse_mod_and_fl(str, i, flags))
 			continue;
 		else if (ft_isdigit(str[*i]) || str[*i] == '*' || str[*i] == '.')
 			parse_num(str, i, flags, counter);
 		else
 		{
-			flags->err = str[(*i)++];
+			flags->err = str[*i];
+			flags->conv = 'c';
+			if (str[*i])
+				(*i)++;
 			return (flags);
 		}
 	}

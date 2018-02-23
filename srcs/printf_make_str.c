@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:15:41 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/22 19:11:24 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/23 21:36:42 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,5 @@ ssize_t	printf_make_str(char **ret, const char *format, va_list arg)
 
 	ft_lstdel(&head, &free);
 	free(params);
-	return (rez);//(int)ft_strlen(*ret));
+	return (rez);
 }

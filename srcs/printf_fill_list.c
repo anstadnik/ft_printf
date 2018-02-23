@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 17:57:07 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/22 18:55:08 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/23 19:10:55 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,20 +110,17 @@ static void	printf_handler(const char *str, t_list **head)
 
 int		printf_fill_list(t_list **head, const char *format)
 {
-	size_t	beg;
-
-	beg = 0;
-	g_end = 0;
 	g_counter = 0;
 	g_tail = NULL;
-	while (g_counter != -1 && format[g_end])
+	while (g_counter != -1 && *format)
 	{
+		g_end = 0;
 		while (format[g_end] != '%' && format[g_end] != '{' && format[g_end])
 			g_end++;
-		printf_add_str(format + beg, g_end - beg, head);
+		printf_add_str(format, g_end, head);
 		if (format[g_end] && g_counter != -1)
 			printf_handler(format, head);
-		beg = g_end;
+		format += g_end;
 	}
 	return (g_counter);
 }

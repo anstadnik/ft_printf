@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 14:28:43 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/16 14:06:02 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/23 21:48:19 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ ssize_t	printf_lsttostr(t_list *head, char **ret)
 	}
 	if (!(*ret = malloc(sizeof(char) * (size + 1))))
 		return (-1);
-	(*ret)[size] = '\0';
+	(*ret)[0] = '\0';
 	ptr = *ret;
 	while (head)
 	{
 		ft_strcpy(ptr, (char *)head->content);
-		ptr += ft_strlen((char *)head->content);
+		ptr += head->content_size;
 		head = head->next;
 	}
 	return ((ssize_t)size);

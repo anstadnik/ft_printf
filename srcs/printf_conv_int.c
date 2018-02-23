@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 11:24:46 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/22 23:14:40 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/23 22:42:42 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 static uintmax_t	pull_things(t_flag flag, t_par *params, size_t *c)
 {
 	if (flag.width == -1)
-		flag.width = (int)params[flag.wast ? (*c)++ : flag.wast].i;
+		flag.width = (int)params[flag.wast ? (*c)++ : flag.wast - 1].i;
+	//check negative
 	if (flag.prec == -1)
-		flag.prec = (int)params[flag.past ? (*c)++ : flag.past].i;
+		flag.prec = (int)params[flag.past ? (*c)++ : flag.past - 1].i;
 	if (flag.doll)
-		return (params[flag.doll].i);
+		return (params[flag.doll - 1].i);
 	else
 		return (params[(*c)++].i);
 }
@@ -37,14 +38,12 @@ static void		get_size(intmax_t *sizes, uintmax_t n, t_flag flag, char neg)
 		sizes[0] = 0;
 	else
 	{
-		while (n / ((uintmax_t)sizes[1] * flag.system))
+		while ((uintmax_t)sizes[1] < 18446744073709551615U / flag.system && n / ((uintmax_t)sizes[1] * flag.system))
 		{
 			sizes[0]++;
 			sizes[1] = (intmax_t)((uintmax_t)sizes[1] * flag.system);
-			uintmax_t temp = (uintmax_t)sizes[1];
-			temp = temp + 1;
 		}
-		if (flag.apostrophe)
+		if (flag.apostrophe && MB_CUR_MAX > 1)
 			sizes[0] += (sizes[0] - 1) / 3;
 	}
     if ((flag.hash && ((flag.system == 16 && n) || (flag.system == 8 && (flag.prec == -2 || sizes[0] >= flag.prec) && (n || !sizes[0])))) || flag.conv == 'p')
@@ -106,12 +105,11 @@ static void			itoa_base(uintmax_t n, char *str, t_flag flag, intmax_t *sizes)
 		return ;
 	size = (uintmax_t)sizes[1];
 	base = flag.conv == 'X' ?  "0123456789ABCDEF" : "0123456789abcdef";
-	while (size)
+	while (sizes[0])
 	{
-		*(str++) = base[(n / (uintmax_t)size)];
-		if ((flag.apostrophe && size > 3 * flag.system) &&
-				!((size_t)(size % (3 * flag.system))) && MB_CUR_MAX > 0)
+		if (!(--sizes[0] + 1) % 3 && flag.apostrophe && MB_CUR_MAX > 0)
 			*str++ = ',';//change this
+		*(str++) = base[(n / (uintmax_t)size)];
 		n %= (uintmax_t)size;
 		size /= (uintmax_t)flag.system;
 	}
@@ -124,28 +122,21 @@ static void			itoa_base(uintmax_t n, char *str, t_flag flag, intmax_t *sizes)
 
 static char		check_neg(uintmax_t *n, t_flag flag)
 {
-	intmax_t	tmp;
+	uintmax_t	tmp;
 
 	if (ft_strsrch("idD", flag.conv) == -1)
 		return (0);
-	if (flag.modif[0])
-		tmp = -(ssize_t)*n;
-	else if (flag.modif[1])
-		tmp = -(intmax_t)*n;
-	else if (flag.modif[2])
-		tmp = -(long long)*n;
-	else if (flag.modif[3])
-		tmp = -(long)*n;
-	else if (flag.modif[4])
-		tmp = -(short)*n;
+	if (flag.modif[0] || flag.modif[1] || flag.modif[2] || flag.modif[3] || flag.modif[4])
+		tmp = (ssize_t)*n == (ssize_t)-0x8000000000000000 ? 0x8000000000000000 : (uintmax_t)-(ssize_t)*n;
 	else if (flag.modif[5])
-		tmp = -(char)*n;
+		tmp = (short)*n == (short)-0x8000 ? 0x8000 : (uintmax_t)-(short)*n;
+	else if (flag.modif[6])
+		tmp = (char)*n == (char)-0x80 ? 0x80 : (uintmax_t)-(char)*n;
 	else
-		//change rest like this one
-		tmp = -(*(int *)n) == *(int *)n && *(int *)n ? 2147483648 : -(*(int *)n);
-	if (tmp > 0)
+		tmp = (int)*n == (int)-0x80000000 ? 0x80000000 : (uintmax_t)-(int)*n;
+	if ((intmax_t)tmp > 0)
 	{
-		*n = (uintmax_t)tmp;
+		*n = tmp;
 		return (1);
 	}
 	return (0);
@@ -157,7 +148,7 @@ char		printf_conv_int(t_list *lst, t_par *params, size_t *c) //For p, d, D, i, o
 	 ** sizes[0] == size of num (with apostrophes)
 	 ** sizes[1] == biggest num of the form of 10^n, which this num can be
 	 ** divided in.
-	 ** sizes[2] == size of hashes, minuses and stuff
+	 ** sizes[2] == size of hashes
 	 ** sizes[3] == minuses
 	 ** sizes[4] == pure precision
 	 ** sizes[5] == pure width
@@ -166,15 +157,15 @@ char		printf_conv_int(t_list *lst, t_par *params, size_t *c) //For p, d, D, i, o
 	intmax_t	sizes[7];
 	char		neg;
 	t_flag		flag;
-	uintmax_t	num;// my number
+	uintmax_t	num;
 	char		*str;
 
-	ft_bzero(sizes, sizeof(intmax_t) * 6);
+	ft_bzero(sizes, sizeof(intmax_t) * 7);
 	flag = *(t_flag *)lst->content;
 	num = pull_things(flag, params, c);
 	neg = check_neg(&num, flag);
 	get_size(sizes, num, flag, neg);
-	if (!(str = malloc(sizeof(char) * (size_t)(sizes[6]))))
+	if (!(str = malloc(sizeof(char) * (size_t)(sizes[6]) + 1)))
 		return (0);
 	str[sizes[6]] = '\0';
 //	str = ;
