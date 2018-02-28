@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 14:32:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/28 10:08:17 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/28 17:03:06 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ static int		parse_conv(const char *str, size_t *i, t_flag *flags, int *counter)
 	if (g_conv[tmp] == 'x' || g_conv[tmp] == 'X' || g_conv[tmp] == 'p')
 		flags->system = 16;
 	if (g_conv[tmp] == 'p')
+	{
 		flags->hash = 1;
+		flags->modif[4] = 1;
+	}
 	(*i)++;
 	if (ft_strchr("SDOUCFGA", g_conv[tmp]))
 		flags->modif[4] = 1;
