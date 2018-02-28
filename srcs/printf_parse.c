@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 14:32:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/23 22:04:36 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/28 10:08:17 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,14 @@ static int		parse_conv(const char *str, size_t *i, t_flag *flags, int *counter)
 	tmp = ft_strsrch(g_conv, str[*i]);
 	if (tmp == -1)
 		return (0);
-	(*counter)++;
+
+	if (flags->doll)
+	{
+		if (flags->doll > (size_t)*counter)
+			(*counter) = (int)flags->doll;
+	}
+	else
+		(*counter)++;
 	flags->conv = g_conv[tmp];
 	if (g_conv[tmp] == 'o' || g_conv[tmp] == 'O')
 		flags->system = 8;
@@ -32,7 +39,7 @@ static int		parse_conv(const char *str, size_t *i, t_flag *flags, int *counter)
 	if (g_conv[tmp] == 'p')
 		flags->hash = 1;
 	(*i)++;
-	if (ft_strchr("SDOUXCFGA", g_conv[tmp]))
+	if (ft_strchr("SDOUCFGA", g_conv[tmp]))
 		flags->modif[4] = 1;
 	return (1);
 }
@@ -50,7 +57,7 @@ static int		parse_mod_and_fl(const char *str, size_t *i, t_flag *flags)
 		return (1);
 	}
 	else
-		while (j < 7)
+		while (j < 8)
 		{
 			if (!ft_strncmp(g_mod[j], str + *i, ft_strlen(g_mod[j])))
 			{
@@ -109,7 +116,8 @@ static void		parse_num(const char *str, size_t *i, t_flag *flags, int *counter)
 					flags->prec = -1;
 					flags->past = (size_t)tmp;
 					(*i)++;
-					(*counter)++;
+					if (tmp > *counter)
+						(*counter) = tmp;
 				}
 				else
 					flags->width = tmp;
@@ -137,7 +145,8 @@ static void		parse_num(const char *str, size_t *i, t_flag *flags, int *counter)
 				flags->width = -1;
 				flags->wast = (size_t)tmp;
 				(*i)++;
-				(*counter)++;
+				if (tmp > *counter)
+					(*counter) = tmp;
 			}
 			else
 				flags->width = str[(*i)++];

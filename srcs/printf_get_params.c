@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 18:51:36 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/23 22:49:01 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/02/28 09:41:55 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,7 @@ static void	printf_get_size(t_par *params, t_list *head)
 				params[cur.past ? (size_t)cur.past - 1: i++].i = 3;
 			if (!cur.err)
 			{
-				if (conv == 'D')
-					params[cur.doll ? (size_t)cur.doll - 1 : i++].i = 4;
-				else if (conv == 'U' || conv == 'X')
-					params[cur.doll ? (size_t)cur.doll - 1 : i++].i = 12;
-				else if (conv == 'C')
-					params[cur.doll ? (size_t)cur.doll - 1 : i++].i = 8;
-				else if (conv == 'n' || conv == 's' || conv == 'S')
+				if (conv == 'n' || conv == 's' || conv == 'S')
 					params[cur.doll ? (size_t)cur.doll - 1 : i++].i = 19;
 				else if (ft_strsrch("aAeEfFgG", conv) != -1)
 				{
