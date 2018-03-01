@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 18:48:58 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/28 17:29:33 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/01 13:25:23 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ static char		check_neg(t_par *n, t_flag flag)
 		if (flag.modif[0] || flag.modif[1] || flag.modif[2] || flag.modif[3] || flag.modif[4])
 			tmp.i = (ssize_t)n->i == (ssize_t)0x8000000000000000 ? 0x8000000000000000 : (uintmax_t)-(ssize_t)n->i;
 		else if (flag.modif[5])
-			tmp.i = (char)n->i == (char)0x80 ? 0x80 : (uintmax_t)-(char)n->i;
+			tmp.i = n->i == 0x80 ? 0x80 : (uintmax_t)-n->i;
 		else if (flag.modif[6])
-			tmp.i = (short)n->i == (short)0x8000 ? 0x8000 : (uintmax_t)-(short)n->i;
+			tmp.i = n->i == 0x8000 ? 0x8000 : (uintmax_t)-n->i;
 		else
-			tmp.i = (int)n->i == (int)0x80000000 ? 0x80000000 : (uintmax_t)-(int)n->i;
+			tmp.i = n->i == 0x80000000 ? 0x80000000 : (uintmax_t)-n->i;
 		if ((intmax_t)tmp.i > 0 || tmp.i == 0x8000000000000000)
 		{
 			n->i = tmp.i;
@@ -68,10 +68,13 @@ static char		check_neg(t_par *n, t_flag flag)
 
 static void		get_size(intmax_t *sizes, t_par n, t_flag flag, char neg)
 {
+	// Make array of functions
 	if (ft_strsrch("idDuUoOxXp", flag.conv) != -1)
 		printf_int_get_size(sizes, n.i, flag);
 	else if (ft_strsrch("cC", flag.conv) != -1)
-		printf_char_get_size(sizes, (wchar_t)n.i, flag);
+		sizes[0] = printf_char_get_size((wchar_t)n.i, flag);
+	else //sS
+		printf_str_get_size(sizes, (int *)n.p, flag);
     if ((flag.hash && ((flag.system == 16 && n.i) || (flag.system == 8 && (flag.prec == -2 || sizes[0] >= flag.prec) && (n.i || !sizes[0])))) || flag.conv == 'p')
         sizes[2] = flag.system == 8 ? 1 : 2;
 	if (ft_strsrch("dDi", flag.conv) != -1 && (neg || flag.plus || flag.space))
@@ -123,10 +126,10 @@ static char		*put_stuff(char *str, intmax_t *sizes, t_flag flag, char neg)
 	return (str);
 }
 
-static char		num(t_list *lst, t_par *params, size_t *c) //For p, d, D, i, o, O, u, U, x, X, b
+static char		general(t_list *lst, t_par *params, size_t *c) //For p, d, D, i, o, O, u, U, x, X, b
 {
 	/*
-	 ** sizes[0] == size of num (with apostrophes)
+	 ** sizes[0] == size of num (with apostrophes), of string or char
 	 ** sizes[1] == biggest num of the form of 10^n, which this num can be
 	 ** divided in.
 	 ** sizes[2] == size of hashes
@@ -154,7 +157,9 @@ static char		num(t_list *lst, t_par *params, size_t *c) //For p, d, D, i, o, O, 
 	if (ft_strsrch("idDuUoOxXp", flag.conv) != -1)
 		printf_int_itoa_base(num.i, tmp, flag, sizes);
 	else if (ft_strsrch("cC", flag.conv) != -1)
-		printf_char(tmp, (char *)&num.i, sizes);
+		printf_char(&tmp, (unsigned char *)&num.i, flag);
+	else //sS
+		print_str(&tmp, num.p, sizes, flag);
 	free(lst->content);
 	lst->content = str;
 	lst->content_size = (size_t)sizes[6];
@@ -162,7 +167,7 @@ static char		num(t_list *lst, t_par *params, size_t *c) //For p, d, D, i, o, O, 
 }
 
 static	const t_funcs	funcs[5] = {
-	{"idDuUxXoOpcCb", &num}
+	{"idDuUxXoOpcCbsS", &general}
 /* , */
 /* 	{"eEfFgGaA", &printf_float}, */
 /* 	{"sSr", &printf_string}, */
