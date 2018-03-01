@@ -1,0 +1,6 @@
+tags
+main.c
+**/*.swp
+.ycm_extra_conf.py
+todo.txt
+**/session.vim
