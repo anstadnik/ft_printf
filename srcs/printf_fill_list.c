@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 17:57:07 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/01 13:02:51 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/01 13:36:43 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	printf_handler(const char *str, t_list **head)
 
 	if (str[g_end] == '{')
 		printf_colors(str, head);
-	else
+	else if (str[g_end + 1])
 	{
 		(g_end)++;
 		if (!(flags = printf_parse(str, &g_end, &g_counter)) ||
@@ -101,6 +101,8 @@ static void	printf_handler(const char *str, t_list **head)
 		ft_lstaddb(*head ? &g_tail : head, node);
 		g_tail = node;
 	}
+	else
+		g_end++;
 }
 
 /*
