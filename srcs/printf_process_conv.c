@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 18:48:58 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/01 13:25:23 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/01 16:24:10 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,14 @@ static char		general(t_list *lst, t_par *params, size_t *c) //For p, d, D, i, o,
 
 	ft_bzero(sizes, sizeof(intmax_t) * 7);
 	flag = *(t_flag *)lst->content;
+	if (flag.err == -1)
+	{
+		free(lst->content);
+		if (!(str = ft_strdup("")))
+			return (0);
+		lst->content = str;
+		return (1);
+	}
 	num = pull_things(&flag, params, c);
 	neg = check_neg(&num, flag);
 	get_size(sizes, num, flag, neg);

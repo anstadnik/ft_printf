@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 14:32:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/01 13:25:15 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/01 16:19:51 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ t_flag	*printf_parse(const char *str, size_t *i, int *counter)
 			parse_num(str, i, flags, counter);
 		else
 		{
-			flags->err = str[*i];
+			flags->err = str[*i] ? str[*i] : -1;
 			flags->conv = 'c';
 			if (str[*i])
 				(*i)++;
