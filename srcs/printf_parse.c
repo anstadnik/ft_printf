@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 14:32:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/05 10:19:07 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/05 18:49:53 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ static void		parse_num(const char *str, size_t *i, t_flag *flags, int *counter)
 					(*counter) = tmp;
 			}
 			else
-				flags->width = str[(*i)++];
+				flags->width = tmp;
 		}
 		else
 		{

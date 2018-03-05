@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 18:48:58 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/05 16:44:14 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/05 19:06:35 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ static char		check_neg(t_par *n, t_flag flag)
 {
 	t_par	tmp;
 
-	// Add floats
 	if (ft_strsrch("idD", flag.conv) != -1)
 	{
 		if (flag.modif[0] || flag.modif[1] || flag.modif[2] || flag.modif[3] || flag.modif[4])
-			tmp.i = (ssize_t)n->i == (ssize_t)0x8000000000000000 ? 0x8000000000000000 : (uintmax_t)-(ssize_t)n->i;
+			tmp.i = (intmax_t)n->i == (intmax_t)0x8000000000000000 ? 0x8000000000000000 : (uintmax_t)-(intmax_t)n->i;
 		else if (flag.modif[5])
 			tmp.i = n->i == 0x80 ? 0x80 : (uintmax_t)-n->i;
 		else if (flag.modif[6])
@@ -79,14 +78,14 @@ static void		get_size(intmax_t *sizes, t_par n, t_flag flag, char neg)
         sizes[2] = flag.system == 8 ? 1 : 2;
 	if (ft_strsrch("dDi", flag.conv) != -1 && (neg || flag.plus || flag.space))
         sizes[3]++;
-	if (flag.prec == -2 || flag.prec - sizes[0] <= 0 || ft_strsrch("idDuUoOxX", flag.conv) == -1)
+	if (flag.prec == -2 || flag.prec - sizes[0] <= 0 || ft_strsrch("idDuUoOxXp", flag.conv) == -1)
 		sizes[4] = 0;
 	else
 		sizes[4] = flag.prec - sizes[0];
 	sizes[5] = flag.width - (sizes[2] + sizes[3] + sizes[4] + sizes[0]);
 	if (sizes[5] < 0)
 		sizes[5] = 0;
-	if (flag.zero && (flag.prec == -2 || ft_strsrch("idDuUoOxX", flag.conv) == -1) && !flag.minus)
+	if (flag.zero && (flag.prec == -2 || ft_strsrch("idDuUoOxXp", flag.conv) == -1) && !flag.minus)
 	{
 		sizes[4] += sizes[5];
 		sizes[5] = 0;
@@ -105,7 +104,6 @@ static char		*put_stuff(char *str, intmax_t *sizes, t_flag flag, char neg)
 			while (sizes[5])
 				*(str + sizes[0] + sizes[2] + sizes[3] + sizes[4] + --sizes[5]) = ' ';
 	}
-	// Add floats
 	if (ft_strsrch("dDi", flag.conv) != -1)
 	{
 		if (neg)
@@ -126,7 +124,7 @@ static char		*put_stuff(char *str, intmax_t *sizes, t_flag flag, char neg)
 	return (str);
 }
 
-static char		general(t_list *lst, t_par *params, size_t *c) //For p, d, D, i, o, O, u, U, x, X, b
+static char		printf_flags_hand(t_list *lst, t_par *params, size_t *c)
 {
 	/*
 	 ** sizes[0] == size of num (with apostrophes), of string or char
@@ -174,20 +172,9 @@ static char		general(t_list *lst, t_par *params, size_t *c) //For p, d, D, i, o,
 	return (1);
 }
 
-static	const t_funcs	funcs[5] = {
-	{"idDuUxXoOpcCbsSb", &general}
-/* , */
-/* 	{"eEfFgGaA", &printf_float}, */
-/* 	{"sSr", &printf_string}, */
-/* 	{"n", &printf_pointer} */
-};
-
-// Count amount of characters for n
 char	printf_process_conv(t_list *head, t_par *params)
 {
-	char	conv;
 	size_t	c;
-	int		i;
 	t_list	*first;
 
 	first = head;
@@ -196,18 +183,10 @@ char	printf_process_conv(t_list *head, t_par *params)
 	{
 		if (!head->content_size)
 		{
-			conv = ((t_flag *)head->content)->conv;
-			i = 0;
-			if (conv == 'n')
+			if (((t_flag *)head->content)->conv == 'n')
 				printf_ptr(&first, head, params, &c);
-			while (i < 1)
-				if (ft_strsrch(funcs[i].str, conv) != -1)
-				{
-					funcs[i].f(head, params, &c);
-					break;
-				}
-				else
-					i++;
+			else if (ft_strchr("idDuUxXoOsScCpb", ((t_flag *)head->content)->conv))
+				printf_flags_hand(head, params, &c);
 		}
 		head = head->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:05:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/05 16:45:09 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/05 17:58:02 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,6 @@ union					u_par
 	uintmax_t	i;
 	long double		f;
 	void			*p;
-};
-
-struct					s_funcs
-{
-	char 	*str;
-	char	(*f)(t_list *lst, t_par *par, size_t *c);
 };
 
 struct 					s_flag
