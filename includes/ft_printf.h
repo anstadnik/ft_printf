@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:05:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/05 14:29:27 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/05 16:45:09 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ void		printf_get_params(t_par *params, t_list *head, va_list arg,
 ssize_t		printf_lsttostr(t_list *head, char **ret);
 t_list		*printf_lstnew(void *content, size_t content_size);
 
-void		printf_int_get_size(intmax_t *sizes, uintmax_t n, t_flag flag);
-char		printf_char_get_size(wchar_t c, t_flag flag);
-void		printf_str_get_size(intmax_t *sizes, void *c, t_flag flag);
-void		printf_int_itoa_base(uintmax_t n, char *str, t_flag flag, intmax_t *sizes);
-char		printf_char(char **str, unsigned char *c, t_flag flag);
-void		print_str(char **str, void *p, intmax_t *sizes, t_flag flag);
+void		printf_int_size(intmax_t *sizes, uintmax_t n, t_flag flag);
+char		printf_char_size(wchar_t c, t_flag flag);
+void		printf_str_size(intmax_t *sizes, void *c, t_flag flag);
+void		printf_int_write(uintmax_t n, char *str, t_flag flag, intmax_t *sizes);
+char		printf_char_write(char **str, unsigned char *c, t_flag flag);
+void		print_str_write(char **str, void *p, intmax_t *sizes, t_flag flag);
 void		printf_ptr(t_list **head, t_list *lst, t_par *params, size_t *c);
 char		printf_conv_int(t_list *lst, t_par *par, size_t *c); //For p, d, D, i, o, O, u, U, x, X, b
 char		printf_conv_float(t_list *lst, t_par *par, size_t *c); //For e, E, f, F, g, G, a, A

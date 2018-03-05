@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_atois.c                                     :+:      :+:    :+:   */
+/*   printf_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/28 11:24:08 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/28 11:27:04 by astadnik         ###   ########.fr       */
+/*   Created: 2018/03/05 16:45:21 by astadnik          #+#    #+#             */
+/*   Updated: 2018/03/05 16:45:30 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		printf_int_get_size(intmax_t *sizes, uintmax_t n, t_flag flag)
+void		printf_int_size(intmax_t *sizes, uintmax_t n, t_flag flag)
 {
 	sizes[0] = 1;
 	sizes[1] = 1;
@@ -30,7 +30,7 @@ void		printf_int_get_size(intmax_t *sizes, uintmax_t n, t_flag flag)
 	}
 }
 
-void			printf_int_itoa_base(uintmax_t n, char *str, t_flag flag, intmax_t *sizes)
+void			printf_int_write(uintmax_t n, char *str, t_flag flag, intmax_t *sizes)
 {
 	char		*base;
 	uintmax_t	size;

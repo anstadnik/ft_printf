@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 18:48:58 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/05 14:39:52 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/05 16:44:14 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ static void		get_size(intmax_t *sizes, t_par n, t_flag flag, char neg)
 {
 	// Make array of functions
 	if (ft_strsrch("idDuUoOxXpb", flag.conv) != -1)
-		printf_int_get_size(sizes, n.i, flag);
+		printf_int_size(sizes, n.i, flag);
 	else if (ft_strsrch("cC", flag.conv) != -1)
-		sizes[0] = printf_char_get_size((wchar_t)n.i, flag);
+		sizes[0] = printf_char_size((wchar_t)n.i, flag);
 	else //sS
-		printf_str_get_size(sizes, (int *)n.p, flag);
+		printf_str_size(sizes, (int *)n.p, flag);
     if ((flag.hash && ((flag.system == 16 && n.i) || (flag.system == 8 && (flag.prec == -2 || sizes[0] >= flag.prec) && (n.i || !sizes[0])))) || flag.conv == 'p')
         sizes[2] = flag.system == 8 ? 1 : 2;
 	if (ft_strsrch("dDi", flag.conv) != -1 && (neg || flag.plus || flag.space))
@@ -163,11 +163,11 @@ static char		general(t_list *lst, t_par *params, size_t *c) //For p, d, D, i, o,
 	str[sizes[6]] = '\0';
 	tmp = put_stuff(str, sizes, flag, neg);
 	if (ft_strsrch("idDuUoOxXpb", flag.conv) != -1)
-		printf_int_itoa_base(num.i, tmp, flag, sizes);
+		printf_int_write(num.i, tmp, flag, sizes);
 	else if (ft_strsrch("cC", flag.conv) != -1)
-		printf_char(&tmp, (unsigned char *)&num.i, flag);
+		printf_char_write(&tmp, (unsigned char *)&num.i, flag);
 	else //sS
-		print_str(&tmp, num.p, sizes, flag);
+		print_str_write(&tmp, num.p, sizes, flag);
 	free(lst->content);
 	lst->content = str;
 	lst->content_size = (size_t)sizes[6];
