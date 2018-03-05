@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 14:32:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/01 16:19:51 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/05 10:19:07 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static int		parse_conv(const char *str, size_t *i, t_flag *flags, int *counter)
 	else
 		(*counter)++;
 	flags->conv = g_conv[tmp];
+	if (g_conv[tmp] == 'b')
+		flags->system = 2;
 	if (g_conv[tmp] == 'o' || g_conv[tmp] == 'O')
 		flags->system = 8;
 	if (g_conv[tmp] == 'x' || g_conv[tmp] == 'X' || g_conv[tmp] == 'p')

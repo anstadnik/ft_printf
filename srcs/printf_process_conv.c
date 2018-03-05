@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 18:48:58 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/01 16:24:10 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/05 14:39:52 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static char		check_neg(t_par *n, t_flag flag)
 static void		get_size(intmax_t *sizes, t_par n, t_flag flag, char neg)
 {
 	// Make array of functions
-	if (ft_strsrch("idDuUoOxXp", flag.conv) != -1)
+	if (ft_strsrch("idDuUoOxXpb", flag.conv) != -1)
 		printf_int_get_size(sizes, n.i, flag);
 	else if (ft_strsrch("cC", flag.conv) != -1)
 		sizes[0] = printf_char_get_size((wchar_t)n.i, flag);
@@ -162,7 +162,7 @@ static char		general(t_list *lst, t_par *params, size_t *c) //For p, d, D, i, o,
 		return (0);
 	str[sizes[6]] = '\0';
 	tmp = put_stuff(str, sizes, flag, neg);
-	if (ft_strsrch("idDuUoOxXp", flag.conv) != -1)
+	if (ft_strsrch("idDuUoOxXpb", flag.conv) != -1)
 		printf_int_itoa_base(num.i, tmp, flag, sizes);
 	else if (ft_strsrch("cC", flag.conv) != -1)
 		printf_char(&tmp, (unsigned char *)&num.i, flag);
@@ -175,7 +175,7 @@ static char		general(t_list *lst, t_par *params, size_t *c) //For p, d, D, i, o,
 }
 
 static	const t_funcs	funcs[5] = {
-	{"idDuUxXoOpcCbsS", &general}
+	{"idDuUxXoOpcCbsSb", &general}
 /* , */
 /* 	{"eEfFgGaA", &printf_float}, */
 /* 	{"sSr", &printf_string}, */
@@ -188,7 +188,9 @@ char	printf_process_conv(t_list *head, t_par *params)
 	char	conv;
 	size_t	c;
 	int		i;
+	t_list	*first;
 
+	first = head;
 	c = 0;
 	while (head)
 	{
@@ -196,6 +198,8 @@ char	printf_process_conv(t_list *head, t_par *params)
 		{
 			conv = ((t_flag *)head->content)->conv;
 			i = 0;
+			if (conv == 'n')
+				printf_ptr(&first, head, params, &c);
 			while (i < 1)
 				if (ft_strsrch(funcs[i].str, conv) != -1)
 				{
