@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:05:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/05 17:58:02 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/05 19:22:53 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include "libft.h"
 # include <wchar.h>
+# include <limits.h>
 
 typedef struct s_flag	t_flag;
 typedef struct s_funcs	t_funcs;
@@ -63,10 +64,10 @@ void		printf_get_params(t_par *params, t_list *head, va_list arg,
 ssize_t		printf_lsttostr(t_list *head, char **ret);
 t_list		*printf_lstnew(void *content, size_t content_size);
 
-void		printf_int_size(intmax_t *sizes, uintmax_t n, t_flag flag);
+intmax_t	printf_int_size(t_par par, t_flag flag);
 char		printf_char_size(wchar_t c, t_flag flag);
 void		printf_str_size(intmax_t *sizes, void *c, t_flag flag);
-void		printf_int_write(uintmax_t n, char *str, t_flag flag, intmax_t *sizes);
+void		printf_int_write(char *str, t_par par, intmax_t len, t_flag flag);
 char		printf_char_write(char **str, unsigned char *c, t_flag flag);
 void		print_str_write(char **str, void *p, intmax_t *sizes, t_flag flag);
 void		printf_ptr(t_list **head, t_list *lst, t_par *params, size_t *c);

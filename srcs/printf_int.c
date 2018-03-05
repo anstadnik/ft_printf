@@ -6,48 +6,51 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:45:21 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/05 16:45:30 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/05 19:23:54 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		printf_int_size(intmax_t *sizes, uintmax_t n, t_flag flag)
+intmax_t	printf_int_size(t_par par, t_flag flag)
 {
-	sizes[0] = 1;
-	sizes[1] = 1;
-	if (n == 0 && flag.prec == 0)
-		sizes[0] = 0;
+	intmax_t	rez;
+	intmax_t	tens;
+
+	rez = 1;
+	tens = 1;
+	if (par.i == 0 && flag.prec == 0)
+		rez = 0;
 	else
 	{
-		while ((uintmax_t)sizes[1] < 18446744073709551615U / flag.system && n / ((uintmax_t)sizes[1] * flag.system))
+		while ((uintmax_t)tens < ULLONG_MAX/ flag.system && par.i / ((uintmax_t)tens * flag.system))
 		{
-			sizes[0]++;
-			sizes[1] = (intmax_t)((uintmax_t)sizes[1] * flag.system);
+			rez++;
+			tens = (intmax_t)((uintmax_t)tens * flag.system);
 		}
 		if (flag.apostrophe && MB_CUR_MAX > 1)
-			sizes[0] += (sizes[0] - 1) / 3;
+			rez += (rez - 1) / 3;
 	}
+	return (rez);
 }
 
-void			printf_int_write(uintmax_t n, char *str, t_flag flag, intmax_t *sizes)
+void		printf_int_write(char *str, t_par par, intmax_t len, t_flag flag)
 {
 	char		*base;
-	uintmax_t	size;
+	intmax_t	tmp;
 
-	if (!sizes[0])
+	if (!len)
 		return ;
-	size = (uintmax_t)sizes[1];
+	tmp = len;
 	base = flag.conv == 'X' ?  "0123456789ABCDEF" : "0123456789abcdef";
-	while (sizes[0]--)
+	while (len--)
 	{
-		if (sizes[0] + 1 && !((sizes[0] + 1) % 4) && flag.apostrophe && MB_CUR_MAX > 0)
+		if (len && !((tmp - len) % 4) && flag.apostrophe && MB_CUR_MAX > 0)
+			str[len] = ',';//change this
+		else
 		{
-			*str++ = ',';//change this
-			sizes[0]--;
+			str[len] = base[par.i % flag.system];
+			par.i /= flag.system;
 		}
-		*(str++) = base[(n / (uintmax_t)size)];
-		n %= (uintmax_t)size;
-		size /= (uintmax_t)flag.system;
 	}
 }

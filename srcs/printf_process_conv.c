@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 18:48:58 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/05 19:06:35 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/05 19:27:40 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,40 +69,40 @@ static void		get_size(intmax_t *sizes, t_par n, t_flag flag, char neg)
 {
 	// Make array of functions
 	if (ft_strsrch("idDuUoOxXpb", flag.conv) != -1)
-		printf_int_size(sizes, n.i, flag);
+		sizes[0] = printf_int_size(n, flag);
 	else if (ft_strsrch("cC", flag.conv) != -1)
 		sizes[0] = printf_char_size((wchar_t)n.i, flag);
 	else //sS
 		printf_str_size(sizes, (int *)n.p, flag);
     if ((flag.hash && ((flag.system == 16 && n.i) || (flag.system == 8 && (flag.prec == -2 || sizes[0] >= flag.prec) && (n.i || !sizes[0])))) || flag.conv == 'p')
-        sizes[2] = flag.system == 8 ? 1 : 2;
+        sizes[1] = flag.system == 8 ? 1 : 2;
 	if (ft_strsrch("dDi", flag.conv) != -1 && (neg || flag.plus || flag.space))
-        sizes[3]++;
+        sizes[2]++;
 	if (flag.prec == -2 || flag.prec - sizes[0] <= 0 || ft_strsrch("idDuUoOxXp", flag.conv) == -1)
-		sizes[4] = 0;
+		sizes[3] = 0;
 	else
-		sizes[4] = flag.prec - sizes[0];
-	sizes[5] = flag.width - (sizes[2] + sizes[3] + sizes[4] + sizes[0]);
-	if (sizes[5] < 0)
-		sizes[5] = 0;
+		sizes[3] = flag.prec - sizes[0];
+	sizes[4] = flag.width - (sizes[1] + sizes[2] + sizes[3] + sizes[0]);
+	if (sizes[4] < 0)
+		sizes[4] = 0;
 	if (flag.zero && (flag.prec == -2 || ft_strsrch("idDuUoOxXp", flag.conv) == -1) && !flag.minus)
 	{
-		sizes[4] += sizes[5];
-		sizes[5] = 0;
+		sizes[3] += sizes[4];
+		sizes[4] = 0;
 	}
-	sizes[6] = sizes[0] + sizes[2] + sizes[3] + sizes[4] + sizes[5];
+	sizes[5] = sizes[0] + sizes[1] + sizes[2] + sizes[3] + sizes[4];
 }
 
 static char		*put_stuff(char *str, intmax_t *sizes, t_flag flag, char neg)
 {
-	if (sizes[5])
+	if (sizes[4])
 	{
 		if (!flag.minus)
-			while (sizes[5]--)
+			while (sizes[4]--)
 				*str++ = ' ';
 		else
-			while (sizes[5])
-				*(str + sizes[0] + sizes[2] + sizes[3] + sizes[4] + --sizes[5]) = ' ';
+			while (sizes[4])
+				*(str + sizes[0] + sizes[1] + sizes[2] + sizes[3] + --sizes[4]) = ' ';
 	}
 	if (ft_strsrch("dDi", flag.conv) != -1)
 	{
@@ -113,13 +113,13 @@ static char		*put_stuff(char *str, intmax_t *sizes, t_flag flag, char neg)
 		else if (flag.space)
 			*str++ = ' ';
 	}
-	if (sizes[2])
+	if (sizes[1])
 	{
 		*str++ = '0';
 		if (flag.system == 16 || flag.conv == 'p')
 			*str++ = flag.conv == 'X' ? 'X' : 'x';
 	}
-	while (sizes[4]--)
+	while (sizes[3]--)
 		*str++ = '0';
 	return (str);
 }
@@ -128,15 +128,13 @@ static char		printf_flags_hand(t_list *lst, t_par *params, size_t *c)
 {
 	/*
 	 ** sizes[0] == size of num (with apostrophes), of string or char
-	 ** sizes[1] == biggest num of the form of 10^n, which this num can be
-	 ** divided in.
-	 ** sizes[2] == size of hashes
-	 ** sizes[3] == minuses
-	 ** sizes[4] == pure precision
-	 ** sizes[5] == pure width
-	 ** sizes[6] == total width
+	 ** sizes[1] == size of hashes
+	 ** sizes[2] == minuses
+	 ** sizes[3] == pure precision
+	 ** sizes[4] == pure width
+	 ** sizes[5] == total width
 	 ** */
-	intmax_t	sizes[7];
+	intmax_t	sizes[6];
 	char		neg;
 	t_flag		flag;
 	t_par		num;
@@ -156,19 +154,19 @@ static char		printf_flags_hand(t_list *lst, t_par *params, size_t *c)
 	num = pull_things(&flag, params, c);
 	neg = check_neg(&num, flag);
 	get_size(sizes, num, flag, neg);
-	if (!(str = malloc(sizeof(char) * (size_t)(sizes[6]) + 1)))
+	if (!(str = malloc(sizeof(char) * (size_t)(sizes[5]) + 1)))
 		return (0);
-	str[sizes[6]] = '\0';
+	str[sizes[5]] = '\0';
 	tmp = put_stuff(str, sizes, flag, neg);
 	if (ft_strsrch("idDuUoOxXpb", flag.conv) != -1)
-		printf_int_write(num.i, tmp, flag, sizes);
+		printf_int_write(tmp, num, sizes[0], flag);
 	else if (ft_strsrch("cC", flag.conv) != -1)
 		printf_char_write(&tmp, (unsigned char *)&num.i, flag);
 	else //sS
 		print_str_write(&tmp, num.p, sizes, flag);
 	free(lst->content);
 	lst->content = str;
-	lst->content_size = (size_t)sizes[6];
+	lst->content_size = (size_t)sizes[5];
 	return (1);
 }
 
