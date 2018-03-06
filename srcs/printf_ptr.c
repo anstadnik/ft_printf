@@ -15,7 +15,7 @@
 static size_t	count(t_list *head, t_list *lst)
 {
 	size_t	c;
-	
+
 	c = 0;
 	while (head != lst)
 	{
@@ -25,22 +25,21 @@ static size_t	count(t_list *head, t_list *lst)
 	return (c);
 }
 
-void	printf_ptr(t_list **head, t_list *lst, t_printf_par *params, size_t *c)
+void			printf_ptr(t_list **head, t_list *lst, t_printf_par *params,
+		size_t *c)
 {
 	unsigned char	*modif;
 	void			*p;
-	t_printf_flags			*flag; 
+	t_printf_flags	*flag;
 	size_t			counter;
 
 	counter = count(*head, lst);
 	flag = (t_printf_flags *)(lst->content);
-	p = flag->doll ?  params[flag->doll - 1].p : params[(*c)++].p;
+	p = flag->doll ? params[flag->doll - 1].p : params[(*c)++].p;
 	modif = ((t_printf_flags *)(lst->content))->modif;
 	if (modif[0])
 		*(ssize_t *)p = (ssize_t)counter;
-	else if (modif[1])
-		*(intmax_t *)p = (intmax_t)counter;
-	else if (modif[2])
+	else if (modif[1] || modif[2])
 		*(intmax_t *)p = (intmax_t)counter;
 	else if (modif[3])
 		*(long long *)p = (long long)counter;

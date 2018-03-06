@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:46:31 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 12:15:10 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 13:17:23 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,26 @@ intmax_t	printf_char_size(t_printf_par par, t_printf_flags flag)
 	if (flag.modif[4] && MB_CUR_MAX > 1)
 	{
 		if (par.i > 0xffff)
-			return(4);
+			return (4);
 		else if (par.i > 0x7ff)
-			return(3);
+			return (3);
 		else if (par.i > 0x7f)
-			return(2);
+			return (2);
 		else
-			return(1);
+			return (1);
 	}
 	else
-		return(1);
+		return (1);
 }
 
-void	printf_char_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag)
+void		printf_char_write(char *str, t_printf_par par, intmax_t len,
+		t_printf_flags flag)
 {
-	char	ret;
-	char	size;
+	char			size;
 	unsigned char	*c;
 
 	c = (unsigned char *)&par.i;
 	size = len ? (char)len : (char)printf_char_size(par, flag);
-	ret = size;
 	if (!flag.modif[4])
 	{
 		*str = (char)par.i;

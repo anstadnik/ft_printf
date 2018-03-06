@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:45:21 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 11:56:40 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 13:27:25 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,22 @@
 intmax_t	printf_int_size(t_printf_par par, t_printf_flags flag)
 {
 	intmax_t	rez;
-	intmax_t	tens;
 
 	rez = 1;
-	tens = 1;
 	if (par.i == 0 && flag.prec == 0)
-		rez = 0;
-	else
+		return (0);
+	while (par.i / flag.system)
 	{
-		while ((uintmax_t)tens < ULLONG_MAX/ flag.system && par.i / ((uintmax_t)tens * flag.system))
-		{
-			rez++;
-			tens = (intmax_t)((uintmax_t)tens * flag.system);
-		}
-		if (flag.apostrophe && MB_CUR_MAX > 1)
-			rez += (rez - 1) / 3;
+		rez++;
+		par.i /= flag.system;
 	}
+	if (flag.apostrophe && MB_CUR_MAX > 1)
+		rez += (rez - 1) / 3;
 	return (rez);
 }
 
-void		printf_int_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag)
+void		printf_int_write(char *str, t_printf_par par, intmax_t len,
+		t_printf_flags flag)
 {
 	char		*base;
 	intmax_t	tmp;
@@ -42,11 +38,11 @@ void		printf_int_write(char *str, t_printf_par par, intmax_t len, t_printf_flags
 	if (!len)
 		return ;
 	tmp = len;
-	base = flag.conv == 'X' ?  "0123456789ABCDEF" : "0123456789abcdef";
+	base = flag.conv == 'X' ? "0123456789ABCDEF" : "0123456789abcdef";
 	while (len--)
 	{
-		if (len && !((tmp - len) % 4) && flag.apostrophe && MB_CUR_MAX > 0)
-			str[len] = ',';//change this
+		if (flag.apostrophe && !((tmp - len) % 4) && len && MB_CUR_MAX > 0)
+			str[len] = ',';
 		else
 		{
 			str[len] = base[par.i % flag.system];

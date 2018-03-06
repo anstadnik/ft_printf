@@ -16,38 +16,36 @@ intmax_t	printf_str_size(t_printf_par par, t_printf_flags flag)
 {
 	intmax_t	rez;
 
-	rez = 0;
-	if (!par.p)
-		rez = 6;
-	else
-		while (42)
+	rez = par.p ? 0 : 6;
+	if (par.p)
+		while (flag.prec == -2 || rez < flag.prec)
 		{
 			if (flag.modif[4])
 			{
 				if (!*(wint_t *)par.p)
-					break;
-				rez += printf_char_size((t_printf_par)(uintmax_t)*(wchar_t *)par.p, flag);
+					break ;
+				rez += printf_char_size(
+						(t_printf_par)(uintmax_t) * (wchar_t *)par.p, flag);
 				par.p += sizeof(wchar_t);
 			}
 			else
 			{
 				if (!*(char *)par.p)
-					break;
+					break ;
 				rez++;
 				par.p++;
 			}
-			if (flag.prec != -2 && rez >= flag.prec)
-				break;
 		}
 	if (flag.prec != -2 && rez > flag.prec)
 		rez = flag.prec;
 	return (rez);
 }
 
-void	printf_str_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag)
+void		printf_str_write(char *str, t_printf_par par, intmax_t len,
+		t_printf_flags flag)
 {
 	t_printf_par	tmp;
-	char	ret;
+	char			ret;
 
 	if (!par.p)
 		ft_strncpy(str, "(null)", (size_t)len);
@@ -56,7 +54,7 @@ void	printf_str_write(char *str, t_printf_par par, intmax_t len, t_printf_flags 
 		{
 			if (flag.modif[4])
 			{
-				tmp.i = (uintmax_t)*(wchar_t *)par.p;
+				tmp.i = (uintmax_t) * (wchar_t *)par.p;
 				printf_char_write(str, tmp, 0, flag);
 				ret = (char)printf_char_size(tmp, flag);
 				len -= ret;

@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 18:48:58 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 12:24:57 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 13:12:54 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,21 @@ static t_printf_par	pull_things(t_printf_flags *flag, t_printf_par *params, size
 
 static char		check_neg(t_printf_par *n, t_printf_flags flag)
 {
-	t_printf_par	tmp;
+	uintmax_t	tmp;
 
 	if (ft_strsrch("idD", flag.conv) != -1)
 	{
 		if (flag.modif[0] || flag.modif[1] || flag.modif[2] || flag.modif[3] || flag.modif[4])
-			tmp.i = (intmax_t)n->i == (intmax_t)0x8000000000000000 ? 0x8000000000000000 : (uintmax_t)-(intmax_t)n->i;
+			tmp = (intmax_t)n->i == (intmax_t)0x8000000000000000 ? 0x8000000000000000 : (uintmax_t)-(intmax_t)n->i;
 		else if (flag.modif[5])
-			tmp.i = n->i == 0x80 ? 0x80 : (uintmax_t)-n->i;
+			tmp = n->i == 0x80 ? 0x80 : (uintmax_t)-n->i;
 		else if (flag.modif[6])
-			tmp.i = n->i == 0x8000 ? 0x8000 : (uintmax_t)-n->i;
+			tmp = n->i == 0x8000 ? 0x8000 : (uintmax_t)-n->i;
 		else
-			tmp.i = n->i == 0x80000000 ? 0x80000000 : (uintmax_t)-n->i;
-		if ((intmax_t)tmp.i > 0 || tmp.i == 0x8000000000000000)
+			tmp = n->i == 0x80000000 ? 0x80000000 : (uintmax_t)-n->i;
+		if ((intmax_t)tmp > 0 || tmp == 0x8000000000000000)
 		{
-			n->i = tmp.i;
+			n->i = tmp;
 			return (1);
 		}
 	}
@@ -71,7 +71,7 @@ static char		check_neg(t_printf_par *n, t_printf_flags flag)
 ** stuff, and total width.
 */
 
-static void		get_size(intmax_t *sizes, t_printf_par n, t_printf_flags flag, int neg)
+static void		get_size(intmax_t *sizes, t_printf_par n, t_printf_flags flag)
 {
 	int i;
 
@@ -81,13 +81,11 @@ static void		get_size(intmax_t *sizes, t_printf_par n, t_printf_flags flag, int 
 			sizes[0] = arr[i].printf_size(n, flag);
     if ((flag.hash && ((flag.system == 16 && n.i) || (flag.system == 8 && (flag.prec == -2 || sizes[0] >= flag.prec) && (n.i || !sizes[0])))) || flag.conv == 'p')
         sizes[1] = flag.system == 8 ? 1 : 2;
-	if (ft_strsrch("dDi", flag.conv) != -1 && (neg || flag.plus || flag.space))
+	if (ft_strsrch("dDi", flag.conv) != -1 && (sizes[2] || flag.plus || flag.space))
         sizes[2]++;
-	if (flag.prec == -2 || flag.prec - sizes[0] <= 0 || ft_strsrch("idDuUoOxXp", flag.conv) == -1)
-		sizes[3] = 0;
-	else
+	if (flag.prec != -2 && flag.prec - sizes[0] > 0 && ft_strsrch("idDuUoOxXp", flag.conv) != -1)
 		sizes[3] = flag.prec - sizes[0];
-	sizes[4] = flag.width - (sizes[1] + sizes[2] + sizes[3] + sizes[0]);
+	sizes[4] = flag.width - (sizes[1] + !!sizes[2] + sizes[3] + sizes[0]);
 	if (sizes[4] < 0)
 		sizes[4] = 0;
 	if (flag.zero && (flag.prec == -2 || ft_strsrch("idDuUoOxXp", flag.conv) == -1) && !flag.minus)
@@ -95,10 +93,10 @@ static void		get_size(intmax_t *sizes, t_printf_par n, t_printf_flags flag, int 
 		sizes[3] += sizes[4];
 		sizes[4] = 0;
 	}
-	sizes[5] = sizes[0] + sizes[1] + sizes[2] + sizes[3] + sizes[4];
+	sizes[5] = sizes[0] + sizes[1] + !!sizes[2] + sizes[3] + sizes[4];
 }
 
-static char		*put_stuff(char *str, intmax_t *sizes, t_printf_flags flag, int neg)
+static char		*put_stuff(char *str, intmax_t *sizes, t_printf_flags flag)
 {
 	if (sizes[4])
 	{
@@ -107,11 +105,11 @@ static char		*put_stuff(char *str, intmax_t *sizes, t_printf_flags flag, int neg
 				*str++ = ' ';
 		else
 			while (sizes[4])
-				*(str + sizes[0] + sizes[1] + sizes[2] + sizes[3] + --sizes[4]) = ' ';
+				*(str + sizes[0] + sizes[1] + !!sizes[2] + sizes[3] + --sizes[4]) = ' ';
 	}
 	if (ft_strsrch("dDi", flag.conv) != -1)
 	{
-		if (neg)
+		if (sizes[2] == 2)
 			*str++ = '-';
 		else if (flag.plus)
 			*str++ = '+';
@@ -129,22 +127,22 @@ static char		*put_stuff(char *str, intmax_t *sizes, t_printf_flags flag, int neg
 	return (str);
 }
 
+/*
+** sizes[0] == size of num (with apostrophes), of string or char
+** sizes[1] == size of hashes
+** sizes[2] == minuses
+** sizes[3] == pure precision
+** sizes[4] == pure width
+** sizes[5] == total width
+*/
+
 static char		printf_flags_hand(t_list *lst, t_printf_par *params, size_t *c)
 {
-	/*
-	 ** sizes[0] == size of num (with apostrophes), of string or char
-	 ** sizes[1] == size of hashes
-	 ** sizes[2] == minuses
-	 ** sizes[3] == pure precision
-	 ** sizes[4] == pure width
-	 ** sizes[5] == total width
-	 ** */
-	intmax_t	sizes[6];
-	int		neg;
-	t_printf_flags		flag;
-	t_printf_par		num;
-	char		*str;
-	char		*tmp;
+	intmax_t		sizes[6];
+	int				i;
+	t_printf_flags	flag;
+	t_printf_par	par;
+	char			*str;
 
 	ft_bzero(sizes, sizeof(intmax_t) * 7);
 	flag = *(t_printf_flags *)lst->content;
@@ -156,17 +154,16 @@ static char		printf_flags_hand(t_list *lst, t_printf_par *params, size_t *c)
 		lst->content = str;
 		return (1);
 	}
-	num = pull_things(&flag, params, c);
-	neg = check_neg(&num, flag);
-	get_size(sizes, num, flag, neg);
+	par = pull_things(&flag, params, c);
+	sizes[2] = check_neg(&par, flag);
+	get_size(sizes, par, flag);
 	if (!(str = malloc(sizeof(char) * (size_t)(sizes[5]) + 1)))
 		return (0);
 	str[sizes[5]] = '\0';
-	tmp = put_stuff(str, sizes, flag, neg);
-	neg = -1;
-	while (++neg < 3)
-		if (ft_strsrch(arr[neg].s, flag.conv) != -1)
-			arr[neg].printf_write(tmp, num, sizes[0], flag);
+	i = -1;
+	while (++i < 3)
+		if (ft_strsrch(arr[i].s, flag.conv) != -1)
+			arr[i].printf_write(put_stuff(str, sizes, flag), par, sizes[0], flag);
 	free(lst->content);
 	lst->content = str;
 	lst->content_size = (size_t)sizes[5];

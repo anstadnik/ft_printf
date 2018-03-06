@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:03:44 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/23 21:16:56 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 13:29:50 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	ft_asprintf(char **ret, const char *format, ...)
 ** Makes the string from given va_list and puts it to the given string
 */
 
-int ft_vasprintf(char **ret, const char *format, va_list arg)
+int	ft_vasprintf(char **ret, const char *format, va_list arg)
 {
 	ssize_t	rez;
 
@@ -91,12 +91,11 @@ int ft_vasprintf(char **ret, const char *format, va_list arg)
 	return ((int)rez);
 }
 
-
 /*
 ** Makes the string from given va_list, and outputs it to the given fd
 */
 
-int 		ft_vdprintf(int fd, const char *format, va_list arg)
+int	ft_vdprintf(int fd, const char *format, va_list arg)
 {
 	char	*ret;
 	ssize_t	rez;
