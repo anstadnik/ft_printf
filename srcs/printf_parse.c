@@ -5,51 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/29 14:32:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 11:56:51 by astadnik         ###   ########.fr       */
+/*   Created: 2018/03/06 15:17:13 by astadnik          #+#    #+#             */
+/*   Updated: 2018/03/06 15:28:42 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static const char	g_conv[] = "sSpdDioOuUxXcCeEfFgGaAnbrk";
-static const char	g_flag[] = "#0-+ '";
-static const char	g_mod[8][3] = {"z", "t", "j", "ll", "l", "hh", "h", "L"};
+static const char	g_conv[19] = "sSpdDioOuUxXcCnbrk";
+static const char	g_flag[7] = "#0-+ \'";
+static const char	g_mod[8][3] = {
+	"z", "t", "j", "ll", "l", "hh", "h", "L"
+};
 
-static int		parse_conv(const char *str, size_t *i, t_printf_flags *flags, int *counter)
+static int		parse_conv(const char *str, size_t *i, t_printf_flags *flags,
+		int *counter)
 {
 	ssize_t	tmp;
 
 	tmp = ft_strsrch(g_conv, str[*i]);
 	if (tmp == -1)
 		return (0);
-
-	if (flags->doll)
-	{
-		if (flags->doll > (size_t)*counter)
-			(*counter) = (int)flags->doll;
-	}
-	else
+	if (!flags->doll)
 		(*counter)++;
+	else if (flags->doll > (size_t)*counter)
+		(*counter) = (int)flags->doll;
 	flags->conv = g_conv[tmp];
 	if (g_conv[tmp] == 'b')
 		flags->system = 2;
-	if (g_conv[tmp] == 'o' || g_conv[tmp] == 'O')
+	else if (g_conv[tmp] == 'o' || g_conv[tmp] == 'O')
 		flags->system = 8;
-	if (g_conv[tmp] == 'x' || g_conv[tmp] == 'X' || g_conv[tmp] == 'p')
+	else if (g_conv[tmp] == 'x' || g_conv[tmp] == 'X' || g_conv[tmp] == 'p')
 		flags->system = 16;
 	if (g_conv[tmp] == 'p')
-	{
 		flags->hash = 1;
-		flags->modif[4] = 1;
-	}
 	(*i)++;
-	if (ft_strchr("SDOUCFGA", g_conv[tmp]))
+	if (ft_strchr("SDOUCp", g_conv[tmp]))
 		flags->modif[4] = 1;
 	return (1);
 }
 
-static int		parse_mod_and_fl(const char *str, size_t *i, t_printf_flags *flags)
+static int		parse_mod_and_fl(const char *str, size_t *i,
+		t_printf_flags *flags)
 {
 	int		j;
 	ssize_t	fl;
@@ -76,96 +73,6 @@ static int		parse_mod_and_fl(const char *str, size_t *i, t_printf_flags *flags)
 }
 
 /*
-** I gotta change this. I should try to make it smaller and also try to
-** do the same but in the stupider way. It means that I shouldn't cycle
-** through the flags but just go one by one, and if there is a mistake in the
-** positioning, I should count it as an error.
-*/
-
-static void		parse_num(const char *str, size_t *i, t_printf_flags *flags, int *counter)
-{
-	int	tmp;
-
-	if (ft_isdigit(str[*i]))
-	{
-		tmp = ft_atoi(str + *i);
-		while (ft_isdigit(str[*i]))
-			(*i)++;
-		if (str[*i] == '!' && (*i)++)
-			flags->system = tmp > 16 ? 10 : (unsigned char)tmp;
-		else if (str[*i] == '$' && (*i)++)
-			flags->doll = (size_t)tmp;
-		else
-			flags->width = tmp;
-	}
-	else if (str[*i] == '.')
-	{
-		(*i)++;
-		if (ft_isdigit(str[*i]))
-		{
-			tmp = ft_atoi(str + *i);
-			while (ft_isdigit(str[*i]))
-				(*i)++;
-			flags->prec = tmp;
-		}
-		else if (str[*i] == '*')
-		{
-			(*i)++;
-			if (ft_isdigit(str[*i]))
-			{
-				tmp = ft_atoi(str + *i);
-				while (ft_isdigit(str[*i]))
-					(*i)++;
-				if (str[*i] == '$')
-				{
-					flags->prec = -1;
-					flags->past = (size_t)tmp;
-					(*i)++;
-					if (tmp > *counter)
-						(*counter) = tmp;
-				}
-				else
-					flags->width = tmp;
-			}
-			else
-			{
-				flags->prec = -1;
-				flags->past = 0;
-				(*counter)++;
-			}
-		}
-		else
-			flags->prec = 0;
-	}
-	else if (str[*i] == '*')
-	{
-		(*i)++;
-		if (ft_isdigit(str[*i]))
-		{
-			tmp = ft_atoi(str + *i);
-			while (ft_isdigit(str[*i]))
-				(*i)++;
-			if (str[*i] == '$')
-			{
-				flags->width = -1;
-				flags->wast = (size_t)tmp;
-				(*i)++;
-				if (tmp > *counter)
-					(*counter) = tmp;
-			}
-			else
-				flags->width = tmp;
-		}
-		else
-		{
-			flags->width = -1;
-			flags->wast = 0;
-			(*counter)++;
-		}
-	}
-}
-
-/*
 ** Parses flags and returns pointer to flags struct. If an error occured,
 ** returns NULL
 */
@@ -180,19 +87,14 @@ t_printf_flags	*printf_parse(const char *str, size_t *i, int *counter)
 	flags->width = -2;
 	flags->prec = -2;
 	while (!parse_conv(str, i, flags, counter) && !flags->err)
-	{
-		if (parse_mod_and_fl(str, i, flags))
-			continue;
-		else if (ft_isdigit(str[*i]) || str[*i] == '*' || str[*i] == '.')
-			parse_num(str, i, flags, counter);
-		else
+		if ((ft_isdigit(str[*i]) && str[*i] != '0') || str[*i] == '*' ||
+				str[*i] == '.')
+			printf_parse_flag(str, i, flags, counter);
+		else if (!parse_mod_and_fl(str, i, flags))
 		{
-			flags->err = str[*i] ? str[*i] : -1;
+			flags->err = str[*i] ? str[(*i)++] : -1;
 			flags->conv = 'c';
-			if (str[*i])
-				(*i)++;
 			return (flags);
 		}
-	}
 	return (flags);
 }
