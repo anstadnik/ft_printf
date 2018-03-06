@@ -64,7 +64,8 @@ static void	printf_colors(const char *start, t_list **head)
 
 	i = 0;
 	while (i < 17)
-		if (!ft_strncmp(start + g_end, g_colors[i][0], ft_strlen(g_colors[i][0])))
+		if (!ft_strncmp(start + g_end, g_colors[i][0],
+					ft_strlen(g_colors[i][0])))
 		{
 			printf_add_str(g_colors[i][1], ft_strlen(g_colors[i][1]), head);
 			g_end += ft_strlen(g_colors[i][0]);
@@ -83,15 +84,15 @@ static void	printf_colors(const char *start, t_list **head)
 static void	printf_handler(const char *str, t_list **head)
 {
 	t_printf_flags	*flags;
-	t_list	*node;
+	t_list			*node;
 
 	if (str[g_end] == '{')
 		printf_colors(str, head);
-	else 
+	else
 	{
 		(g_end)++;
 		if (!(flags = printf_parse(str, &g_end, &g_counter)) ||
-				!(node = printf_lstnew(flags, 0)))// Try arraylist
+				!(node = printf_lstnew(flags, 0)))
 		{
 			if (flags)
 				free(flags);
@@ -108,7 +109,7 @@ static void	printf_handler(const char *str, t_list **head)
 ** if an error has occured.
 */
 
-int		printf_fill_list(t_list **head, const char *format)
+int			printf_fill_list(t_list **head, const char *format)
 {
 	g_counter = 0;
 	g_tail = NULL;

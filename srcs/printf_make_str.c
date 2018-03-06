@@ -12,7 +12,6 @@
 
 #include "ft_printf.h"
 
-
 /*
 ** Frees all allocated memory.
 */
@@ -46,7 +45,7 @@ ssize_t	printf_make_str(char **ret, const char *format, va_list arg)
 	if ((params_amount = printf_fill_list(&head, format)) == -1)
 		return (err_free(&head, &params));
 
-	// If there r parameters to process
+	/* If there r parameters to process */
 	if (params_amount)
 	{
 		/* Allocate array of parameters */ 

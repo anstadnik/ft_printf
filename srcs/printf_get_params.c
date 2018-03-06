@@ -1,43 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_get_printf_params.i                                :+:      :+:    :+:   */
+/*   printf_get_params.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/30 18:51:36 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 11:56:33 by astadnik         ###   ########.fr       */
+/*   Created: 2018/03/06 14:13:05 by astadnik          #+#    #+#             */
+/*   Updated: 2018/03/06 14:13:07 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/* 1  = char */
-/* 2  = short */
-/* 3  = int */
-/* 4  = long */
-/* 5  = long long */
-/* 6  = intmax_t */
-/* 7  = ssize_t */
-/* 8  = wint_t */
-
-/* 9  = unsigned char */
-/* 10 = unsigned short */
-/* 11 = unsigned int */
-/* 12 = unsigned long */
-/* 13 = unsigned long long */
-/* 14 = uintmax_t */
-/* 15 = size_t */
-
-/* 16 = float */
-/* 17 = double */
-/* 18 = long double */
-
-/* 19 = *void */
-
-/* static void	printf_get_size_2(t_printf_par *params, t_printf_flags cur, size_t i) */
-/* { */
-/* } */
+/*
+** 1  = char
+** 2  = short
+** 3  = int
+** 4  = long
+** 5  = long long
+** 6  = intmax_t
+** 7  = ssize_t
+** 8  = wint_t
+** 
+** 9  = unsigned char
+** 10 = unsigned short
+** 11 = unsigned int
+** 12 = unsigned long
+** 13 = unsigned long long
+** 14 = uintmax_t
+** 15 = size_t
+** 
+** 16 = float
+** 17 = double
+** 18 = long double
+** 
+** 19 = *void
+*/
 
 static void	printf_get_size(t_printf_par *params, t_list *head)
 {
@@ -148,10 +146,7 @@ void		printf_get_printf_params(t_printf_par *params, t_list *head, va_list arg,
 	int i;
 
 	i = 0;
-	/* Fills array items with 'code' which will later tell the type of the
-	variable */
 	printf_get_size(params, head);
-	/* Actually pulls params */
 	while (i < params_amount)
 		printf_pull_param(params + i++, arg);
 }
