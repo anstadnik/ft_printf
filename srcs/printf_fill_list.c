@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 17:57:07 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/01 15:44:04 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:56:04 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	printf_colors(const char *start, t_list **head)
 
 static void	printf_handler(const char *str, t_list **head)
 {
-	t_flag	*flags;
+	t_printf_flags	*flags;
 	t_list	*node;
 
 	if (str[g_end] == '{')

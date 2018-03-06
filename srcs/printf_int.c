@@ -6,13 +6,13 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:45:21 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/05 19:23:54 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:56:40 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-intmax_t	printf_int_size(t_par par, t_flag flag)
+intmax_t	printf_int_size(t_printf_par par, t_printf_flags flag)
 {
 	intmax_t	rez;
 	intmax_t	tens;
@@ -34,7 +34,7 @@ intmax_t	printf_int_size(t_par par, t_flag flag)
 	return (rez);
 }
 
-void		printf_int_write(char *str, t_par par, intmax_t len, t_flag flag)
+void		printf_int_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag)
 {
 	char		*base;
 	intmax_t	tmp;

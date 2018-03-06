@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 15:15:41 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/23 21:36:42 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:56:44 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Frees all allocated memory.
 */
 
-static ssize_t	err_free(t_list **head, t_par **params)
+static ssize_t	err_free(t_list **head, t_printf_par **params)
 {
 	if (*head)
 		ft_lstdel(head, &free);
@@ -35,7 +35,7 @@ ssize_t	printf_make_str(char **ret, const char *format, va_list arg)
 {
 	t_list	*head;
 	int		params_amount;
-	t_par	*params;
+	t_printf_par	*params;
 	ssize_t	rez;
 
 	head = NULL;
@@ -50,11 +50,11 @@ ssize_t	printf_make_str(char **ret, const char *format, va_list arg)
 	if (params_amount)
 	{
 		/* Allocate array of parameters */ 
-		if ((params = malloc(sizeof(t_par) * (size_t)params_amount)) == NULL)
+		if ((params = malloc(sizeof(t_printf_par) * (size_t)params_amount)) == NULL)
 			return (err_free(&head, &params));
 		else
 			/* Get params from va_list */ 
-			printf_get_params(params, head, arg, params_amount);
+			printf_get_printf_params(params, head, arg, params_amount);
 	}
 
 	/* Convers params to strings */

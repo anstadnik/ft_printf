@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/07 11:32:50 by astadnik          #+#    #+#             */
-/*   Updated: 2018/01/30 17:51:17 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:56:17 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static const char	g_mod[7][3] = {"z", "j", "ll", "l", "hh", "h", "L"};
 
-int	printf_flags_show(t_flag flags)
+int	printf_flags_show(t_printf_flags flags)
 {
 	char	*str;
 	char	*tmp;

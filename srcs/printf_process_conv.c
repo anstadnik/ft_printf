@@ -6,13 +6,13 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 18:48:58 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/05 19:27:40 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 12:00:12 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static t_par	pull_things(t_flag *flag, t_par *params, size_t *c)
+static t_printf_par	pull_things(t_printf_flags *flag, t_printf_par *params, size_t *c)
 {
 	if (flag->width == -1)
 	{
@@ -30,16 +30,16 @@ static t_par	pull_things(t_flag *flag, t_par *params, size_t *c)
 			flag->prec = -2;
 	}
 	if (flag->err)
-		return ((t_par)(uintmax_t)flag->err);
+		return ((t_printf_par)(uintmax_t)flag->err);
 	if (flag->doll)
 		return (params[flag->doll - 1]);
 	else
 		return (params[(*c)++]);
 }
 
-static char		check_neg(t_par *n, t_flag flag)
+static char		check_neg(t_printf_par *n, t_printf_flags flag)
 {
-	t_par	tmp;
+	t_printf_par	tmp;
 
 	if (ft_strsrch("idD", flag.conv) != -1)
 	{
@@ -65,15 +65,15 @@ static char		check_neg(t_par *n, t_flag flag)
 ** stuff, and total width.
 */
 
-static void		get_size(intmax_t *sizes, t_par n, t_flag flag, char neg)
+static void		get_size(intmax_t *sizes, t_printf_par n, t_printf_flags flag, char neg)
 {
 	// Make array of functions
 	if (ft_strsrch("idDuUoOxXpb", flag.conv) != -1)
 		sizes[0] = printf_int_size(n, flag);
 	else if (ft_strsrch("cC", flag.conv) != -1)
-		sizes[0] = printf_char_size((wchar_t)n.i, flag);
+		sizes[0] = printf_char_size(n, flag);
 	else //sS
-		printf_str_size(sizes, (int *)n.p, flag);
+		sizes[0] = printf_str_size(n, flag);
     if ((flag.hash && ((flag.system == 16 && n.i) || (flag.system == 8 && (flag.prec == -2 || sizes[0] >= flag.prec) && (n.i || !sizes[0])))) || flag.conv == 'p')
         sizes[1] = flag.system == 8 ? 1 : 2;
 	if (ft_strsrch("dDi", flag.conv) != -1 && (neg || flag.plus || flag.space))
@@ -93,7 +93,7 @@ static void		get_size(intmax_t *sizes, t_par n, t_flag flag, char neg)
 	sizes[5] = sizes[0] + sizes[1] + sizes[2] + sizes[3] + sizes[4];
 }
 
-static char		*put_stuff(char *str, intmax_t *sizes, t_flag flag, char neg)
+static char		*put_stuff(char *str, intmax_t *sizes, t_printf_flags flag, char neg)
 {
 	if (sizes[4])
 	{
@@ -124,7 +124,7 @@ static char		*put_stuff(char *str, intmax_t *sizes, t_flag flag, char neg)
 	return (str);
 }
 
-static char		printf_flags_hand(t_list *lst, t_par *params, size_t *c)
+static char		printf_flags_hand(t_list *lst, t_printf_par *params, size_t *c)
 {
 	/*
 	 ** sizes[0] == size of num (with apostrophes), of string or char
@@ -136,13 +136,13 @@ static char		printf_flags_hand(t_list *lst, t_par *params, size_t *c)
 	 ** */
 	intmax_t	sizes[6];
 	char		neg;
-	t_flag		flag;
-	t_par		num;
+	t_printf_flags		flag;
+	t_printf_par		num;
 	char		*str;
 	char		*tmp;
 
 	ft_bzero(sizes, sizeof(intmax_t) * 7);
-	flag = *(t_flag *)lst->content;
+	flag = *(t_printf_flags *)lst->content;
 	if (flag.err == -1)
 	{
 		free(lst->content);
@@ -161,16 +161,16 @@ static char		printf_flags_hand(t_list *lst, t_par *params, size_t *c)
 	if (ft_strsrch("idDuUoOxXpb", flag.conv) != -1)
 		printf_int_write(tmp, num, sizes[0], flag);
 	else if (ft_strsrch("cC", flag.conv) != -1)
-		printf_char_write(&tmp, (unsigned char *)&num.i, flag);
+		printf_char_write(tmp, num, sizes[0], flag);
 	else //sS
-		print_str_write(&tmp, num.p, sizes, flag);
+		print_str_write(tmp, num, sizes[0], flag);
 	free(lst->content);
 	lst->content = str;
 	lst->content_size = (size_t)sizes[5];
 	return (1);
 }
 
-char	printf_process_conv(t_list *head, t_par *params)
+char	printf_process_conv(t_list *head, t_printf_par *params)
 {
 	size_t	c;
 	t_list	*first;
@@ -181,9 +181,9 @@ char	printf_process_conv(t_list *head, t_par *params)
 	{
 		if (!head->content_size)
 		{
-			if (((t_flag *)head->content)->conv == 'n')
+			if (((t_printf_flags *)head->content)->conv == 'n')
 				printf_ptr(&first, head, params, &c);
-			else if (ft_strchr("idDuUxXoOsScCpb", ((t_flag *)head->content)->conv))
+			else if (ft_strchr("idDuUxXoOsScCpb", ((t_printf_flags *)head->content)->conv))
 				printf_flags_hand(head, params, &c);
 		}
 		head = head->next;

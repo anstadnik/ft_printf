@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_get_params.i                                :+:      :+:    :+:   */
+/*   printf_get_printf_params.i                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 18:51:36 by astadnik          #+#    #+#             */
-/*   Updated: 2018/02/28 09:41:55 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:56:33 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@
 
 /* 19 = *void */
 
-/* static void	printf_get_size_2(t_par *params, t_flag cur, size_t i) */
+/* static void	printf_get_size_2(t_printf_par *params, t_printf_flags cur, size_t i) */
 /* { */
 /* } */
 
-static void	printf_get_size(t_par *params, t_list *head)
+static void	printf_get_size(t_printf_par *params, t_list *head)
 {
 	size_t	i;
-	t_flag	cur;
+	t_printf_flags	cur;
 	char	conv;
 
 	i = 0;
@@ -50,7 +50,7 @@ static void	printf_get_size(t_par *params, t_list *head)
 	{
 		if (!head->content_size)
 		{
-			cur = *(t_flag *)(head->content);
+			cur = *(t_printf_flags *)(head->content);
 			conv = cur.conv;
 			if (cur.width == -1)
 				params[cur.wast ? (size_t)cur.wast - 1: i++].i = 3;
@@ -90,7 +90,7 @@ static void	printf_get_size(t_par *params, t_list *head)
 	}
 }
 
-static void	printf_pull_param_2(t_par *param, va_list arg)
+static void	printf_pull_param_2(t_printf_par *param, va_list arg)
 {
 	if (param->i == 11)
 		param->i = va_arg(arg, unsigned int);
@@ -112,7 +112,7 @@ static void	printf_pull_param_2(t_par *param, va_list arg)
 		param->p = va_arg(arg, void *);
 }
 
-static void	printf_pull_param(t_par *param, va_list arg)
+static void	printf_pull_param(t_printf_par *param, va_list arg)
 {
 	if (param->i == 1)
 		param->i = (uintmax_t)(char)va_arg(arg, int);
@@ -142,7 +142,7 @@ static void	printf_pull_param(t_par *param, va_list arg)
 ** Pulls params from va_list, and puts them into array.
 */
 
-void		printf_get_params(t_par *params, t_list *head, va_list arg,
+void		printf_get_printf_params(t_printf_par *params, t_list *head, va_list arg,
 		int params_amount)
 {
 	int i;

@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 14:32:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/05 18:49:53 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:56:51 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static const char	g_conv[] = "sSpdDioOuUxXcCeEfFgGaAnbrk";
 static const char	g_flag[] = "#0-+ '";
 static const char	g_mod[8][3] = {"z", "t", "j", "ll", "l", "hh", "h", "L"};
 
-static int		parse_conv(const char *str, size_t *i, t_flag *flags, int *counter)
+static int		parse_conv(const char *str, size_t *i, t_printf_flags *flags, int *counter)
 {
 	ssize_t	tmp;
 
@@ -49,7 +49,7 @@ static int		parse_conv(const char *str, size_t *i, t_flag *flags, int *counter)
 	return (1);
 }
 
-static int		parse_mod_and_fl(const char *str, size_t *i, t_flag *flags)
+static int		parse_mod_and_fl(const char *str, size_t *i, t_printf_flags *flags)
 {
 	int		j;
 	ssize_t	fl;
@@ -82,7 +82,7 @@ static int		parse_mod_and_fl(const char *str, size_t *i, t_flag *flags)
 ** positioning, I should count it as an error.
 */
 
-static void		parse_num(const char *str, size_t *i, t_flag *flags, int *counter)
+static void		parse_num(const char *str, size_t *i, t_printf_flags *flags, int *counter)
 {
 	int	tmp;
 
@@ -170,11 +170,11 @@ static void		parse_num(const char *str, size_t *i, t_flag *flags, int *counter)
 ** returns NULL
 */
 
-t_flag	*printf_parse(const char *str, size_t *i, int *counter)
+t_printf_flags	*printf_parse(const char *str, size_t *i, int *counter)
 {
-	t_flag	*flags;
+	t_printf_flags	*flags;
 
-	if (!(flags = ft_memalloc(sizeof(t_flag))))
+	if (!(flags = ft_memalloc(sizeof(t_printf_flags))))
 		return (NULL);
 	flags->system = 10;
 	flags->width = -2;
