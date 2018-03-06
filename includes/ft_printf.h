@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:05:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 15:36:19 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 17:49:16 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef union u_printf_par		t_printf_par;
 union					u_printf_par
 {
 	uintmax_t		i;
-	long double		f;
 	void			*p;
 };
 
