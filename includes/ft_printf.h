@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:05:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 11:54:39 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 12:14:14 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ t_list		*printf_lstnew(void *content, size_t content_size);
 
 intmax_t	printf_char_size(t_printf_par par, t_printf_flags flag);
 intmax_t	printf_str_size(t_printf_par par, t_printf_flags flag);
-char	printf_char_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag);
-void	print_str_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag);
+void	printf_char_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag);
+void	printf_str_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag);
 
 intmax_t	printf_int_size(t_printf_par par, t_printf_flags flag);
 void		printf_int_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag);

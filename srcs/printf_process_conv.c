@@ -6,11 +6,17 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 18:48:58 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 12:00:12 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 12:24:57 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+t_printf_funcs	arr[3] = {
+	{"idDuUoOxXpb", &printf_int_size, &printf_int_write},
+	{"cC", &printf_char_size, &printf_char_write}, 
+	{"sS", &printf_str_size, &printf_str_write}
+};
 
 static t_printf_par	pull_things(t_printf_flags *flag, t_printf_par *params, size_t *c)
 {
@@ -65,15 +71,14 @@ static char		check_neg(t_printf_par *n, t_printf_flags flag)
 ** stuff, and total width.
 */
 
-static void		get_size(intmax_t *sizes, t_printf_par n, t_printf_flags flag, char neg)
+static void		get_size(intmax_t *sizes, t_printf_par n, t_printf_flags flag, int neg)
 {
-	// Make array of functions
-	if (ft_strsrch("idDuUoOxXpb", flag.conv) != -1)
-		sizes[0] = printf_int_size(n, flag);
-	else if (ft_strsrch("cC", flag.conv) != -1)
-		sizes[0] = printf_char_size(n, flag);
-	else //sS
-		sizes[0] = printf_str_size(n, flag);
+	int i;
+
+	i = -1;
+	while (++i < 3)
+		if (ft_strsrch(arr[i].s, flag.conv) != -1)
+			sizes[0] = arr[i].printf_size(n, flag);
     if ((flag.hash && ((flag.system == 16 && n.i) || (flag.system == 8 && (flag.prec == -2 || sizes[0] >= flag.prec) && (n.i || !sizes[0])))) || flag.conv == 'p')
         sizes[1] = flag.system == 8 ? 1 : 2;
 	if (ft_strsrch("dDi", flag.conv) != -1 && (neg || flag.plus || flag.space))
@@ -93,7 +98,7 @@ static void		get_size(intmax_t *sizes, t_printf_par n, t_printf_flags flag, char
 	sizes[5] = sizes[0] + sizes[1] + sizes[2] + sizes[3] + sizes[4];
 }
 
-static char		*put_stuff(char *str, intmax_t *sizes, t_printf_flags flag, char neg)
+static char		*put_stuff(char *str, intmax_t *sizes, t_printf_flags flag, int neg)
 {
 	if (sizes[4])
 	{
@@ -135,7 +140,7 @@ static char		printf_flags_hand(t_list *lst, t_printf_par *params, size_t *c)
 	 ** sizes[5] == total width
 	 ** */
 	intmax_t	sizes[6];
-	char		neg;
+	int		neg;
 	t_printf_flags		flag;
 	t_printf_par		num;
 	char		*str;
@@ -158,12 +163,10 @@ static char		printf_flags_hand(t_list *lst, t_printf_par *params, size_t *c)
 		return (0);
 	str[sizes[5]] = '\0';
 	tmp = put_stuff(str, sizes, flag, neg);
-	if (ft_strsrch("idDuUoOxXpb", flag.conv) != -1)
-		printf_int_write(tmp, num, sizes[0], flag);
-	else if (ft_strsrch("cC", flag.conv) != -1)
-		printf_char_write(tmp, num, sizes[0], flag);
-	else //sS
-		print_str_write(tmp, num, sizes[0], flag);
+	neg = -1;
+	while (++neg < 3)
+		if (ft_strsrch(arr[neg].s, flag.conv) != -1)
+			arr[neg].printf_write(tmp, num, sizes[0], flag);
 	free(lst->content);
 	lst->content = str;
 	lst->content_size = (size_t)sizes[5];

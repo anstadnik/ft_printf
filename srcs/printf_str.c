@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:45:52 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 11:57:42 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/06 12:13:22 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ intmax_t	printf_str_size(t_printf_par par, t_printf_flags flag)
 	return (rez);
 }
 
-void	print_str_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag)
+void	printf_str_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag)
 {
 	t_printf_par	tmp;
 	char	ret;
@@ -57,7 +57,8 @@ void	print_str_write(char *str, t_printf_par par, intmax_t len, t_printf_flags f
 			if (flag.modif[4])
 			{
 				tmp.i = (uintmax_t)*(wchar_t *)par.p;
-				ret = printf_char_write(str, tmp, 0, flag);
+				printf_char_write(str, tmp, 0, flag);
+				ret = (char)printf_char_size(tmp, flag);
 				len -= ret;
 				str += ret;
 				par.p += sizeof(wchar_t);
