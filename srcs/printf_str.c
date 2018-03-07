@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:45:52 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 12:13:22 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/07 20:30:07 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,18 @@ intmax_t	printf_str_size(t_printf_par par, t_printf_flags flag)
 		{
 			if (flag.modif[4])
 			{
-				if (!*(wint_t *)par.p)
+				if (!*(wint_t *)par.p || (flag.prec > 0 && rez +
+							printf_char_size((t_printf_par)(uintmax_t) *
+								(wchar_t *)par.p, flag) > flag.prec))
 					break ;
 				rez += printf_char_size(
 						(t_printf_par)(uintmax_t) * (wchar_t *)par.p, flag);
 				par.p += sizeof(wchar_t);
 			}
-			else
-			{
-				if (!*(char *)par.p)
-					break ;
-				rez++;
+			else if (!*(char *)par.p)
+				break ;
+			else if (++rez)
 				par.p++;
-			}
 		}
 	if (flag.prec != -2 && rez > flag.prec)
 		rez = flag.prec;

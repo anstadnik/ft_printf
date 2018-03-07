@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 16:46:31 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 13:17:23 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/07 20:43:42 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ intmax_t	printf_char_size(t_printf_par par, t_printf_flags flag)
 {
 	if (flag.modif[4] && MB_CUR_MAX > 1)
 	{
-		if (par.i > 0xffff)
+		if ((wchar_t)par.i > 0xffff)
 			return (4);
-		else if (par.i > 0x7ff)
+		else if ((wchar_t)par.i > 0x7ff)
 			return (3);
-		else if (par.i > 0x7f)
+		else if ((wchar_t)par.i > 0x7f)
 			return (2);
 		else
 			return (1);
