@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 19:16:54 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/07 12:02:29 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/07 18:29:43 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 intmax_t	printf_row_str_size(t_printf_par par, t_printf_flags flag)
 {
 	intmax_t	rez;
-	char	*str;
+	char		*str;
 
 	rez = par.p ? 0 : 6;
 	str = (char *)par.p;
@@ -41,12 +41,29 @@ intmax_t	printf_row_str_size(t_printf_par par, t_printf_flags flag)
 	return ((intmax_t)rez);
 }
 
+static void	put_stuff(char **str, intmax_t *len, char *s)
+{
+	int		i;
+	char	n;
+
+	i = 100;
+	*(*str)++ = '\\';
+	(*len)--;
+	n = *s;
+	while (!(n / (i / 10)))
+		i /= 10;
+	while ((i /= 10) && *len > 0)
+	{
+		(*len)--;
+		*(*str)++ = n / i + '0';
+		n %= i;
+	}
+}
+
 void		printf_row_str_write(char *str, t_printf_par par, intmax_t len,
 		t_printf_flags flag)
 {
 	char	*s;
-	int		i;
-	char	n;
 
 	s = par.p;
 	flag.err = 0;
@@ -61,22 +78,7 @@ void		printf_row_str_write(char *str, t_printf_par par, intmax_t len,
 				*str++ = *s;
 			}
 			else
-			{
-				i = 100;
-				*str++ = '\\';
-				len--;
-				n = *s;
-				while (i && len > 0)
-				{
-					if (n / i)
-					{
-						len--;
-						*str++ = n / i + '0';
-						n %= i;
-					}
-					i /= 10;
-				}
-			}
+				put_stuff(&str, &len, s);
 			s++;
 		}
 }

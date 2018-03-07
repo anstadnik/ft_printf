@@ -6,10 +6,9 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 16:28:59 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/07 17:28:44 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/07 17:42:25 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "ft_printf.h"
 
@@ -26,10 +25,9 @@ static void	fill_str(char *str, char *ptr, ssize_t i)
 		else
 			*str++ = ((*ptr >> (i % 9)) & 1) + '0';
 	}
-
 }
 
-char				printf_memory(t_list *lst, t_printf_par *params,
+char		printf_memory(t_list *lst, t_printf_par *params,
 		size_t *c)
 {
 	char			*str;

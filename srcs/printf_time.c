@@ -6,10 +6,9 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:36:19 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 19:15:35 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/07 17:42:08 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "ft_printf.h"
 
@@ -25,6 +24,4 @@ void		printf_time_write(char *str, t_printf_par par, intmax_t len,
 {
 	if (flag.conv == 'k')
 		ft_strncpy(str, ctime((time_t *)&par.i), (size_t)len);
-
 }
-
