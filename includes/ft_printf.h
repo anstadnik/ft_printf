@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:05:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 17:49:16 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/07 17:15:46 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "libft.h"
 # include <wchar.h>
 # include <limits.h>
+# include <time.h>
 
 typedef struct s_printf_flags	t_printf_flags;
 typedef struct s_printf_funcs	t_printf_funcs;
@@ -52,6 +53,7 @@ struct 					s_printf_flags
 	size_t			doll;/* $ */
 	char			conv;/* conversion (sSpdDioOuUxXcCeEfFgGaAnbrk) */
 	char			err;/* error (next char) */
+	char			base;/* base for rot */
 };
 
 int			ft_printf(const char *format, ...);
@@ -74,17 +76,17 @@ t_list		*printf_lstnew(void *content, size_t content_size);
 
 intmax_t	printf_char_size(t_printf_par par, t_printf_flags flag);
 intmax_t	printf_str_size(t_printf_par par, t_printf_flags flag);
+intmax_t	printf_time_size(t_printf_par par, t_printf_flags flag);
+intmax_t	printf_row_str_size(t_printf_par par, t_printf_flags flag);
+intmax_t	printf_caesar_size(t_printf_par par, t_printf_flags flag);
+char				printf_memory(t_list *lst, t_printf_par *params, size_t *c);
 void	printf_char_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag);
 void	printf_str_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag);
+void		printf_time_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag);
+void		printf_row_str_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag);
+void		printf_caesar_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag);
 
 intmax_t	printf_int_size(t_printf_par par, t_printf_flags flag);
 void		printf_int_write(char *str, t_printf_par par, intmax_t len, t_printf_flags flag);
 void		printf_ptr(t_list **head, t_list *lst, t_printf_par *params, size_t *c);
-char		printf_conv_int(t_list *lst, t_printf_par *par, size_t *c); //For p, d, D, i, o, O, u, U, x, X, b
-char		printf_conv_float(t_list *lst, t_printf_par *par, size_t *c); //For e, E, f, F, g, G, a, A
-char		printf_conv_string(t_list *lst, t_printf_par *par, size_t *c); //For s, S, maybe r
-char		printf_conv_char(t_list *lst, t_printf_par *par, size_t *c); //For c, C
-char		printf_conv_pointer(t_list *lst, t_printf_par *par, size_t *c); //For n
-char		printf_conv_time(t_list *lst, t_printf_par *par, size_t *c); //For time maybe
-int	printf_flags_show(t_printf_flags flags);
 #endif

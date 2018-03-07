@@ -6,16 +6,19 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 15:35:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 17:41:31 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/07 16:09:37 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static const t_printf_funcs	g_arr[3] = {
+static const t_printf_funcs	g_arr[6] = {
 	{"idDuUoOxXpb", &printf_int_size, &printf_int_write},
 	{"cC", &printf_char_size, &printf_char_write},
-	{"sS", &printf_str_size, &printf_str_write}
+	{"sS", &printf_str_size, &printf_str_write},
+	{"k", &printf_time_size, &printf_time_write},
+	{"r", &printf_row_str_size, &printf_row_str_write},
+	{"q", &printf_caesar_size, &printf_caesar_write}
 };
 
 static t_printf_par	pull_things(t_printf_flags *flag, t_printf_par *params,
@@ -75,7 +78,7 @@ static void			get_size(intmax_t *sizes, t_printf_par n,
 	int i;
 
 	i = -1;
-	while (++i < 3)
+	while (++i < 6)
 		if (ft_strsrch(g_arr[i].s, flag.conv) != -1)
 			sizes[0] = g_arr[i].printf_size(n, flag);
 	if ((flag.hash && ((flag.system == 16 && n.i) || (flag.system == 8 &&
@@ -153,7 +156,7 @@ char				printf_flags_hand(t_list *lst, t_printf_par *params,
 		return (0);
 	str[sizes[5]] = '\0';
 	i = -1;
-	while (++i < 3)
+	while (++i < 6)
 		if (ft_strsrch(g_arr[i].s, flag.conv) != -1)
 			g_arr[i].printf_write(put_stuff(str, sizes, flag), par, *sizes,
 					flag);

@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 14:13:05 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 18:27:37 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/07 17:05:22 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 static void	printf_get_size2(t_printf_par *params, t_printf_flags cur,
 		char conv, size_t *i)
 {
-	if (cur.modif[0] || cur.modif[1])
+	if (cur.modif[0] || cur.modif[1] || conv == 'k')
 		params[cur.doll ? (size_t)cur.doll - 1 : (*i)++].i =
 			(uintmax_t)(!~ft_strsrch("di", conv)) * 8 + 7;
 	else if (cur.modif[2])
@@ -78,7 +78,7 @@ static void	printf_get_size(t_printf_par *params, t_list *head)
 				params[cur.past ? (size_t)cur.past - 1 : i++].i = 3;
 			if (!cur.err)
 			{
-				if (conv == 'n' || conv == 's' || conv == 'S')
+				if (ft_strsrch("nsSrqm", conv) != -1)
 					params[cur.doll ? (size_t)cur.doll - 1 : i++].i = 16;
 				else
 					printf_get_size2(params, cur, conv, &i);

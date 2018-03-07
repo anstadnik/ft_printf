@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_flag.c                                       :+:      :+:    :+:   */
+/*   printf_parse2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 14:32:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 15:34:23 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/07 16:17:13 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	parse_num(const char *str, size_t *i, t_printf_flags *flags)
 		(*i)++;
 	if (str[*i] == '!' && (*i)++)
 		flags->system = tmp > 16 ? 10 : (unsigned char)tmp;
+	else if (str[*i] == '?' && (*i)++)
+		flags->base = tmp < 0 ? 0 : tmp % 25;
 	else if (str[*i] == '$' && (*i)++)
 		flags->doll = (size_t)tmp;
 	else

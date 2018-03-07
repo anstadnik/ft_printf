@@ -6,14 +6,14 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 15:17:13 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 15:28:42 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/07 17:37:43 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static const char	g_conv[19] = "sSpdDioOuUxXcCnbrk";
-static const char	g_flag[7] = "#0-+ \'";
+static const char	g_conv[21] = "sSpdDioOuUxXcCnbkrqm";
+static const char	g_flag[8] = "#0-+ \'";
 static const char	g_mod[8][3] = {
 	"z", "t", "j", "ll", "l", "hh", "h", "L"
 };
@@ -23,8 +23,7 @@ static int		parse_conv(const char *str, size_t *i, t_printf_flags *flags,
 {
 	ssize_t	tmp;
 
-	tmp = ft_strsrch(g_conv, str[*i]);
-	if (tmp == -1)
+	if ((tmp = ft_strsrch(g_conv, str[*i])) == -1)
 		return (0);
 	if (!flags->doll)
 		(*counter)++;
