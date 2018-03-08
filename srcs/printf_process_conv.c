@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 18:48:58 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/07 17:16:04 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/08 19:52:16 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	printf_process_conv(t_list *head, t_printf_par *params)
 		{
 			if (((t_printf_flags *)head->content)->conv == 'n')
 				printf_ptr(&first, head, params, &c);
-			if (((t_printf_flags *)head->content)->conv == 'm')
+			else if (((t_printf_flags *)head->content)->conv == 'm')
 				printf_memory(head, params, &c);
 			else if (ft_strchr("idDuUxXoOsScCpbkrq",
 						((t_printf_flags *)head->content)->conv))
