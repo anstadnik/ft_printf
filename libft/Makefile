@@ -10,11 +10,12 @@ OBJS = $(FILES:.c=.o)
 all: $(NAME)
 
 $(NAME): $(addprefix $(ODIR), $(OBJS))
+	@echo
 	@echo "\x1b[33mMaking the libft\x1b[0m"
 	@ar rc $@ $^
 
 $(addprefix $(ODIR), %.o): $(addprefix $(SDIR), %.c)
-	@echo "\x1b[35mCompiling the $@\x1b[0m"
+	@printf "."
 	@$(CC) $(CFLAGS) -I$(IDIR) -c -o $@ $<
 
 clean:
