@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 09:49:49 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/06 11:57:26 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/08 11:58:21 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void			printf_ptr(t_list **head, t_list *lst, t_printf_par *params,
 
 	counter = count(*head, lst);
 	flag = (t_printf_flags *)(lst->content);
-	p = flag->doll ? params[flag->doll - 1].p : params[(*c)++].p;
+	if (!(p = flag->doll ? params[flag->doll - 1].p : params[(*c)++].p))
+		return ;
 	modif = ((t_printf_flags *)(lst->content))->modif;
 	if (modif[0])
 		*(ssize_t *)p = (ssize_t)counter;
