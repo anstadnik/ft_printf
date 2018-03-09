@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:05:42 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/09 10:35:47 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/09 11:07:19 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,6 @@
 # include <wchar.h>
 # include <limits.h>
 # include <time.h>
-
-typedef struct s_printf_flags	t_printf_flags;
-typedef struct s_printf_funcs	t_printf_funcs;
-typedef union u_printf_par		t_printf_par;
-
-union					u_printf_par
-{
-	uintmax_t		i;
-	void			*p;
-};
-
-struct					s_printf_funcs
-{
-	char			*s;
-	intmax_t		(*printf_size)(t_printf_par par, t_printf_flags flag);
-	void			(*printf_write)(char *str, t_printf_par par, intmax_t len,
-			t_printf_flags flag);
-};
 
 /*
 ** #
@@ -56,7 +38,7 @@ struct					s_printf_funcs
 ** base for rot
 */
 
-struct					s_printf_flags
+typedef struct		s_printf_flags
 {
 	unsigned char	hash;
 	unsigned char	zero;
@@ -74,47 +56,63 @@ struct					s_printf_flags
 	char			conv;
 	char			err;
 	char			base;
-};
+}					t_printf_flags;
 
-int				ft_printf(const char *format, ...);
-int				ft_dprintf(int fd, const char *format, ...);
-int				ft_asprintf(char **ret, const char *format, ...);
-int				ft_vprintf(const char *format, va_list arg);
-int				ft_vdprintf(int fd, const char *format, va_list arg);
+typedef union		u_printf_par
+{
+	uintmax_t		i;
+	void			*p;
+}					t_printf_par;
 
-ssize_t			printf_make_str(char **ret, const char *format, va_list arg);
-t_printf_flags	*printf_parse(const char *str, size_t *i, int *counter);
-void			printf_parse_flag(const char *str, size_t *i, t_printf_flags
-		*flags, int *counter);
-int				printf_fill_list(t_list **head, const char *format);
-char			printf_process_conv(t_list *head, t_printf_par *params);
-void			printf_get_printf_params(t_printf_par *params, t_list *head,
-		va_list arg, int params_amount);
-char			printf_flags_hand(t_list *lst, t_printf_par *params, size_t *c);
+typedef struct		s_printf_funcs
+{
+	char			*s;
+	intmax_t		(*printf_size)(t_printf_par par, t_printf_flags flag);
+	void			(*printf_write)(char *str, t_printf_par par, intmax_t len,
+			t_printf_flags flag);
+}					t_printf_funcs;
 
-ssize_t			printf_lsttostr(t_list *head, char **ret);
-t_list			*printf_lstnew(void *content, size_t content_size);
+int					ft_printf(const char *format, ...);
+int					ft_dprintf(int fd, const char *format, ...);
+int					ft_asprintf(char **ret, const char *format, ...);
+int					ft_vprintf(const char *format, va_list arg);
+int					ft_vdprintf(int fd, const char *format, va_list arg);
 
-intmax_t		printf_char_size(t_printf_par par, t_printf_flags flag);
-intmax_t		printf_str_size(t_printf_par par, t_printf_flags flag);
-intmax_t		printf_time_size(t_printf_par par, t_printf_flags flag);
-intmax_t		printf_row_str_size(t_printf_par par, t_printf_flags flag);
-intmax_t		printf_caesar_size(t_printf_par par, t_printf_flags flag);
-void			printf_char_write(char *str, t_printf_par par, intmax_t len,
-		t_printf_flags flag);
-void			printf_str_write(char *str, t_printf_par par, intmax_t len,
-		t_printf_flags flag);
-void			printf_time_write(char *str, t_printf_par par, intmax_t len,
-		t_printf_flags flag);
-void			printf_row_str_write(char *str, t_printf_par par, intmax_t len,
-		t_printf_flags flag);
-void			printf_caesar_write(char *str, t_printf_par par, intmax_t len,
-		t_printf_flags flag);
-char			printf_memory(t_list *lst, t_printf_par *params, size_t *c);
-void			printf_ptr(t_list **head, t_list *lst, t_printf_par *params,
-		size_t *c);
+ssize_t				printf_make_str(char **ret, const char *format, va_list
+		arg);
+t_printf_flags		*printf_parse(const char *str, size_t *i, int *counter);
+void				printf_parse_flag(const char *str, size_t *i,
+		t_printf_flags *flags, int *counter);
+int					printf_fill_list(t_list **head, const char *format);
+char				printf_process_conv(t_list *head, t_printf_par *params);
+void				printf_get_printf_params(t_printf_par *params, t_list
+		*head, va_list arg, int params_amount);
+char				printf_flags_hand(t_list *lst, t_printf_par *params, size_t
+		*c);
 
-intmax_t		printf_int_size(t_printf_par par, t_printf_flags flag);
-void			printf_int_write(char *str, t_printf_par par, intmax_t len,
+ssize_t				printf_lsttostr(t_list *head, char **ret);
+t_list				*printf_lstnew(void *content, size_t content_size);
+
+intmax_t			printf_char_size(t_printf_par par, t_printf_flags flag);
+intmax_t			printf_str_size(t_printf_par par, t_printf_flags flag);
+intmax_t			printf_time_size(t_printf_par par, t_printf_flags flag);
+intmax_t			printf_row_str_size(t_printf_par par, t_printf_flags flag);
+intmax_t			printf_caesar_size(t_printf_par par, t_printf_flags flag);
+void				printf_char_write(char *str, t_printf_par par, intmax_t
+		len, t_printf_flags flag);
+void				printf_str_write(char *str, t_printf_par par, intmax_t len,
+		t_printf_flags flag);
+void				printf_time_write(char *str, t_printf_par par, intmax_t
+		len, t_printf_flags flag);
+void				printf_row_str_write(char *str, t_printf_par par, intmax_t
+		len, t_printf_flags flag);
+void				printf_caesar_write(char *str, t_printf_par par, intmax_t
+		len, t_printf_flags flag);
+char				printf_memory(t_list *lst, t_printf_par *params, size_t
+		*c);
+void				printf_ptr(t_list **head, t_list *lst, t_printf_par
+		*params, size_t *c);
+intmax_t			printf_int_size(t_printf_par par, t_printf_flags flag);
+void				printf_int_write(char *str, t_printf_par par, intmax_t len,
 		t_printf_flags flag);
 #endif
