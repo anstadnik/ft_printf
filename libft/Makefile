@@ -10,8 +10,7 @@ OBJS = $(FILES:.c=.o)
 all: $(NAME)
 
 $(NAME): $(addprefix $(ODIR), $(OBJS))
-	@echo
-	@echo "\x1b[33mMaking the libft\x1b[0m"
+	@echo "\n\x1b[33mMaking the libft\x1b[0m"
 	@ar rc $@ $^
 
 $(addprefix $(ODIR), %.o): $(addprefix $(SDIR), %.c)

@@ -15,7 +15,7 @@ OBJS=$(FILES:.c=.o)
 all: $(NAME)
 
 $(NAME): $(LIB) $(addprefix $(ODIR), $(OBJS))
-	@echo "\x1b[33mCopying the libft\x1b[0m"
+	@echo "\n\x1b[33mCopying the libft\x1b[0m"
 	@cp libft/libft.a $@
 	@echo "\x1b[33mAppending to the $(NAME)\x1b[0m"
 	@ar -q $@ $(addprefix $(ODIR), $(OBJS))
@@ -34,7 +34,7 @@ $(DNAME): main.c $(LIBDIR)/srcs/*.c $(addprefix $(SDIR), $(FILES))
 	@$(CC) $(CFLAGS) -g -I$(IDIR) -I$(LIBDIR)includes -o $@ $^
 
 $(addprefix $(ODIR), %.o): $(addprefix $(SDIR), %.c)
-	@echo "\x1b[35mCompiling $@\x1b[0m"
+	@printf "."
 	@$(CC) $(CFLAGS) -I$(IDIR) -I$(LIBDIR)includes -c -o $@ $<
 
 clean:

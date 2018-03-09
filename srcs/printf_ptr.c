@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 09:49:49 by astadnik          #+#    #+#             */
-/*   Updated: 2018/03/08 19:53:14 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/03/09 10:54:43 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,8 @@ void			printf_ptr(t_list **head, t_list *lst, t_printf_par *params,
 		return ;
 	}
 	modif = ((t_printf_flags *)(lst->content))->modif;
-	if (modif[0])
-		*(ssize_t *)p = (ssize_t)counter;
-	else if (modif[1] || modif[2])
-		*(intmax_t *)p = (intmax_t)counter;
-	else if (modif[3])
+	modif = ((t_printf_flags *)(lst->content))->modif;
+	if (modif[0] || modif[1] || modif[2])
 		*(long long *)p = (long long)counter;
 	else if (modif[4])
 		*(long *)p = (long)counter;
